@@ -1,5 +1,6 @@
-const supabaseConfigured =
-  !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? null;
+const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? null;
+const supabaseConfigured = !!url && !!key;
 
 export default function Home() {
   return (
@@ -17,6 +18,11 @@ export default function Home() {
             {supabaseConfigured ? "configurada" : "não configurada"}
           </span>
         </p>
+        {/* DEBUG TEMPORÁRIO — remover depois de diagnosticar o env var na Vercel */}
+        <div className="mt-8 max-w-lg rounded border border-zinc-300 bg-white p-4 text-left text-xs font-mono text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
+          <div>NEXT_PUBLIC_SUPABASE_URL = {url === null ? "(undefined)" : `"${url}"`}</div>
+          <div>NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY = {key === null ? "(undefined)" : `"${key}"`}</div>
+        </div>
       </main>
     </div>
   );
