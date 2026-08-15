@@ -1,4 +1,6 @@
 import { supabase } from "../import/lib";
+import { calcularFazendaRollup } from "../../src/lib/kpi/fazenda-rollup";
+import type { CurralIndicadores, Parametros } from "../../src/lib/kpi/types";
 
 let falhas = 0;
 let checagens = 0;
@@ -130,12 +132,35 @@ async function testeEstoque() {
   }
 }
 
+async function testeRollupFazenda() {
+  // GMD médio da fazenda (Etapa 4) bate com a linha "AO VIVO" do Historico_KPIs —
+  // achado sem procurar de propósito, bom sinal de que a ponderação está certa.
+  console.log("\n== Rollup de fazenda (Etapa 4) — vs Historico_KPIs.xlsx (BG) ==");
+  const { data: fazenda } = await supabase.from("fazendas").select("id").eq("codigo", "BG").single();
+  const { data: parametros } = await supabase
+    .from("parametros")
+    .select("*")
+    .eq("fazenda_id", fazenda!.id)
+    .single<Parametros>();
+  const { data: currais } = await supabase
+    .from("v_curral_indicadores_completo")
+    .select("*")
+    .eq("fazenda_id", fazenda!.id)
+    .returns<CurralIndicadores[]>();
+
+  const rollup = calcularFazendaRollup(currais ?? [], parametros!);
+  checar("numCabecas", rollup.numCabecas, 385, 0);
+  checar("pesoTotalAtualKg", rollup.pesoTotalAtualKg, 134331, 0);
+  checar("gmdMedio (Historico_KPIs AO VIVO)", rollup.gmdMedio, 2.3696280303497628, 0.001);
+}
+
 async function main() {
   await testeCustoRealPorCurral();
   await testeCustoCabDiaMedio();
   await testeArrobaVivaTotal();
   await testeGmdConsistenciaGeral();
   await testeEstoque();
+  await testeRollupFazenda();
 
   console.log(`\n${checagens - falhas}/${checagens} checagens passaram.`);
   if (falhas > 0) process.exit(1);

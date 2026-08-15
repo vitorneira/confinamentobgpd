@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "./logout/actions";
 
@@ -47,9 +48,10 @@ export default async function Home() {
             <p className="text-zinc-500">Nenhuma fazenda vinculada a este usuário.</p>
           )}
           {fazendasComContagem.map((f) => (
-            <div
+            <Link
               key={f.id}
-              className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900"
+              href={`/${f.codigo.toLowerCase()}/dashboard`}
+              className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white p-4 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800"
             >
               <div>
                 <p className="font-medium text-black dark:text-zinc-50">
@@ -59,7 +61,7 @@ export default async function Home() {
               <p className="text-lg font-semibold text-black dark:text-zinc-50">
                 {f.numAnimais} <span className="text-sm font-normal text-zinc-500">animais</span>
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       </main>
