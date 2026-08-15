@@ -1,6 +1,8 @@
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? null;
-const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? null;
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() ?? null;
+const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim() ?? null;
 const supabaseConfigured = !!url && !!key;
+
+const allPublicVarNames = Object.keys(process.env).filter((k) => k.startsWith("NEXT_PUBLIC"));
 
 export default function Home() {
   return (
@@ -22,6 +24,13 @@ export default function Home() {
         <div className="mt-8 max-w-lg rounded border border-zinc-300 bg-white p-4 text-left text-xs font-mono text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
           <div>NEXT_PUBLIC_SUPABASE_URL = {url === null ? "(undefined)" : `"${url}"`}</div>
           <div>NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY = {key === null ? "(undefined)" : `"${key}"`}</div>
+          <div className="mt-3 border-t border-zinc-300 pt-3 dark:border-zinc-700">
+            Nomes NEXT_PUBLIC_* que a Vercel expôs neste build ({allPublicVarNames.length}):
+          </div>
+          {allPublicVarNames.length === 0 && <div>(nenhum)</div>}
+          {allPublicVarNames.map((name) => (
+            <div key={name}>[{name}]</div>
+          ))}
         </div>
       </main>
     </div>
