@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "import:data": "tsx scripts/import/index.ts",
-    "import:verify": "tsx scripts/import/verify.ts"
+    "import:verify": "tsx scripts/import/verify.ts",
+    "test:regressao": "tsx scripts/test/regressao.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",
