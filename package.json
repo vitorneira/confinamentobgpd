@@ -9,7 +9,8 @@
     "lint": "eslint",
     "import:data": "tsx scripts/import/index.ts",
     "import:verify": "tsx scripts/import/verify.ts",
-    "test:regressao": "tsx scripts/test/regressao.ts"
+    "test:regressao": "tsx scripts/test/regressao.ts",
+    "test:guia-trato": "tsx scripts/test/guia_trato_check.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",
