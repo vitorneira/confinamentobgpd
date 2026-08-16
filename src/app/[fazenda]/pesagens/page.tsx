@@ -32,14 +32,14 @@ export default async function PesagensPage({
           action="/api/folha-campo"
           method="get"
           target="_blank"
-          className="flex flex-wrap items-end gap-3 rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900"
+          className="flex flex-wrap items-end gap-3 rounded-card border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
         >
           <input type="hidden" name="fazenda" value={fazenda.codigo} />
           <label className="text-sm">
             <span className="mb-1 block text-zinc-500">Curral</span>
             <select
               name="curral"
-              className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+              className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
             >
               {(currais ?? []).map((c) => (
                 <option key={c.id} value={c.codigo}>
@@ -52,7 +52,7 @@ export default async function PesagensPage({
             <span className="mb-1 block text-zinc-500">Modo</span>
             <select
               name="modo"
-              className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+              className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
             >
               <option value="individual">Individual (brincos já cadastrados)</option>
               <option value="agregado">Agregado (linhas numeradas)</option>
@@ -64,12 +64,12 @@ export default async function PesagensPage({
               type="number"
               name="quantidade"
               defaultValue={0}
-              className="w-24 rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+              className="w-24 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
             />
           </label>
           <button
             type="submit"
-            className="rounded bg-black px-4 py-2 text-sm font-medium text-white dark:bg-white dark:text-black"
+            className="rounded-btn bg-primary-900 px-4 py-2 text-sm font-medium text-white dark:bg-primary-500 dark:text-white"
           >
             Gerar PDF
           </button>
@@ -80,7 +80,7 @@ export default async function PesagensPage({
         <h2 className="mb-3 text-sm font-medium uppercase tracking-wide text-zinc-500">
           Importar planilha preenchida
         </h2>
-        <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="rounded-card border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <ImportarPlanilha fazendaCodigo={codigo} fazendaId={fazenda.id} />
         </div>
       </section>
@@ -89,7 +89,7 @@ export default async function PesagensPage({
         <h2 className="mb-3 text-sm font-medium uppercase tracking-wide text-zinc-500">
           Lançamento manual
         </h2>
-        <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="rounded-card border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <LancamentoManual fazendaCodigo={codigo} fazendaId={fazenda.id} currais={currais ?? []} />
         </div>
       </section>

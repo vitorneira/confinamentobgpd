@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FileDown } from "lucide-react";
 import { getFazendaByCodigo } from "@/lib/queries/fazenda";
 import { getApuracaoVenda } from "@/lib/queries/vendas";
 import { corResultado, formatData, formatMoeda, formatNumero, formatPercentual } from "@/lib/format";
 
 function Card({ titulo, children }: { titulo: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+    <section className="rounded-card border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">{titulo}</h2>
       <div className="space-y-0.5">{children}</div>
     </section>
@@ -60,14 +61,14 @@ export default async function ApuracaoVendaPage({
           href={`/api/venda-recibo?fazenda=${codigo}&id=${ap.vendaLoteId}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 rounded-lg bg-black px-4 py-2 text-sm font-medium whitespace-nowrap text-white dark:bg-white dark:text-black"
+          className="flex shrink-0 items-center gap-1.5 rounded-btn bg-primary-900 px-4 py-2 text-sm font-medium whitespace-nowrap text-white dark:bg-primary-500 dark:text-white"
         >
-          Baixar PDF
+          <FileDown size={15} /> Baixar PDF
         </a>
       </div>
 
       <div
-        className={`rounded-xl border p-5 ${
+        className={`rounded-card border p-5 ${
           lucroPositivo
             ? "border-green-200 bg-green-50 dark:border-green-900 dark:bg-green-950/40"
             : "border-red-200 bg-red-50 dark:border-red-900 dark:bg-red-950/40"

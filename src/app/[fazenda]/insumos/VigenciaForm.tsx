@@ -40,7 +40,7 @@ function LinhaCurral({
   }
 
   return (
-    <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="rounded-card border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
       <div className="flex items-center justify-between">
         <div>
           <p className="font-medium text-black dark:text-zinc-50">Curral {curral.curralCodigo}</p>
@@ -72,7 +72,7 @@ function LinhaCurral({
             <select
               value={dietaId}
               onChange={(e) => setDietaId(e.target.value)}
-              className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+              className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
             >
               {dietas.map((d) => (
                 <option key={d.id} value={d.id}>
@@ -87,14 +87,14 @@ function LinhaCurral({
               type="date"
               value={dataInicio}
               onChange={(e) => setDataInicio(e.target.value)}
-              className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+              className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
             />
           </label>
           <button
             type="button"
             onClick={handleSalvar}
             disabled={pending}
-            className="rounded bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
+            className="rounded-btn bg-primary-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-primary-500 dark:text-white"
           >
             {pending ? "Salvando..." : "Confirmar"}
           </button>

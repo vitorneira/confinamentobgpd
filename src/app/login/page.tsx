@@ -35,7 +35,7 @@ export default function LoginPage() {
     <div className="flex flex-1 items-center justify-center bg-zinc-50 px-4 dark:bg-black">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm rounded-lg border border-zinc-200 bg-white p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+        className="w-full max-w-sm rounded-card border border-zinc-200 bg-white p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
       >
         <h1 className="mb-6 text-xl font-semibold text-black dark:text-zinc-50">
           Confinamento BG / PD
@@ -48,7 +48,7 @@ export default function LoginPage() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mb-4 w-full rounded border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50"
+          className="mb-4 w-full rounded-input border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50"
         />
         <label className="mb-1 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
           Senha
@@ -58,13 +58,13 @@ export default function LoginPage() {
           required
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
-          className="mb-4 w-full rounded border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50"
+          className="mb-4 w-full rounded-input border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50"
         />
         {erro && <p className="mb-4 text-sm text-red-600">{erro}</p>}
         <button
           type="submit"
           disabled={carregando}
-          className="w-full rounded bg-black px-4 py-2 text-base font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
+          className="w-full rounded-btn bg-primary-900 px-4 py-2 text-base font-medium text-white disabled:opacity-50 dark:bg-primary-500 dark:text-white"
         >
           {carregando ? "Entrando..." : "Entrar"}
         </button>

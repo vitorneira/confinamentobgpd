@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FileDown } from "lucide-react";
 import { getFazendaByCodigo } from "@/lib/queries/fazenda";
 import {
   getCurraisComDietaVigente,
@@ -64,9 +65,9 @@ export default async function GuiaTratoPage({
               href={`/api/guia-trato-folha?fazenda=${codigo}&data=${data}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-600 underline dark:text-zinc-400"
+              className="flex items-center gap-1 text-zinc-600 underline dark:text-zinc-400"
             >
-              Folha PDF
+              <FileDown size={14} /> Folha PDF
             </a>
           )}
         </div>

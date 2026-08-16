@@ -57,7 +57,7 @@ export function CompraForm({
           value={data}
           onChange={(e) => setData(e.target.value)}
           required
-          className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
         />
       </label>
       <label className="text-sm">
@@ -65,7 +65,7 @@ export function CompraForm({
         <select
           value={ingredienteId}
           onChange={(e) => setIngredienteId(e.target.value)}
-          className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
         >
           {ingredientes.map((i) => (
             <option key={i.id} value={i.id}>
@@ -82,7 +82,7 @@ export function CompraForm({
           value={preco}
           onChange={(e) => setPreco(e.target.value)}
           required
-          className="w-28 rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="w-28 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
         />
       </label>
       <label className="text-sm">
@@ -91,7 +91,7 @@ export function CompraForm({
           type="number"
           value={qtd}
           onChange={(e) => setQtd(e.target.value)}
-          className="w-28 rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="w-28 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
         />
       </label>
       <label className="text-sm">
@@ -100,13 +100,13 @@ export function CompraForm({
           type="text"
           value={fornecedor}
           onChange={(e) => setFornecedor(e.target.value)}
-          className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
         />
       </label>
       <button
         type="submit"
         disabled={pending}
-        className="rounded bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
+        className="rounded-btn bg-primary-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-primary-500 dark:text-white"
       >
         {pending ? "Registrando..." : "Registrar compra"}
       </button>

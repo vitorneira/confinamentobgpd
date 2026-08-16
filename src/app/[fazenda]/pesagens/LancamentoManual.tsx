@@ -54,7 +54,7 @@ export function LancamentoManual({
           value={data}
           onChange={(e) => setData(e.target.value)}
           required
-          className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
         />
       </label>
       <label className="text-sm">
@@ -62,7 +62,7 @@ export function LancamentoManual({
         <select
           value={curralCodigo}
           onChange={(e) => setCurralCodigo(e.target.value)}
-          className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
         >
           {currais.map((c) => (
             <option key={c.id} value={c.codigo}>
@@ -78,7 +78,7 @@ export function LancamentoManual({
           value={brinco}
           onChange={(e) => setBrinco(e.target.value)}
           required
-          className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
         />
       </label>
       <label className="text-sm">
@@ -89,13 +89,13 @@ export function LancamentoManual({
           value={peso}
           onChange={(e) => setPeso(e.target.value)}
           required
-          className="w-28 rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="w-28 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
         />
       </label>
       <button
         type="submit"
         disabled={pending}
-        className="rounded bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
+        className="rounded-btn bg-primary-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-primary-500 dark:text-white"
       >
         {pending ? "Lançando..." : "Lançar"}
       </button>

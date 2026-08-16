@@ -42,7 +42,7 @@ export default async function CurraisPage({
           <Link
             key={c.curral_id}
             href={`/${codigo.toLowerCase()}/animais?curral=${encodeURIComponent(c.codigo)}`}
-            className="block rounded-lg border border-zinc-200 bg-white p-4 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800"
+            className="block rounded-card border border-zinc-200 bg-white p-4 shadow-sm hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800"
           >
             <div className="mb-2 flex items-center justify-between">
               <div>

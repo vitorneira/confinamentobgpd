@@ -36,7 +36,7 @@ export default async function SimulacaoPage({
           <select
             name="curral"
             defaultValue={curralId ?? ""}
-            className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           >
             <option value="">Selecione um curral</option>
             {currais.map((c) => (
@@ -48,7 +48,7 @@ export default async function SimulacaoPage({
         </label>
         <button
           type="submit"
-          className="rounded bg-black px-4 py-2 text-sm font-medium text-white dark:bg-white dark:text-black"
+          className="rounded-btn bg-primary-900 px-4 py-2 text-sm font-medium text-white dark:bg-primary-500 dark:text-white"
         >
           Selecionar
         </button>

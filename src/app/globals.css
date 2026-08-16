@@ -1,8 +1,18 @@
 @import "tailwindcss";
 
+/* dark: passa a reagir a [data-theme="dark"] na <html> (setado por
+   src/components/ThemeScript.tsx antes do primeiro paint), não só ao
+   prefers-color-scheme do SO — permite o toggle manual além do automático. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+}
+
+[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -12,15 +22,31 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Design system — Handoff Confinamento OS (baseado em DESIGN_BRIEFING.md).
+   Ação primária: bordô da marca BG (era preto/branco). Mostarda = acento
+   secundário, usar com moderação. Semânticas ok/atenção/crítico continuam
+   como já estavam no código (verde/âmbar/vermelho), não fazem parte disso. */
+@theme {
+  --color-primary-50: #fbede8;
+  --color-primary-100: #f4e3dd;
+  --color-primary-300: #d49a84;
+  --color-primary-500: #b04227;
+  --color-primary-700: #7a2410;
+  --color-primary-800: #661d0d;
+  --color-primary-900: #551100;
+
+  --color-secondary-100: #fceacb;
+  --color-secondary-400: #f0a72d;
+  --color-secondary-600: #b37817;
+  --color-secondary-700: #8a5a0f;
+
+  --radius-card: 1rem;
+  --radius-input: 0.625rem;
+  --radius-btn: 0.625rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
 }

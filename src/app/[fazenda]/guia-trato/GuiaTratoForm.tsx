@@ -50,7 +50,7 @@ function ViagensGrupo({
   if (grupo.numVagoes === 0) return null;
 
   return (
-    <div className="rounded border border-zinc-200 p-3 dark:border-zinc-800">
+    <div className="rounded-card border border-zinc-200 p-3 dark:border-zinc-800">
       <p className="text-sm font-medium text-black dark:text-zinc-50">
         Dieta: {grupo.dietaNome}{" "}
         <span className="font-normal text-zinc-500">— currais {grupo.curraisCodigos.join(", ")}</span>
@@ -66,7 +66,7 @@ function ViagensGrupo({
               onChange={(e) =>
                 setCargas((prev) => prev.map((v, idx) => (idx === i ? Number(e.target.value) : v)))
               }
-              className="w-24 rounded border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-950"
+              className="w-24 rounded-input border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-950"
             />
           </label>
         ))}
@@ -97,7 +97,7 @@ function ViagensGrupo({
             setSucesso(true);
           });
         }}
-        className="mt-2 rounded border border-zinc-300 px-3 py-1 text-xs font-medium disabled:opacity-40 dark:border-zinc-700"
+        className="mt-2 rounded-btn border border-zinc-300 px-3 py-1 text-xs font-medium disabled:opacity-40 dark:border-zinc-700"
       >
         {pending ? "Salvando..." : "Salvar viagens dessa dieta"}
       </button>
@@ -192,7 +192,7 @@ export function GuiaTratoForm({
   return (
     <div className="space-y-6">
       {semDieta.length > 0 && (
-        <p className="rounded border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-400">
+        <p className="rounded-card border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-400">
           Sem dieta vigente cadastrada para: {semDieta.map((c) => c.curralCodigo).join(", ")} — esses currais
           ficam de fora do guia até ter uma vigência de dieta.
         </p>
@@ -205,7 +205,7 @@ export function GuiaTratoForm({
             type="number"
             value={capacidadeVagao}
             onChange={(e) => setCapacidadeVagao(Number(e.target.value))}
-            className="w-full rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
         <label className="text-sm">
@@ -215,7 +215,7 @@ export function GuiaTratoForm({
             step="0.01"
             value={split.manha}
             onChange={(e) => setSplit((s) => ({ ...s, manha: Number(e.target.value) }))}
-            className="w-full rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
         <label className="text-sm">
@@ -225,7 +225,7 @@ export function GuiaTratoForm({
             step="0.01"
             value={split.almoco}
             onChange={(e) => setSplit((s) => ({ ...s, almoco: Number(e.target.value) }))}
-            className="w-full rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
         <label className="text-sm">
@@ -235,7 +235,7 @@ export function GuiaTratoForm({
             step="0.01"
             value={split.tarde}
             onChange={(e) => setSplit((s) => ({ ...s, tarde: Number(e.target.value) }))}
-            className="w-full rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
       </div>
@@ -244,7 +244,7 @@ export function GuiaTratoForm({
       </p>
 
       <ScrollHint />
-      <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+      <div className="overflow-x-auto rounded-card border border-zinc-200 shadow-sm dark:border-zinc-800">
         <table className="w-full text-sm">
           <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">
             <tr>
@@ -266,7 +266,7 @@ export function GuiaTratoForm({
                     type="number"
                     value={c.totalDiaKg}
                     onChange={(e) => atualizarCurral(c.curralId, "totalDiaKg", Number(e.target.value))}
-                    className="w-24 rounded border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-900"
+                    className="w-24 rounded-input border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-900"
                   />
                 </td>
                 <td className="px-3 py-2 text-right">
@@ -275,7 +275,7 @@ export function GuiaTratoForm({
                     step="0.01"
                     value={c.ajustePct}
                     onChange={(e) => atualizarCurral(c.curralId, "ajustePct", Number(e.target.value))}
-                    className="w-20 rounded border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-900"
+                    className="w-20 rounded-input border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-900"
                   />
                 </td>
                 <td className="px-3 py-2 text-right">
@@ -283,7 +283,7 @@ export function GuiaTratoForm({
                     type="number"
                     value={c.ajusteKg}
                     onChange={(e) => atualizarCurral(c.curralId, "ajusteKg", Number(e.target.value))}
-                    className="w-20 rounded border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-900"
+                    className="w-20 rounded-input border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-900"
                   />
                 </td>
                 <td className="px-3 py-2 text-right tabular-nums font-medium">
@@ -301,7 +301,7 @@ export function GuiaTratoForm({
         type="button"
         onClick={handleSalvarPlano}
         disabled={pending}
-        className="rounded bg-black px-6 py-2.5 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
+        className="rounded-btn bg-primary-900 px-6 py-2.5 text-sm font-medium text-white disabled:opacity-50 dark:bg-primary-500 dark:text-white"
       >
         {pending ? "Salvando..." : "Salvar plano do dia"}
       </button>
@@ -317,7 +317,7 @@ export function GuiaTratoForm({
           {balanceamento.porHorario.map((h) => {
             let contador = 1;
             return (
-              <div key={h.horario} className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+              <div key={h.horario} className="rounded-card border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                 <p className="font-medium text-black dark:text-zinc-50">
                   {LABEL_HORARIO[h.horario]} — {h.numVagoesTotal} {h.numVagoesTotal === 1 ? "viagem" : "viagens"} no
                   total · {formatNumero(h.totalKg)} kg

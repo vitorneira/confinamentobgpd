@@ -82,7 +82,7 @@ export function SimuladorCurral({
 
   if (semDadosValidos) {
     return (
-      <div className="rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm dark:border-amber-900 dark:bg-amber-950/40">
+      <div className="rounded-card border border-amber-200 bg-amber-50 p-5 text-sm dark:border-amber-900 dark:bg-amber-950/40">
         <p className="font-medium text-amber-900 dark:text-amber-200">
           Sem ponto de partida real pra simular o curral {curral.codigo} ainda.
         </p>
@@ -97,7 +97,7 @@ export function SimuladorCurral({
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-4 rounded-xl border border-zinc-200 bg-white p-5 shadow-sm sm:grid-cols-4 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="grid grid-cols-2 gap-4 rounded-card border border-zinc-200 bg-white p-5 shadow-sm sm:grid-cols-4 dark:border-zinc-800 dark:bg-zinc-900">
         <label className="text-sm">
           <span className="mb-1 block text-zinc-500">GMD assumido (kg/dia)</span>
           <input
@@ -105,7 +105,7 @@ export function SimuladorCurral({
             step="0.01"
             value={gmd}
             onChange={(e) => setGmd(e.target.value)}
-            className="w-full rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
+            className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
           />
         </label>
         <label className="text-sm">
@@ -115,7 +115,7 @@ export function SimuladorCurral({
             step="1"
             value={pesoAbate}
             onChange={(e) => setPesoAbate(e.target.value)}
-            className="w-full rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
+            className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
           />
         </label>
         <label className="text-sm">
@@ -125,7 +125,7 @@ export function SimuladorCurral({
             step="0.1"
             value={rendimento}
             onChange={(e) => setRendimento(e.target.value)}
-            className="w-full rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
+            className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
           />
         </label>
         <label className="text-sm">
@@ -135,7 +135,7 @@ export function SimuladorCurral({
             step="0.01"
             value={precoArroba}
             onChange={(e) => setPrecoArroba(e.target.value)}
-            className="w-full rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
+            className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
           />
         </label>
       </div>
@@ -147,7 +147,7 @@ export function SimuladorCurral({
       </p>
 
       <div
-        className={`rounded-xl border p-5 ${
+        className={`rounded-card border p-5 ${
           (resultado.lucroProjetado ?? 0) >= 0
             ? "border-green-200 bg-green-50 dark:border-green-900 dark:bg-green-950/40"
             : "border-red-200 bg-red-50 dark:border-red-900 dark:bg-red-950/40"
@@ -170,7 +170,7 @@ export function SimuladorCurral({
         </p>
       </div>
 
-      <div className="rounded-xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="rounded-card border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
         <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">Projeção</h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
           <div>

@@ -63,7 +63,7 @@ function EditorComposicao({
   }
 
   return (
-    <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="rounded-card border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
       <div className="mb-2 flex items-center justify-between">
         <input
           type="text"
@@ -71,7 +71,7 @@ function EditorComposicao({
           onChange={(e) => setNome(e.target.value)}
           disabled={bloqueiaNome}
           placeholder="Nome da dieta"
-          className="rounded border border-zinc-300 px-2 py-1 text-sm font-medium disabled:border-transparent disabled:bg-transparent disabled:px-0 dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-input border border-zinc-300 px-2 py-1 text-sm font-medium disabled:border-transparent disabled:bg-transparent disabled:px-0 dark:border-zinc-700 dark:bg-zinc-900"
         />
         {custoPorKg !== null && (
           <span className="text-xs text-zinc-500">custo de vitrine: {formatMoeda(custoPorKg, 4)}/kg</span>
@@ -87,7 +87,7 @@ function EditorComposicao({
               step="0.001"
               value={l.proporcao}
               onChange={(e) => atualizarProporcao(l.ingredienteId, Number(e.target.value))}
-              className="w-24 rounded border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-900"
+              className="w-24 rounded-input border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-900"
             />
             <button type="button" onClick={() => removerLinha(l.ingredienteId)} className="text-xs text-red-600">
               remover
@@ -103,7 +103,7 @@ function EditorComposicao({
             e.target.value = "";
           }}
           defaultValue=""
-          className="mt-2 rounded border border-zinc-300 px-2 py-1 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+          className="mt-2 rounded-input border border-zinc-300 px-2 py-1 text-sm dark:border-zinc-700 dark:bg-zinc-900"
         >
           <option value="">+ adicionar ingrediente...</option>
           {disponiveis.map((i) => (
@@ -123,7 +123,7 @@ function EditorComposicao({
         type="button"
         onClick={handleSalvar}
         disabled={pending}
-        className="mt-2 rounded bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
+        className="mt-2 rounded-btn bg-primary-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-primary-500 dark:text-white"
       >
         {pending ? "Salvando..." : "Salvar"}
       </button>
@@ -175,7 +175,7 @@ export function DietasEditor({
         <button
           type="button"
           onClick={() => setMostrarNova(true)}
-          className="rounded border border-dashed border-zinc-300 px-4 py-2 text-sm text-zinc-500 hover:border-zinc-400 dark:border-zinc-700"
+          className="rounded-btn border border-dashed border-zinc-300 px-4 py-2 text-sm text-zinc-500 hover:border-zinc-400 dark:border-zinc-700"
         >
           + criar nova dieta
         </button>

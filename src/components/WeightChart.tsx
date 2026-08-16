@@ -15,7 +15,7 @@ function TooltipCustomizado({
   if (!active || !payload || payload.length === 0) return null;
   const ponto = payload[0].payload;
   return (
-    <div className="rounded border border-zinc-200 bg-white px-3 py-2 text-xs shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
+    <div className="rounded-card border border-zinc-200 bg-white px-3 py-2 text-xs shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
       <p className="text-zinc-500">{formatData(ponto.data)}</p>
       <p className="font-medium tabular-nums text-black dark:text-zinc-50">
         {formatNumero(ponto.pesoKg)} kg

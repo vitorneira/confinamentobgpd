@@ -87,7 +87,7 @@ export function FechamentoForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+      <div className="overflow-x-auto rounded-card border border-zinc-200 shadow-sm dark:border-zinc-800">
         <table className="w-full text-sm">
           <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">
             <tr>
@@ -122,7 +122,7 @@ export function FechamentoForm({
                       value={quantidades[a.animalId] ?? ""}
                       onChange={(e) => setQuantidades((prev) => ({ ...prev, [a.animalId]: e.target.value }))}
                       placeholder={`0 de ${a.quantidadeDisponivel}`}
-                      className="w-24 rounded border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-900"
+                      className="w-24 rounded-input border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-900"
                     />
                   ) : (
                     "1"
@@ -148,7 +148,7 @@ export function FechamentoForm({
             type="text"
             value={frigorifico}
             onChange={(e) => setFrigorifico(e.target.value)}
-            className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
         <label className="text-sm">
@@ -157,7 +157,7 @@ export function FechamentoForm({
             type="text"
             value={nf}
             onChange={(e) => setNf(e.target.value)}
-            className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
         <label className="text-sm">
@@ -166,7 +166,7 @@ export function FechamentoForm({
             type="date"
             value={dataAbate}
             onChange={(e) => setDataAbate(e.target.value)}
-            className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
         <label className="text-sm">
@@ -176,7 +176,7 @@ export function FechamentoForm({
             value={dataSaida}
             onChange={(e) => setDataSaida(e.target.value)}
             required
-            className="rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
       </div>
@@ -190,7 +190,7 @@ export function FechamentoForm({
             value={precoArroba}
             onChange={(e) => setPrecoArroba(e.target.value)}
             required
-            className="w-28 rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="w-28 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
         <label className="text-sm">
@@ -201,7 +201,7 @@ export function FechamentoForm({
             value={precoArrobaEntrada}
             onChange={(e) => setPrecoArrobaEntrada(e.target.value)}
             required
-            className="w-28 rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="w-28 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
         <label className="text-sm">
@@ -211,7 +211,7 @@ export function FechamentoForm({
             step="0.01"
             value={pesoCarcacaTotal}
             onChange={(e) => setPesoCarcacaTotal(e.target.value)}
-            className="w-32 rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="w-32 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
         <label className="text-sm">
@@ -221,7 +221,7 @@ export function FechamentoForm({
             step="0.01"
             value={deducoes}
             onChange={(e) => setDeducoes(e.target.value)}
-            className="w-28 rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="w-28 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
       </div>
@@ -229,7 +229,7 @@ export function FechamentoForm({
       <button
         type="submit"
         disabled={pending}
-        className="rounded bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
+        className="rounded-btn bg-primary-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-primary-500 dark:text-white"
       >
         {pending ? "Fechando..." : "Fechar venda"}
       </button>

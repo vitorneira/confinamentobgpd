@@ -62,7 +62,7 @@ export default async function ConfirmacaoPage({
           <select
             name="curral"
             defaultValue={curralId ?? ""}
-            className="rounded border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-input border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
           >
             <option value="">Todos os currais</option>
             {currais.map((c) => (
@@ -77,7 +77,7 @@ export default async function ConfirmacaoPage({
           <select
             name="status"
             defaultValue={status ?? ""}
-            className="rounded border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-input border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
           >
             <option value="">Todos</option>
             <option value="pendente">Pendente</option>
@@ -90,7 +90,7 @@ export default async function ConfirmacaoPage({
             type="date"
             name="dataInicio"
             defaultValue={filtroDataInicio}
-            className="rounded border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-input border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
         <label className="text-sm">
@@ -99,12 +99,12 @@ export default async function ConfirmacaoPage({
             type="date"
             name="dataFim"
             defaultValue={filtroDataFim}
-            className="rounded border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-input border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
         <button
           type="submit"
-          className="rounded bg-black px-4 py-2 text-sm font-medium text-white dark:bg-white dark:text-black"
+          className="rounded-btn bg-primary-900 px-4 py-2 text-sm font-medium text-white dark:bg-primary-500 dark:text-white"
         >
           Filtrar
         </button>
@@ -116,7 +116,7 @@ export default async function ConfirmacaoPage({
       </p>
 
       <ScrollHint />
-      <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+      <div className="overflow-x-auto rounded-card border border-zinc-200 shadow-sm dark:border-zinc-800">
         <table className="w-full text-sm">
           <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">
             <tr>

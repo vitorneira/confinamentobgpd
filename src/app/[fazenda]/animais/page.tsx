@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { getFazendaByCodigo } from "@/lib/queries/fazenda";
 import { getAnimaisIndicadores, getCurraisEcategorias } from "@/lib/queries/animais";
 import { StatusBadge } from "@/components/StatusBadge";
-import { ScrollHint } from "@/components/ScrollHint";
 import { formatNumero } from "@/lib/format";
 
 export default async function AnimaisPage({
@@ -33,7 +32,7 @@ export default async function AnimaisPage({
         <select
           name="curral"
           defaultValue={curral ?? ""}
-          className="rounded border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-input border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
         >
           <option value="">Todos os currais</option>
           {currais.map((c) => (
@@ -45,7 +44,7 @@ export default async function AnimaisPage({
         <select
           name="categoria"
           defaultValue={categoria ?? ""}
-          className="rounded border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-input border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
         >
           <option value="">Todas as categorias</option>
           {categorias.map((c) => (
@@ -56,7 +55,7 @@ export default async function AnimaisPage({
         </select>
         <button
           type="submit"
-          className="rounded bg-black px-4 py-2 text-sm font-medium text-white dark:bg-white dark:text-black"
+          className="rounded-btn bg-primary-900 px-4 py-2 text-sm font-medium text-white dark:bg-primary-500 dark:text-white"
         >
           Filtrar
         </button>
@@ -69,8 +68,10 @@ export default async function AnimaisPage({
 
       <p className="mb-2 text-sm text-zinc-500">{animais.length} animais</p>
 
-      <ScrollHint />
-      <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+      {/* Desktop: tabela completa. Mobile: cards (a tabela tem colunas
+          demais pra caber na tela — cards com o essencial são mais fáceis
+          de ler em pé, no campo, do que rolar uma tabela pro lado). */}
+      <div className="hidden overflow-x-auto rounded-card border border-zinc-200 shadow-sm sm:block dark:border-zinc-800">
         <table className="w-full text-sm">
           <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">
             <tr>
@@ -109,6 +110,25 @@ export default async function AnimaisPage({
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="space-y-2 sm:hidden">
+        {animais.map((a) => (
+          <Link
+            key={a.animalId}
+            href={`${base}/${a.animalId}`}
+            className="flex items-center justify-between rounded-card border border-zinc-200 bg-white p-3 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+          >
+            <div>
+              <p className="font-medium text-black dark:text-zinc-50">{a.brinco}</p>
+              <p className="text-xs text-zinc-500">
+                {a.curralCodigo} · {formatNumero(a.pesoAtualKg)} kg · {formatNumero(a.arrobaViva, 1)} @ · GMD{" "}
+                {formatNumero(a.gmdKgDia, 3)}
+              </p>
+            </div>
+            <StatusBadge status={a.alertaPesagem} />
+          </Link>
+        ))}
       </div>
     </div>
   );

@@ -50,7 +50,7 @@ export function ImportarPlanilha({ fazendaCodigo, fazendaId }: { fazendaCodigo: 
         type="file"
         accept=".xlsx"
         onChange={handleArquivo}
-        className="block text-sm file:mr-3 file:rounded file:border-0 file:bg-black file:px-4 file:py-2 file:text-white dark:file:bg-white dark:file:text-black"
+        className="block text-sm file:mr-3 file:rounded-btn file:border-0 file:bg-primary-900 file:px-4 file:py-2 file:text-white dark:file:bg-primary-500 dark:file:text-white"
       />
       {pending && <p className="text-sm text-zinc-500">Processando...</p>}
       {erro && <p className="text-sm text-red-600">{erro}</p>}
@@ -63,7 +63,7 @@ export function ImportarPlanilha({ fazendaCodigo, fazendaId }: { fazendaCodigo: 
               <h3 className="mb-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
                 Cadastro de animais novos ({preview.animaisNovos.length})
               </h3>
-              <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+              <div className="overflow-x-auto rounded-card border border-zinc-200 shadow-sm dark:border-zinc-800">
                 <table className="w-full text-sm">
                   <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">
                     <tr>
@@ -116,7 +116,7 @@ export function ImportarPlanilha({ fazendaCodigo, fazendaId }: { fazendaCodigo: 
             <h3 className="mb-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
               Pesagens ({preview.pesagens.length})
             </h3>
-            <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+            <div className="overflow-x-auto rounded-card border border-zinc-200 shadow-sm dark:border-zinc-800">
               <table className="w-full text-sm">
                 <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">
                   <tr>
@@ -166,7 +166,7 @@ export function ImportarPlanilha({ fazendaCodigo, fazendaId }: { fazendaCodigo: 
             type="button"
             onClick={handleConfirmar}
             disabled={pending}
-            className="rounded bg-black px-6 py-2.5 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
+            className="rounded-btn bg-primary-900 px-6 py-2.5 text-sm font-medium text-white disabled:opacity-50 dark:bg-primary-500 dark:text-white"
           >
             {pending ? "Confirmando..." : `Confirmar importação (${selecionadas.size + selecionadosNovos.size} linhas)`}
           </button>

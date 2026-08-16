@@ -50,7 +50,7 @@ export function LinhaConfirmacao({
             step="0.1"
             value={kg}
             onChange={(e) => setKg(e.target.value)}
-            className="w-24 rounded border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-900"
+            className="w-24 rounded-input border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-900"
           />
         ) : (
           <span className="tabular-nums">{formatNumero(Number(kg), 1)}</span>
@@ -81,7 +81,7 @@ export function LinhaConfirmacao({
           type="button"
           disabled={pending}
           onClick={confirmar}
-          className="rounded bg-black px-3 py-1 text-xs font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
+          className="rounded-btn bg-primary-900 px-3 py-1 text-xs font-medium text-white disabled:opacity-50 dark:bg-primary-500 dark:text-white"
         >
           {pending ? "..." : confirmado ? "Reconfirmar" : "Confirmar"}
         </button>

@@ -35,7 +35,7 @@ export default async function DashboardPage({
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 px-4 py-8">
-      <section>
+      <section id="alertas">
         <h2 className="mb-3 text-sm font-medium uppercase tracking-wide text-zinc-500">Alertas</h2>
         <AlertList alertas={alertas} />
       </section>
@@ -76,7 +76,7 @@ export default async function DashboardPage({
           <StatCard label="Custo/@ produzida (só ração)" value={formatMoeda(rollup.custoRacaoPorArroba)} />
           <StatCard label="Custo/@ produzida (total)" value={formatMoeda(rollup.custoTotalPorArroba)} />
         </div>
-        <div className="mt-3 rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="mt-3 rounded-card border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <p className="text-sm text-zinc-500">Valor de referência do rebanho</p>
           <p className="mt-1 text-2xl font-semibold tabular-nums text-black dark:text-zinc-50">
             {formatMoeda(rollup.valorReferencial)}

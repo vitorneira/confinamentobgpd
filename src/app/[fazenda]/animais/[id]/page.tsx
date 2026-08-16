@@ -26,23 +26,23 @@ export default async function FichaAnimalPage({
       </div>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <div className="rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="rounded-card border border-zinc-200 bg-white p-3 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <p className="text-xs text-zinc-500">Origem</p>
           <p className="font-medium text-black dark:text-zinc-50">{ficha.loteOrigem ?? "—"}</p>
         </div>
-        <div className="rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="rounded-card border border-zinc-200 bg-white p-3 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <p className="text-xs text-zinc-500">Entrada</p>
           <p className="font-medium tabular-nums text-black dark:text-zinc-50">
             {formatData(ficha.dataEntrada)}
           </p>
         </div>
-        <div className="rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="rounded-card border border-zinc-200 bg-white p-3 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <p className="text-xs text-zinc-500">Peso entrada</p>
           <p className="font-medium tabular-nums text-black dark:text-zinc-50">
             {formatNumero(ficha.pesoEntradaKg)} kg
           </p>
         </div>
-        <div className="rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="rounded-card border border-zinc-200 bg-white p-3 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <p className="text-xs text-zinc-500">Dieta vigente</p>
           <p className="font-medium text-black dark:text-zinc-50">{ficha.dietaAtualNome ?? "—"}</p>
         </div>
@@ -52,7 +52,7 @@ export default async function FichaAnimalPage({
         <h2 className="mb-3 text-sm font-medium uppercase tracking-wide text-zinc-500">
           Peso ao longo do tempo
         </h2>
-        <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="rounded-card border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <WeightChart pontos={ficha.historicoPesagens.map((p) => ({ data: p.data, pesoKg: p.pesoKg }))} />
         </div>
       </div>
@@ -61,7 +61,7 @@ export default async function FichaAnimalPage({
         <h2 className="mb-3 text-sm font-medium uppercase tracking-wide text-zinc-500">
           Histórico de pesagens
         </h2>
-        <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+        <div className="overflow-x-auto rounded-card border border-zinc-200 shadow-sm dark:border-zinc-800">
           <table className="w-full text-sm">
             <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">
               <tr>

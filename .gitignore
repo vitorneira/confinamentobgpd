@@ -46,3 +46,4 @@ next-env.d.ts
 
 # pacote de referência pessoal do dono (fora de dados_originais/, não faz parte do app)
 /Arquivos consulta pessoal/
+/Handoff*.html

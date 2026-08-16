@@ -38,11 +38,11 @@ export default async function InsumosPage({
 
       <section>
         <h2 className="mb-3 text-sm font-medium uppercase tracking-wide text-zinc-500">Compras</h2>
-        <div className="mb-4 rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="mb-4 rounded-card border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <CompraForm fazendaCodigo={codigo} fazendaId={fazenda.id} ingredientes={ingredientes} />
         </div>
         <ScrollHint />
-        <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+        <div className="overflow-x-auto rounded-card border border-zinc-200 shadow-sm dark:border-zinc-800">
           <table className="w-full text-sm">
             <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">
               <tr>
@@ -71,7 +71,7 @@ export default async function InsumosPage({
       <section>
         <h2 className="mb-3 text-sm font-medium uppercase tracking-wide text-zinc-500">Estoque</h2>
         <ScrollHint />
-        <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+        <div className="overflow-x-auto rounded-card border border-zinc-200 shadow-sm dark:border-zinc-800">
           <table className="w-full text-sm">
             <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">
               <tr>
