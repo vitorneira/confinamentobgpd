@@ -105,11 +105,11 @@ async function main() {
 
   const bal = calcularBalanceamento(currais, { manha: 0.4, almoco: 0.2, tarde: 0.4 }, 2200);
   console.log("\nBalanceamento (todos com 1000kg base, 4 dietas separadas):");
-  for (const d of bal.porDieta) {
-    console.log(`  dieta ${d.dietaNome}:`);
-    for (const h of d.horarios) {
+  for (const h of bal.porHorario) {
+    console.log(`  ${h.horario}: total=${h.totalKg.toFixed(1)}kg, viagens no total=${h.numVagoesTotal}`);
+    for (const g of h.grupos) {
       console.log(
-        `    ${h.horario}: total=${h.totalKg.toFixed(1)}kg, vagões=${h.numVagoes}, carga/vagão=${h.cargaPorVagao.toFixed(1)}kg, aproveitamento=${(h.aproveitamento * 100).toFixed(1)}%`,
+        `    dieta ${g.dietaNome} (currais ${g.curraisCodigos.join(",")}): total=${g.totalKg.toFixed(1)}kg, vagões=${g.numVagoes}, carga/vagão=${g.cargaPorVagao.toFixed(1)}kg, aproveitamento=${(g.aproveitamento * 100).toFixed(1)}%`,
       );
     }
   }

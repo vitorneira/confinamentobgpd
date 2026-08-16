@@ -5,13 +5,20 @@ function mm(v: number): number {
   return v * 2.83464567;
 }
 
-export type VagaoImpressao = { kg: number; quantidade: number };
-export type HorarioImpressao = { horario: "manha" | "almoco" | "tarde"; totalKg: number; vagoes: VagaoImpressao[] };
-export type DietaImpressao = {
+export type ViagemImpressao = {
+  numero: number;
   dietaNome: string;
-  horarios: HorarioImpressao[];
-  composicao: Array<{ ingredienteNome: string; proporcao: number }>;
+  curraisCodigos: string[];
+  kg: number;
+  ingredientes: Array<{ ingredienteNome: string; kg: number }>;
 };
+
+export type HorarioImpressao = {
+  horario: "manha" | "almoco" | "tarde";
+  totalKg: number;
+  viagens: ViagemImpressao[];
+};
+
 export type CurralImpressao = {
   curralCodigo: string;
   dietaNome: string;
@@ -24,13 +31,13 @@ export type FolhaGuiaTratoInput = {
   fazendaNome: string;
   data: string;
   currais: CurralImpressao[];
-  dietas: DietaImpressao[];
+  horarios: HorarioImpressao[];
 };
 
 const LABEL_HORARIO = { manha: "Manhã", almoco: "Almoço", tarde: "Tarde" } as const;
 
-/** Agrupa vagões do mesmo tamanho (arredondado a 0.1 kg) — imprime uma vez cada, com quantidade. */
-export function agruparVagoes(cargas: number[]): VagaoImpressao[] {
+/** Agrupa vagões do mesmo tamanho (arredondado a 0.1 kg) — vira uma "viagem" numerada cada. */
+export function agruparVagoes(cargas: number[]): Array<{ kg: number; quantidade: number }> {
   const grupos = new Map<number, number>();
   for (const carga of cargas) {
     const chave = Math.round(carga * 10) / 10;
@@ -85,37 +92,51 @@ export async function gerarFolhaGuiaTratoPDF(input: FolhaGuiaTratoInput): Promis
   }
   doc.moveDown(0.8);
 
-  for (const dieta of input.dietas) {
-    if (doc.y > doc.page.height - mm(60)) doc.addPage();
-    doc.font("Helvetica-Bold").fontSize(11).fillColor("#6B1A28").text(`DIETA: ${dieta.dietaNome.toUpperCase()}`, mm(15), doc.y);
-    doc.fillColor("#000000");
-    doc.moveDown(0.3);
+  // Um vagão só carrega uma dieta por vez, mas o peão precisa de UMA lista
+  // simples e sequencial por horário — não fragmentada por dieta — pra não
+  // errar. O total de viagens já soma tudo (todas as dietas daquele horário).
+  for (const h of input.horarios) {
+    if (h.viagens.length === 0) continue;
+    if (doc.y > doc.page.height - mm(50)) doc.addPage();
 
-    for (const h of dieta.horarios) {
-      if (h.vagoes.length === 0) continue;
-      const resumoVagoes = h.vagoes.map((v) => `${v.quantidade}× ${formatNumero(v.kg, 1)} kg`).join(" + ");
+    doc
+      .font("Helvetica-Bold")
+      .fontSize(12)
+      .fillColor("#6B1A28")
+      .text(
+        `${LABEL_HORARIO[h.horario].toUpperCase()} — ${h.viagens.length} ${h.viagens.length === 1 ? "VIAGEM" : "VIAGENS"} · ${formatNumero(h.totalKg, 1)} KG NO TOTAL`,
+        mm(15),
+        doc.y,
+      );
+    doc.fillColor("#000000");
+    doc.moveDown(0.5);
+
+    for (const v of h.viagens) {
+      if (doc.y > doc.page.height - mm(35)) doc.addPage();
       doc
         .font("Helvetica-Bold")
-        .fontSize(9.5)
-        .text(`${LABEL_HORARIO[h.horario]} — ${formatNumero(h.totalKg, 1)} kg total (${resumoVagoes})`, mm(15), doc.y);
-      doc.moveDown(0.2);
-
-      const colIngW = larguraUtil / (dieta.composicao.length ? 2 : 1);
-      for (const vagao of h.vagoes) {
-        const y = doc.y;
-        doc.font("Helvetica").fontSize(8.5).fillColor("#3f3f46");
-        doc.text(`Vagão de ${formatNumero(vagao.kg, 1)} kg:`, mm(15), y, { width: colIngW });
-        const ingredientesTxt = dieta.composicao
-          .map((ing) => `${ing.ingredienteNome} ${formatNumero(vagao.kg * ing.proporcao, 1)}kg`)
-          .join(" · ");
-        doc.text(ingredientesTxt, mm(15), doc.y, { width: larguraUtil });
-        doc.fillColor("#000000");
-        doc.moveDown(0.4);
-      }
-      doc.moveDown(0.3);
+        .fontSize(10)
+        .text(
+          `Viagem ${v.numero} — ${formatNumero(v.kg, 1)} kg — dieta ${v.dietaNome} — currais ${v.curraisCodigos.join(", ")}`,
+          mm(15),
+          doc.y,
+          { width: larguraUtil },
+        );
+      doc.moveDown(0.15);
+      const ingredientesTxt = v.ingredientes.map((ing) => `${ing.ingredienteNome} ${formatNumero(ing.kg, 1)}kg`).join(" · ");
+      doc.font("Helvetica").fontSize(8.5).fillColor("#3f3f46").text(ingredientesTxt, mm(15), doc.y, { width: larguraUtil });
+      doc.fillColor("#000000");
+      doc.moveDown(0.6);
     }
-    doc.moveDown(0.5);
+    doc.moveDown(0.4);
   }
+
+  doc.moveDown(0.5);
+  doc
+    .font("Helvetica-Oblique")
+    .fontSize(8)
+    .fillColor("#a1a1aa")
+    .text(`Gerado pelo sistema de gestão de confinamento · ${formatData(new Date().toISOString().slice(0, 10))}`, mm(15), doc.y);
 
   doc.end();
   return done;

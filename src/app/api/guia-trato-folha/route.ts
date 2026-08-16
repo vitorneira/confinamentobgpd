@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getCurraisComDietaVigente, getGuiaTrato, getVagoesSalvos } from "@/lib/queries/guia-trato";
 import { getDietasComComposicao } from "@/lib/queries/insumos";
 import { calcularBalanceamento, totalAjustado, type CurralAjuste } from "@/lib/guia-trato/balanceamento";
-import { agruparVagoes, gerarFolhaGuiaTratoPDF, type CurralImpressao, type DietaImpressao } from "@/lib/guia-trato/pdf-folha";
+import { gerarFolhaGuiaTratoPDF, type CurralImpressao, type HorarioImpressao } from "@/lib/guia-trato/pdf-folha";
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
@@ -63,25 +63,33 @@ export async function GET(request: NextRequest) {
     };
   });
 
-  const dietasImpressao: DietaImpressao[] = balanceamento.porDieta.map((d) => ({
-    dietaNome: d.dietaNome,
-    composicao: (composicaoPorDieta.get(d.dietaId) ?? []).map((c) => ({
-      ingredienteNome: c.ingredienteNome,
-      proporcao: c.proporcao,
-    })),
-    horarios: d.horarios.map((h) => {
-      const chave = `${d.dietaId}|${h.horario}`;
+  // Um vagão só carrega uma dieta por vez, mas a folha lista as viagens de
+  // todas as dietas em sequência única por horário, numeradas — é assim que
+  // o peão vê "quantas viagens tenho que fazer hoje de manhã", sem precisar
+  // separar mentalmente por dieta.
+  const horarios: HorarioImpressao[] = balanceamento.porHorario.map((h) => {
+    let numero = 1;
+    const viagens = h.grupos.flatMap((grupo) => {
+      const chave = `${grupo.dietaId}|${h.horario}`;
       const salvos = vagoesSalvosPorChave.get(chave);
-      const cargas = salvos && salvos.length === h.numVagoes ? salvos : h.vagoesSugeridos;
-      return { horario: h.horario, totalKg: h.totalKg, vagoes: agruparVagoes(cargas) };
-    }),
-  }));
+      const cargas = salvos && salvos.length === grupo.numVagoes ? salvos : grupo.vagoesSugeridos;
+      const composicao = composicaoPorDieta.get(grupo.dietaId) ?? [];
+      return cargas.map((kg) => ({
+        numero: numero++,
+        dietaNome: grupo.dietaNome,
+        curraisCodigos: grupo.curraisCodigos,
+        kg,
+        ingredientes: composicao.map((c) => ({ ingredienteNome: c.ingredienteNome, kg: kg * c.proporcao })),
+      }));
+    });
+    return { horario: h.horario, totalKg: h.totalKg, viagens };
+  });
 
   const pdf = await gerarFolhaGuiaTratoPDF({
     fazendaNome: fazenda.nome,
     data,
     currais,
-    dietas: dietasImpressao,
+    horarios,
   });
 
   return new NextResponse(new Uint8Array(pdf), {

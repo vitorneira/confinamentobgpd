@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { calcularBalanceamento, type CurralAjuste, type ResumoHorario } from "@/lib/guia-trato/balanceamento";
+import { calcularBalanceamento, type CurralAjuste, type GrupoDieta, type Horario } from "@/lib/guia-trato/balanceamento";
 import { salvarPlano, salvarVagoes } from "./actions";
 import { ScrollHint } from "@/components/ScrollHint";
 import { formatNumero, formatPercentual } from "@/lib/format";
@@ -20,19 +20,19 @@ type CurralInicial = {
 
 const LABEL_HORARIO = { manha: "Manhã", almoco: "Almoço", tarde: "Tarde" } as const;
 
-function VagoesEditor({
+function ViagensGrupo({
   fazendaCodigo,
   guiaTratoId,
-  dietaId,
   horario,
-  resumo,
+  grupo,
+  numeroInicial,
   cargasSalvas,
 }: {
   fazendaCodigo: string;
   guiaTratoId: string | null;
-  dietaId: string;
-  horario: "manha" | "almoco" | "tarde";
-  resumo: ResumoHorario;
+  horario: Horario;
+  grupo: GrupoDieta;
+  numeroInicial: number;
   cargasSalvas?: number[];
 }) {
   const [pending, startTransition] = useTransition();
@@ -40,19 +40,25 @@ function VagoesEditor({
   const [sucesso, setSucesso] = useState(false);
   // Sem useEffect de propósito: o pai remonta este componente (via `key`)
   // quando numVagoes/totalKg mudam, então o estado inicial já nasce certo.
-  const [cargas, setCargas] = useState<number[]>(cargasSalvas?.length === resumo.numVagoes ? cargasSalvas : resumo.vagoesSugeridos);
+  const [cargas, setCargas] = useState<number[]>(
+    cargasSalvas?.length === grupo.numVagoes ? cargasSalvas : grupo.vagoesSugeridos,
+  );
 
   const soma = cargas.reduce((acc, v) => acc + v, 0);
-  const fecha = Math.abs(soma - resumo.totalKg) <= 0.5;
+  const fecha = Math.abs(soma - grupo.totalKg) <= 0.5;
 
-  if (resumo.numVagoes === 0) return null;
+  if (grupo.numVagoes === 0) return null;
 
   return (
-    <div className="mt-2 space-y-2 border-t border-zinc-100 pt-2 dark:border-zinc-800">
-      <div className="flex flex-wrap gap-2">
+    <div className="rounded border border-zinc-200 p-3 dark:border-zinc-800">
+      <p className="text-sm font-medium text-black dark:text-zinc-50">
+        Dieta: {grupo.dietaNome}{" "}
+        <span className="font-normal text-zinc-500">— currais {grupo.curraisCodigos.join(", ")}</span>
+      </p>
+      <div className="mt-2 flex flex-wrap gap-2">
         {cargas.map((carga, i) => (
           <label key={i} className="text-xs">
-            <span className="mb-0.5 block text-zinc-400">Vagão {i + 1}</span>
+            <span className="mb-0.5 block text-zinc-400">Viagem {numeroInicial + i}</span>
             <input
               type="number"
               step="0.1"
@@ -65,10 +71,10 @@ function VagoesEditor({
           </label>
         ))}
       </div>
-      <p className={`text-xs ${fecha ? "text-zinc-500" : "text-red-600"}`}>
-        Soma: {formatNumero(soma, 1)} kg (devido: {formatNumero(resumo.totalKg, 1)} kg)
+      <p className={`mt-1 text-xs ${fecha ? "text-zinc-500" : "text-red-600"}`}>
+        Soma: {formatNumero(soma, 1)} kg (devido: {formatNumero(grupo.totalKg, 1)} kg)
       </p>
-      {!guiaTratoId && <p className="text-xs text-amber-600">Salve o plano do dia antes de editar os vagões.</p>}
+      {!guiaTratoId && <p className="text-xs text-amber-600">Salve o plano do dia antes de editar as viagens.</p>}
       <button
         type="button"
         disabled={pending || !fecha || !guiaTratoId}
@@ -79,10 +85,10 @@ function VagoesEditor({
           startTransition(async () => {
             const r = await salvarVagoes(fazendaCodigo, {
               guiaTratoId,
-              dietaId,
+              dietaId: grupo.dietaId,
               horario,
               cargas,
-              totalEsperado: resumo.totalKg,
+              totalEsperado: grupo.totalKg,
             });
             if (!r.ok) {
               setErro(r.erro ?? "Erro ao salvar.");
@@ -91,12 +97,12 @@ function VagoesEditor({
             setSucesso(true);
           });
         }}
-        className="rounded border border-zinc-300 px-3 py-1 text-xs font-medium disabled:opacity-40 dark:border-zinc-700"
+        className="mt-2 rounded border border-zinc-300 px-3 py-1 text-xs font-medium disabled:opacity-40 dark:border-zinc-700"
       >
-        {pending ? "Salvando..." : "Salvar vagões"}
+        {pending ? "Salvando..." : "Salvar viagens dessa dieta"}
       </button>
-      {erro && <p className="text-xs text-red-600">{erro}</p>}
-      {sucesso && <p className="text-xs text-green-700 dark:text-green-400">Salvo.</p>}
+      {erro && <p className="mt-1 text-xs text-red-600">{erro}</p>}
+      {sucesso && <p className="mt-1 text-xs text-green-700 dark:text-green-400">Salvo.</p>}
     </div>
   );
 }
@@ -301,40 +307,45 @@ export function GuiaTratoForm({
       </button>
 
       <div>
-        <h2 className="mb-1 text-sm font-medium uppercase tracking-wide text-zinc-500">
-          Vagões por horário (balanceados)
-        </h2>
+        <h2 className="mb-1 text-sm font-medium uppercase tracking-wide text-zinc-500">Viagens de vagão por horário</h2>
         <p className="mb-3 text-xs text-zinc-500">
-          O sistema sugere a divisão equilibrada; você pode editar o kg de cada vagão, desde que a soma continue
-          fechando com o total devido.
+          O nº de viagens é pra fazenda inteira naquele horário — um vagão só carrega uma dieta por vez, mas o
+          total de viagens soma todas. O sistema sugere a divisão equilibrada; você pode editar o kg de cada
+          viagem, desde que a soma daquela dieta continue fechando com o total devido.
         </p>
         <div className="space-y-4">
-          {balanceamento.porDieta.map((d) => (
-            <div key={d.dietaId} className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-              <p className="mb-2 font-medium text-black dark:text-zinc-50">Dieta: {d.dietaNome}</p>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                {d.horarios.map((h) => (
-                  <div key={h.horario} className="rounded border border-zinc-200 p-3 dark:border-zinc-800">
-                    <p className="text-xs text-zinc-500">{LABEL_HORARIO[h.horario]}</p>
-                    <p className="tabular-nums font-medium">{formatNumero(h.totalKg)} kg</p>
-                    <p className="text-xs text-zinc-500">
-                      {h.numVagoes} {h.numVagoes === 1 ? "vagão" : "vagões"} · {formatNumero(h.cargaPorVagao)} kg cada ·{" "}
-                      {formatPercentual(h.aproveitamento)} aproveitamento
-                    </p>
-                    <VagoesEditor
-                      key={`${d.dietaId}-${h.horario}-${h.numVagoes}-${h.totalKg.toFixed(1)}`}
-                      fazendaCodigo={fazendaCodigo}
-                      guiaTratoId={guiaTratoId}
-                      dietaId={d.dietaId}
-                      horario={h.horario}
-                      resumo={h}
-                      cargasSalvas={vagoesSalvosPorChave.get(`${d.dietaId}|${h.horario}`)}
-                    />
+          {balanceamento.porHorario.map((h) => {
+            let contador = 1;
+            return (
+              <div key={h.horario} className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+                <p className="font-medium text-black dark:text-zinc-50">
+                  {LABEL_HORARIO[h.horario]} — {h.numVagoesTotal} {h.numVagoesTotal === 1 ? "viagem" : "viagens"} no
+                  total · {formatNumero(h.totalKg)} kg
+                </p>
+                {h.grupos.length === 0 ? (
+                  <p className="mt-2 text-xs text-zinc-500">Nada nesse horário.</p>
+                ) : (
+                  <div className="mt-3 space-y-3">
+                    {h.grupos.map((grupo) => {
+                      const numeroInicial = contador;
+                      contador += grupo.numVagoes;
+                      return (
+                        <ViagensGrupo
+                          key={`${grupo.dietaId}-${h.horario}-${grupo.numVagoes}-${grupo.totalKg.toFixed(1)}`}
+                          fazendaCodigo={fazendaCodigo}
+                          guiaTratoId={guiaTratoId}
+                          horario={h.horario}
+                          grupo={grupo}
+                          numeroInicial={numeroInicial}
+                          cargasSalvas={vagoesSalvosPorChave.get(`${grupo.dietaId}|${h.horario}`)}
+                        />
+                      );
+                    })}
                   </div>
-                ))}
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
