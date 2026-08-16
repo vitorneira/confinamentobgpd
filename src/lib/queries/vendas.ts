@@ -1,0 +1,196 @@
+import { createClient } from "@/lib/supabase/server";
+import { ordenarPorBrinco } from "@/lib/brinco-sort";
+
+export type CurralComAtivos = {
+  curralId: string;
+  curralCodigo: string;
+  cabecasAtivas: number;
+};
+
+export async function getCurraisComAtivos(fazendaId: string): Promise<CurralComAtivos[]> {
+  const supabase = await createClient();
+  const [{ data: currais }, { data: animais }] = await Promise.all([
+    supabase.from("currais").select("id, codigo").eq("fazenda_id", fazendaId).order("codigo"),
+    supabase.from("animais").select("curral_id, tipo, quantidade").eq("fazenda_id", fazendaId).eq("status", "ativo"),
+  ]);
+
+  const cabecasPorCurral = new Map<string, number>();
+  for (const a of animais ?? []) {
+    const curralId = a.curral_id as string;
+    const soma = a.tipo === "agregado" ? ((a.quantidade as number) ?? 0) : 1;
+    cabecasPorCurral.set(curralId, (cabecasPorCurral.get(curralId) ?? 0) + soma);
+  }
+
+  return (currais ?? []).map((c) => ({
+    curralId: c.id as string,
+    curralCodigo: c.codigo as string,
+    cabecasAtivas: cabecasPorCurral.get(c.id as string) ?? 0,
+  }));
+}
+
+export type AnimalAtivoSelecao = {
+  animalId: string;
+  tipo: "individual" | "agregado";
+  brinco: string | null;
+  categoriaNome: string;
+  quantidadeDisponivel: number | null;
+  pesoEntradaKg: number;
+  pesoAtualKg: number;
+};
+
+export async function getAnimaisAtivosDoCurral(fazendaId: string, curralId: string): Promise<AnimalAtivoSelecao[]> {
+  const supabase = await createClient();
+  const { data: animais } = await supabase
+    .from("animais")
+    .select("id, tipo, brinco, categoria_id, peso_entrada_kg, quantidade, peso_medio_entrada_kg, categorias(nome)")
+    .eq("fazenda_id", fazendaId)
+    .eq("curral_id", curralId)
+    .eq("status", "ativo");
+
+  const { data: indicadores } = await supabase
+    .from("v_animal_indicadores")
+    .select("animal_id, peso_atual_kg")
+    .eq("fazenda_id", fazendaId)
+    .eq("curral_id", curralId);
+  const pesoAtualPorId = new Map((indicadores ?? []).map((i) => [i.animal_id as string, i.peso_atual_kg as number]));
+
+  const resultado: AnimalAtivoSelecao[] = (animais ?? []).map((a) => ({
+    animalId: a.id as string,
+    tipo: a.tipo as "individual" | "agregado",
+    brinco: a.brinco,
+    categoriaNome: (a.categorias as unknown as { nome: string } | null)?.nome ?? "?",
+    quantidadeDisponivel: a.tipo === "agregado" ? (a.quantidade as number) : null,
+    pesoEntradaKg: (a.tipo === "agregado" ? a.peso_medio_entrada_kg : a.peso_entrada_kg) as number,
+    pesoAtualKg: pesoAtualPorId.get(a.id as string) ?? ((a.tipo === "agregado" ? a.peso_medio_entrada_kg : a.peso_entrada_kg) as number),
+  }));
+
+  return ordenarPorBrinco(
+    resultado.filter((a) => a.tipo === "individual"),
+    (a) => a.brinco ?? "",
+  ).concat(resultado.filter((a) => a.tipo === "agregado"));
+}
+
+export type VendaListada = {
+  vendaLoteId: string;
+  curralCodigo: string;
+  dataSaida: string | null;
+  frigorifico: string | null;
+  cabecas: number;
+  lucroLote: number | null;
+  lucroPorCab: number | null;
+};
+
+export async function getVendasFechadas(fazendaId: string): Promise<VendaListada[]> {
+  const supabase = await createClient();
+  const { data: lotes } = await supabase
+    .from("venda_lote")
+    .select("id, curral_id, data_saida, frigorifico, currais(codigo)")
+    .eq("fazenda_id", fazendaId)
+    .order("data_saida", { ascending: false });
+
+  const ids = (lotes ?? []).map((l) => l.id as string);
+  const { data: apuracao } = ids.length
+    ? await supabase.from("v_venda_apuracao").select("venda_lote_id, cabecas, lucro_lote, lucro_por_cab").in("venda_lote_id", ids)
+    : { data: [] as { venda_lote_id: string; cabecas: number; lucro_lote: number; lucro_por_cab: number }[] };
+  const apuracaoPorId = new Map((apuracao ?? []).map((a) => [a.venda_lote_id as string, a]));
+
+  return (lotes ?? []).map((l) => {
+    const ap = apuracaoPorId.get(l.id as string);
+    return {
+      vendaLoteId: l.id as string,
+      curralCodigo: (l.currais as unknown as { codigo: string } | null)?.codigo ?? "?",
+      dataSaida: l.data_saida,
+      frigorifico: l.frigorifico,
+      cabecas: ap?.cabecas ?? 0,
+      lucroLote: ap?.lucro_lote ?? null,
+      lucroPorCab: ap?.lucro_por_cab ?? null,
+    };
+  });
+}
+
+export type ApuracaoVenda = {
+  vendaLoteId: string;
+  curralCodigo: string;
+  frigorifico: string | null;
+  nf: string | null;
+  dataAbate: string | null;
+  dataSaida: string | null;
+  cabecas: number;
+  precoArroba: number;
+  precoArrobaEntrada: number;
+  pesoCarcacaTotal: number | null;
+  deducoes: number;
+  pesoEntradaTotalKg: number;
+  pesoSaidaTotalKg: number;
+  pesoMedioEntradaKg: number;
+  pesoMedioSaidaKg: number;
+  ganhoTotalKg: number;
+  diasConfinamentoMedio: number;
+  gmdMedio: number | null;
+  arrobasCarcaca: number | null;
+  carcacaMediaPorCab: number | null;
+  rendimentoCalculado: number | null;
+  valorBruto: number | null;
+  valorLiquido: number | null;
+  custoEntrada: number;
+  custoRacaoVendidos: number;
+  custoFixoVendidos: number;
+  custoTotal: number;
+  custoTotalPorCab: number;
+  lucroLote: number | null;
+  lucroPorCab: number | null;
+  margem: number | null;
+  roi: number | null;
+  custoArrobaSoRacao: number | null;
+  custoArrobaTotal: number | null;
+};
+
+export async function getApuracaoVenda(fazendaId: string, vendaLoteId: string): Promise<ApuracaoVenda | null> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("v_venda_apuracao")
+    .select("*")
+    .eq("fazenda_id", fazendaId)
+    .eq("venda_lote_id", vendaLoteId)
+    .maybeSingle();
+  if (!data) return null;
+
+  const { data: curral } = await supabase.from("currais").select("codigo").eq("id", data.curral_id).maybeSingle();
+
+  return {
+    vendaLoteId: data.venda_lote_id as string,
+    curralCodigo: curral?.codigo ?? "?",
+    frigorifico: data.frigorifico,
+    nf: data.nf,
+    dataAbate: data.data_abate,
+    dataSaida: data.data_saida,
+    cabecas: data.cabecas,
+    precoArroba: data.preco_arroba,
+    precoArrobaEntrada: data.preco_arroba_entrada,
+    pesoCarcacaTotal: data.peso_carcaca_total,
+    deducoes: data.deducoes,
+    pesoEntradaTotalKg: data.peso_entrada_total_kg,
+    pesoSaidaTotalKg: data.peso_saida_total_kg,
+    pesoMedioEntradaKg: data.peso_medio_entrada_kg,
+    pesoMedioSaidaKg: data.peso_medio_saida_kg,
+    ganhoTotalKg: data.ganho_total_kg,
+    diasConfinamentoMedio: data.dias_confinamento_medio,
+    gmdMedio: data.gmd_medio,
+    arrobasCarcaca: data.arrobas_carcaca,
+    carcacaMediaPorCab: data.carcaca_media_por_cab,
+    rendimentoCalculado: data.rendimento_calculado,
+    valorBruto: data.valor_bruto,
+    valorLiquido: data.valor_liquido,
+    custoEntrada: data.custo_entrada,
+    custoRacaoVendidos: data.custo_racao_vendidos,
+    custoFixoVendidos: data.custo_fixo_vendidos,
+    custoTotal: data.custo_total,
+    custoTotalPorCab: data.custo_total_por_cab,
+    lucroLote: data.lucro_lote,
+    lucroPorCab: data.lucro_por_cab,
+    margem: data.margem,
+    roi: data.roi,
+    custoArrobaSoRacao: data.custo_arroba_so_racao,
+    custoArrobaTotal: data.custo_arroba_total,
+  };
+}
