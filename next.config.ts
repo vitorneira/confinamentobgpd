@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
   // arquivos da Vercel também não pega esse require dinâmico sozinho.
   outputFileTracingIncludes: {
     "/api/folha-campo": ["./node_modules/pdfkit/js/data/**/*"],
+    "/api/venda-recibo": ["./node_modules/pdfkit/js/data/**/*"],
   },
 };
 

@@ -1,8 +1,20 @@
-// Testa a apuração de venda (Etapa 8) contra o fechamento real do lote de
-// touros Nelore da BG (aba Venda_Nelore, curral 4-TN), sem tocar animais.status
-// nem "vender" o lote de verdade: insere venda_lote/venda_item, lê a view,
-// confere contra os números da planilha original e desfaz tudo no final.
+// Testa a apuração de venda (Etapa 8) contra os números da aba Venda_Nelore
+// original (curral 4-TN, BG). Usa dados 100% SINTÉTICOS (curral/animais/tratos
+// próprios, datas em 2099) em vez do lote real: o dono já fechou aquele lote
+// de verdade (venda_lote real, curral 4-TN 100% vendido), então não dá mais
+// pra usá-lo como fixture sem se misturar com dado real.
+//
+// Também simula a baixa automática de verdade (marca os animais como
+// 'vendido', esvaziando o curral de teste) — foi exatamente esse cenário
+// ("curral fica com 0 cabeças ativas") que expôs o bug do rateio de custo de
+// ração dividindo por zero/nulo e propagando NULL pro lucro inteiro
+// (corrigido em 0007_venda_rateio_fix.sql).
 import { supabase } from "../import/lib";
+
+const DATA_SAIDA = "2099-08-12";
+const NUM_ANIMAIS = 29;
+const PESO_ENTRADA_TOTAL = 13462;
+const PESO_SAIDA_TOTAL = 16203;
 
 function proximo(valor: number | null, esperado: number, tolerancia: number): boolean {
   if (valor === null) return false;
@@ -10,35 +22,66 @@ function proximo(valor: number | null, esperado: number, tolerancia: number): bo
 }
 
 async function main() {
-  console.log("\n== Fechamento do lote Nelore (curral 4-TN, BG) bate com a planilha ==");
+  console.log("\n== Apuração de venda bate com a planilha (Venda_Nelore), incl. curral esvaziado pela baixa ==");
 
   const { data: fazenda } = await supabase.from("fazendas").select("id").eq("codigo", "BG").single();
-  const { data: curral } = await supabase
-    .from("currais")
-    .select("id")
-    .eq("fazenda_id", fazenda!.id)
-    .eq("codigo", "4-TN")
-    .single();
+  const { data: categoria } = await supabase.from("categorias").select("id").eq("fazenda_id", fazenda!.id).limit(1).single();
 
-  const { data: animais } = await supabase
-    .from("animais")
+  const { data: curral, error: curralErr } = await supabase
+    .from("currais")
+    .insert({ fazenda_id: fazenda!.id, codigo: "TESTE-VENDA-TEMP", descricao: "sintético, teste de regressão" })
     .select("id")
-    .eq("curral_id", curral!.id)
-    .eq("status", "ativo");
-  if (!animais || animais.length !== 29) {
-    throw new Error(`Esperava 29 animais ativos no curral 4-TN, achei ${animais?.length ?? 0}. Abortando teste.`);
-  }
+    .single();
+  if (curralErr) throw curralErr;
+  const curralId = curral!.id as string;
+
+  // 28 animais com 42 dias confinados + 1 com 41 dias = 1217 cab-dias, igual
+  // ao "1.217 cab-dias" citado na planilha pro custo fixo.
+  const pesoEntradaUnit = PESO_ENTRADA_TOTAL / NUM_ANIMAIS;
+  const pesoSaidaUnit = PESO_SAIDA_TOTAL / NUM_ANIMAIS;
+  const animaisRows = Array.from({ length: NUM_ANIMAIS }, (_, i) => ({
+    fazenda_id: fazenda!.id,
+    tipo: "individual" as const,
+    categoria_id: categoria!.id,
+    curral_id: curralId,
+    data_entrada: i === 0 ? "2099-07-02" : "2099-07-01",
+    brinco: `TESTE-VENDA-${i + 1}`,
+    peso_entrada_kg: pesoEntradaUnit,
+  }));
+  const { data: animais, error: animaisErr } = await supabase.from("animais").insert(animaisRows).select("id");
+  if (animaisErr) throw animaisErr;
+
+  await supabase.from("pesagens").insert(
+    animais!.map((a) => ({
+      fazenda_id: fazenda!.id,
+      animal_id: a.id,
+      data: DATA_SAIDA,
+      curral_id: curralId,
+      peso_kg: pesoSaidaUnit,
+    })),
+  );
+
+  // Um único trato cobre o custo de ração real (20138.405 na planilha).
+  const { data: dieta } = await supabase.from("dietas").select("id").eq("fazenda_id", fazenda!.id).limit(1).single();
+  await supabase.from("tratos_diarios").insert({
+    fazenda_id: fazenda!.id,
+    data: DATA_SAIDA,
+    curral_id: curralId,
+    trato_manha_kg: 20138.405,
+    dieta_id: dieta!.id,
+    preco_dieta_congelado: 1,
+  });
 
   const { data: vendaLote, error: vendaErr } = await supabase
     .from("venda_lote")
     .insert({
       fazenda_id: fazenda!.id,
-      curral_id: curral!.id,
+      curral_id: curralId,
       frigorifico: "PRIMA FOODS S.A. — Araguari/MG",
       nf: "NF 78727 · PR/01-239058-01",
-      data_abate: "2026-08-13",
-      data_saida: "2026-08-12",
-      cabecas: 29,
+      data_abate: "2099-08-13",
+      data_saida: DATA_SAIDA,
+      cabecas: NUM_ANIMAIS,
       preco_arroba: 330,
       preco_arroba_entrada: 310,
       peso_carcaca_total: 8819.5,
@@ -49,10 +92,10 @@ async function main() {
   if (vendaErr) throw vendaErr;
   const vendaLoteId = vendaLote.id as string;
 
-  const { error: itensErr } = await supabase
-    .from("venda_item")
-    .insert(animais.map((a) => ({ venda_lote_id: vendaLoteId, animal_id: a.id })));
-  if (itensErr) throw itensErr;
+  await supabase.from("venda_item").insert(animais!.map((a) => ({ venda_lote_id: vendaLoteId, animal_id: a.id })));
+
+  // Baixa automática de verdade — é isso que esvazia o curral e expôs o bug.
+  await supabase.from("animais").update({ status: "vendido" }).in("id", animais!.map((a) => a.id));
 
   const { data: ap, error: apErr } = await supabase
     .from("v_venda_apuracao")
@@ -64,7 +107,7 @@ async function main() {
   const checks: Array<[string, number | null, number, number]> = [
     ["peso_entrada_total_kg (esperado 13462)", ap.peso_entrada_total_kg, 13462, 1],
     ["custo_entrada (esperado 139107.33)", ap.custo_entrada, 139107.33, 1],
-    ["custo_racao_vendidos (esperado 20138.40)", ap.custo_racao_vendidos, 20138.4, 1],
+    ["custo_racao_vendidos (esperado 20138.40, não-nulo mesmo com curral vazio)", ap.custo_racao_vendidos, 20138.4, 1],
     ["custo_fixo_vendidos (esperado 3042.50)", ap.custo_fixo_vendidos, 3042.5, 0.5],
     ["custo_total (esperado 162288.24)", ap.custo_total, 162288.24, 2],
     ["valor_liquido (esperado 193640.94)", ap.valor_liquido, 193640.94, 1],
@@ -84,7 +127,11 @@ async function main() {
 
   await supabase.from("venda_item").delete().eq("venda_lote_id", vendaLoteId);
   await supabase.from("venda_lote").delete().eq("id", vendaLoteId);
-  console.log("  limpo (venda_lote/venda_item de teste removidos; animais não foram alterados).");
+  await supabase.from("tratos_diarios").delete().eq("curral_id", curralId);
+  await supabase.from("pesagens").delete().in("animal_id", animais!.map((a) => a.id));
+  await supabase.from("animais").delete().in("id", animais!.map((a) => a.id));
+  await supabase.from("currais").delete().eq("id", curralId);
+  console.log("  limpo (tudo sintético; nenhum dado real da fazenda foi tocado).");
 
   if (falhas > 0) {
     throw new Error(`${falhas} verificação(ões) falharam.`);
