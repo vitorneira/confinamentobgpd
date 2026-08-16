@@ -60,7 +60,7 @@ export async function gerarFolhaCampoPDF(params: FolhaCampoParams): Promise<Buff
 
     doc.font("Helvetica-Bold").fontSize(10).text("DATA:", mm(150), y);
     doc.rect(mm(163), y - mm(1.5), mm(32), mm(7)).stroke();
-    doc.font("Helvetica").fontSize(8).text("____/____/______", mm(164), y + mm(4));
+    doc.font("Helvetica").fontSize(11).text("__/__/____", mm(167), y + mm(0.3));
 
     doc.font("Helvetica-Oblique").fontSize(8);
     const instrucao =
@@ -93,7 +93,9 @@ export async function gerarFolhaCampoPDF(params: FolhaCampoParams): Promise<Buff
         idx++;
         const rowTop = top + r * rowH;
         const baseline = rowTop + rowH - mm(2);
-        doc.moveTo(x, baseline).lineTo(x + colW - mm(4), baseline).lineWidth(0.4).stroke();
+        // a linha para de escrever o brinco antes da caixa do peso — não pode
+        // cruzar por cima dela
+        doc.moveTo(x, baseline).lineTo(x + colW - mm(26), baseline).lineWidth(0.4).stroke();
         doc.font("Helvetica").fontSize(10).text(label, x + mm(1), baseline - mm(5.5));
         doc.rect(x + colW - mm(24), rowTop + mm(2.2), mm(20), rowH - mm(2.5)).stroke();
       }
