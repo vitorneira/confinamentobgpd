@@ -43,3 +43,6 @@ next-env.d.ts
 
 # claude code (config local, não versionar)
 .claude/settings.local.json
+
+# pacote de referência pessoal do dono (fora de dados_originais/, não faz parte do app)
+/Arquivos consulta pessoal/

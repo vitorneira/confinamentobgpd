@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { totalAjustado } from "@/lib/guia-trato/balanceamento";
 
 export type CurralComDieta = {
   curralId: string;
@@ -99,4 +100,110 @@ export async function getUltimoGuiaAntesDe(
     .maybeSingle();
   if (!guia) return null;
   return getGuiaTrato(fazendaId, guia.data as string);
+}
+
+export type ItemConfirmacao = {
+  data: string;
+  curralId: string;
+  curralCodigo: string;
+  dietaNome: string | null;
+  kgPlanejado: number;
+  kgConfirmado: number | null;
+  confirmado: boolean;
+};
+
+/**
+ * Curral/dia planejados (guia_trato_curral), cruzados com o trato já
+ * confirmado (tratos_diarios) daquele curral/dia — "confirmado" não tem
+ * coluna própria, é só o trato existir ou não pra aquele par.
+ */
+export async function getItensConfirmacao(
+  fazendaId: string,
+  filtros: { curralId?: string; dataInicio?: string; dataFim?: string },
+): Promise<ItemConfirmacao[]> {
+  const supabase = await createClient();
+
+  let guiaQuery = supabase
+    .from("guia_trato")
+    .select("id, data")
+    .eq("fazenda_id", fazendaId)
+    .order("data", { ascending: false });
+  if (filtros.dataInicio) guiaQuery = guiaQuery.gte("data", filtros.dataInicio);
+  if (filtros.dataFim) guiaQuery = guiaQuery.lte("data", filtros.dataFim);
+  const { data: guias } = await guiaQuery;
+  if (!guias || guias.length === 0) return [];
+
+  const guiaPorId = new Map(guias.map((g) => [g.id as string, g.data as string]));
+  const guiaIds = guias.map((g) => g.id as string);
+  const datas = [...new Set(guias.map((g) => g.data as string))];
+
+  let curralQuery = supabase
+    .from("guia_trato_curral")
+    .select("guia_trato_id, curral_id, total_dia_kg, ajuste_pct, ajuste_kg, currais(codigo)")
+    .in("guia_trato_id", guiaIds);
+  if (filtros.curralId) curralQuery = curralQuery.eq("curral_id", filtros.curralId);
+  const { data: porCurral } = await curralQuery;
+  if (!porCurral || porCurral.length === 0) return [];
+
+  const curralIds = [...new Set(porCurral.map((p) => p.curral_id as string))];
+
+  const { data: tratos } = await supabase
+    .from("tratos_diarios")
+    .select("curral_id, data, trato_manha_kg, trato_almoco_kg, trato_tarde_kg, dietas(nome)")
+    .eq("fazenda_id", fazendaId)
+    .in("curral_id", curralIds)
+    .in("data", datas);
+  const tratoPorChave = new Map((tratos ?? []).map((t) => [`${t.curral_id}|${t.data}`, t]));
+
+  // dieta vigente por (data, curral) pra exibir enquanto não foi confirmado
+  const dietaPorDataCurral = new Map<string, string | null>();
+  for (const data of datas) {
+    const currais = await getCurraisComDietaVigente(fazendaId, data);
+    for (const c of currais) dietaPorDataCurral.set(`${c.curralId}|${data}`, c.dietaNome);
+  }
+
+  return porCurral
+    .map((p) => {
+      const data = guiaPorId.get(p.guia_trato_id as string)!;
+      const chave = `${p.curral_id}|${data}`;
+      const trato = tratoPorChave.get(chave);
+      return {
+        data,
+        curralId: p.curral_id as string,
+        curralCodigo: (p.currais as unknown as { codigo: string } | null)?.codigo ?? "?",
+        dietaNome: trato
+          ? ((trato.dietas as unknown as { nome: string } | null)?.nome ?? null)
+          : (dietaPorDataCurral.get(chave) ?? null),
+        kgPlanejado: totalAjustado(p.total_dia_kg as number, p.ajuste_pct as number, p.ajuste_kg as number),
+        kgConfirmado: trato
+          ? Number(trato.trato_manha_kg) + Number(trato.trato_almoco_kg) + Number(trato.trato_tarde_kg)
+          : null,
+        confirmado: !!trato,
+      };
+    })
+    .sort((a, b) => b.data.localeCompare(a.data) || a.curralCodigo.localeCompare(b.curralCodigo));
+}
+
+export type VagaoSalvo = { dietaId: string; horario: "manha" | "almoco" | "tarde"; cargas: number[] };
+
+export async function getVagoesSalvos(guiaTratoId: string): Promise<VagaoSalvo[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("guia_trato_vagao")
+    .select("dieta_id, horario, vagao_index, carga_kg")
+    .eq("guia_trato_id", guiaTratoId)
+    .order("vagao_index");
+
+  const porChave = new Map<string, VagaoSalvo>();
+  for (const row of data ?? []) {
+    const chave = `${row.dieta_id}|${row.horario}`;
+    const entrada = porChave.get(chave) ?? {
+      dietaId: row.dieta_id as string,
+      horario: row.horario as "manha" | "almoco" | "tarde",
+      cargas: [],
+    };
+    entrada.cargas[row.vagao_index as number] = row.carga_kg as number;
+    porChave.set(chave, entrada);
+  }
+  return [...porChave.values()];
 }

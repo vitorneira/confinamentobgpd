@@ -2,10 +2,11 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { calcularBalanceamento, type CurralAjuste } from "@/lib/guia-trato/balanceamento";
-import { confirmarGuia } from "./actions";
+import { calcularBalanceamento, type CurralAjuste, type ResumoHorario } from "@/lib/guia-trato/balanceamento";
+import { salvarPlano, salvarVagoes } from "./actions";
 import { ScrollHint } from "@/components/ScrollHint";
 import { formatNumero, formatPercentual } from "@/lib/format";
+import type { VagaoSalvo } from "@/lib/queries/guia-trato";
 
 type CurralInicial = {
   curralId: string;
@@ -19,25 +20,111 @@ type CurralInicial = {
 
 const LABEL_HORARIO = { manha: "Manhã", almoco: "Almoço", tarde: "Tarde" } as const;
 
+function VagoesEditor({
+  fazendaCodigo,
+  guiaTratoId,
+  dietaId,
+  horario,
+  resumo,
+  cargasSalvas,
+}: {
+  fazendaCodigo: string;
+  guiaTratoId: string | null;
+  dietaId: string;
+  horario: "manha" | "almoco" | "tarde";
+  resumo: ResumoHorario;
+  cargasSalvas?: number[];
+}) {
+  const [pending, startTransition] = useTransition();
+  const [erro, setErro] = useState<string | null>(null);
+  const [sucesso, setSucesso] = useState(false);
+  // Sem useEffect de propósito: o pai remonta este componente (via `key`)
+  // quando numVagoes/totalKg mudam, então o estado inicial já nasce certo.
+  const [cargas, setCargas] = useState<number[]>(cargasSalvas?.length === resumo.numVagoes ? cargasSalvas : resumo.vagoesSugeridos);
+
+  const soma = cargas.reduce((acc, v) => acc + v, 0);
+  const fecha = Math.abs(soma - resumo.totalKg) <= 0.5;
+
+  if (resumo.numVagoes === 0) return null;
+
+  return (
+    <div className="mt-2 space-y-2 border-t border-zinc-100 pt-2 dark:border-zinc-800">
+      <div className="flex flex-wrap gap-2">
+        {cargas.map((carga, i) => (
+          <label key={i} className="text-xs">
+            <span className="mb-0.5 block text-zinc-400">Vagão {i + 1}</span>
+            <input
+              type="number"
+              step="0.1"
+              value={carga}
+              onChange={(e) =>
+                setCargas((prev) => prev.map((v, idx) => (idx === i ? Number(e.target.value) : v)))
+              }
+              className="w-24 rounded border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-950"
+            />
+          </label>
+        ))}
+      </div>
+      <p className={`text-xs ${fecha ? "text-zinc-500" : "text-red-600"}`}>
+        Soma: {formatNumero(soma, 1)} kg (devido: {formatNumero(resumo.totalKg, 1)} kg)
+      </p>
+      {!guiaTratoId && <p className="text-xs text-amber-600">Salve o plano do dia antes de editar os vagões.</p>}
+      <button
+        type="button"
+        disabled={pending || !fecha || !guiaTratoId}
+        onClick={() => {
+          if (!guiaTratoId) return;
+          setErro(null);
+          setSucesso(false);
+          startTransition(async () => {
+            const r = await salvarVagoes(fazendaCodigo, {
+              guiaTratoId,
+              dietaId,
+              horario,
+              cargas,
+              totalEsperado: resumo.totalKg,
+            });
+            if (!r.ok) {
+              setErro(r.erro ?? "Erro ao salvar.");
+              return;
+            }
+            setSucesso(true);
+          });
+        }}
+        className="rounded border border-zinc-300 px-3 py-1 text-xs font-medium disabled:opacity-40 dark:border-zinc-700"
+      >
+        {pending ? "Salvando..." : "Salvar vagões"}
+      </button>
+      {erro && <p className="text-xs text-red-600">{erro}</p>}
+      {sucesso && <p className="text-xs text-green-700 dark:text-green-400">Salvo.</p>}
+    </div>
+  );
+}
+
 export function GuiaTratoForm({
   fazendaCodigo,
   fazendaId,
   data,
+  guiaTratoIdInicial,
   capacidadeVagaoInicial,
   splitInicial,
   curraisIniciais,
+  vagoesSalvosIniciais,
 }: {
   fazendaCodigo: string;
   fazendaId: string;
   data: string;
+  guiaTratoIdInicial: string | null;
   capacidadeVagaoInicial: number;
   splitInicial: { manha: number; almoco: number; tarde: number };
   curraisIniciais: CurralInicial[];
+  vagoesSalvosIniciais: VagaoSalvo[];
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [erro, setErro] = useState<string | null>(null);
   const [sucesso, setSucesso] = useState(false);
+  const [guiaTratoId, setGuiaTratoId] = useState(guiaTratoIdInicial);
 
   const [capacidadeVagao, setCapacidadeVagao] = useState(capacidadeVagaoInicial);
   const [split, setSplit] = useState(splitInicial);
@@ -64,11 +151,11 @@ export function GuiaTratoForm({
     setCurrais((prev) => prev.map((c) => (c.curralId === curralId ? { ...c, [campo]: valor } : c)));
   }
 
-  function handleConfirmar() {
+  function handleSalvarPlano() {
     setErro(null);
     setSucesso(false);
     startTransition(async () => {
-      const resultado = await confirmarGuia({
+      const resultado = await salvarPlano({
         fazendaCodigo,
         fazendaId,
         data,
@@ -84,15 +171,17 @@ export function GuiaTratoForm({
         })),
       });
       if (!resultado.ok) {
-        setErro(resultado.erro ?? "Erro ao confirmar.");
+        setErro(resultado.erro ?? "Erro ao salvar.");
         return;
       }
+      setGuiaTratoId(resultado.guiaTratoId ?? null);
       setSucesso(true);
       router.refresh();
     });
   }
 
   const semDieta = currais.filter((c) => !c.dietaId);
+  const vagoesSalvosPorChave = new Map(vagoesSalvosIniciais.map((v) => [`${v.dietaId}|${v.horario}`, v.cargas]));
 
   return (
     <div className="space-y-6">
@@ -200,23 +289,47 @@ export function GuiaTratoForm({
         </table>
       </div>
 
+      {erro && <p className="text-sm text-red-600">{erro}</p>}
+      {sucesso && <p className="text-sm text-green-700 dark:text-green-400">Plano salvo.</p>}
+      <button
+        type="button"
+        onClick={handleSalvarPlano}
+        disabled={pending}
+        className="rounded bg-black px-6 py-2.5 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
+      >
+        {pending ? "Salvando..." : "Salvar plano do dia"}
+      </button>
+
       <div>
-        <h2 className="mb-3 text-sm font-medium uppercase tracking-wide text-zinc-500">
+        <h2 className="mb-1 text-sm font-medium uppercase tracking-wide text-zinc-500">
           Vagões por horário (balanceados)
         </h2>
+        <p className="mb-3 text-xs text-zinc-500">
+          O sistema sugere a divisão equilibrada; você pode editar o kg de cada vagão, desde que a soma continue
+          fechando com o total devido.
+        </p>
         <div className="space-y-4">
           {balanceamento.porDieta.map((d) => (
             <div key={d.dietaId} className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
               <p className="mb-2 font-medium text-black dark:text-zinc-50">Dieta: {d.dietaNome}</p>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 {d.horarios.map((h) => (
                   <div key={h.horario} className="rounded border border-zinc-200 p-3 dark:border-zinc-800">
                     <p className="text-xs text-zinc-500">{LABEL_HORARIO[h.horario]}</p>
                     <p className="tabular-nums font-medium">{formatNumero(h.totalKg)} kg</p>
                     <p className="text-xs text-zinc-500">
-                      {h.numVagoes} vagões · {formatNumero(h.cargaPorVagao)} kg cada ·{" "}
+                      {h.numVagoes} {h.numVagoes === 1 ? "vagão" : "vagões"} · {formatNumero(h.cargaPorVagao)} kg cada ·{" "}
                       {formatPercentual(h.aproveitamento)} aproveitamento
                     </p>
+                    <VagoesEditor
+                      key={`${d.dietaId}-${h.horario}-${h.numVagoes}-${h.totalKg.toFixed(1)}`}
+                      fazendaCodigo={fazendaCodigo}
+                      guiaTratoId={guiaTratoId}
+                      dietaId={d.dietaId}
+                      horario={h.horario}
+                      resumo={h}
+                      cargasSalvas={vagoesSalvosPorChave.get(`${d.dietaId}|${h.horario}`)}
+                    />
                   </div>
                 ))}
               </div>
@@ -224,21 +337,6 @@ export function GuiaTratoForm({
           ))}
         </div>
       </div>
-
-      {erro && <p className="text-sm text-red-600">{erro}</p>}
-      {sucesso && (
-        <p className="text-sm text-green-700 dark:text-green-400">
-          Guia confirmado — tratos do dia {data} registrados.
-        </p>
-      )}
-      <button
-        type="button"
-        onClick={handleConfirmar}
-        disabled={pending}
-        className="rounded bg-black px-6 py-2.5 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
-      >
-        {pending ? "Confirmando..." : "Confirmar guia do dia"}
-      </button>
     </div>
   );
 }

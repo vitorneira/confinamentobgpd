@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/api/folha-campo": ["./node_modules/pdfkit/js/data/**/*"],
     "/api/venda-recibo": ["./node_modules/pdfkit/js/data/**/*"],
+    "/api/guia-trato-folha": ["./node_modules/pdfkit/js/data/**/*"],
   },
 };
 

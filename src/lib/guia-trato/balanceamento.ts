@@ -16,6 +16,8 @@ export type ResumoHorario = {
   numVagoes: number;
   cargaPorVagao: number;
   aproveitamento: number;
+  /** Sugestão: carga igual em todos. Editável — ver guia_trato_vagao. */
+  vagoesSugeridos: number[];
 };
 
 export type ResumoDieta = {
@@ -43,11 +45,18 @@ function balancearHorario(
   capacidadeVagao: number,
 ): ResumoHorario {
   if (totalKg <= 0 || capacidadeVagao <= 0) {
-    return { horario, totalKg, numVagoes: 0, cargaPorVagao: 0, aproveitamento: 0 };
+    return { horario, totalKg, numVagoes: 0, cargaPorVagao: 0, aproveitamento: 0, vagoesSugeridos: [] };
   }
   const numVagoes = Math.ceil(totalKg / capacidadeVagao);
   const cargaPorVagao = totalKg / numVagoes;
-  return { horario, totalKg, numVagoes, cargaPorVagao, aproveitamento: cargaPorVagao / capacidadeVagao };
+  return {
+    horario,
+    totalKg,
+    numVagoes,
+    cargaPorVagao,
+    aproveitamento: cargaPorVagao / capacidadeVagao,
+    vagoesSugeridos: Array(numVagoes).fill(cargaPorVagao),
+  };
 }
 
 /**
