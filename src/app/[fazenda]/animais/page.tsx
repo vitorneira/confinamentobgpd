@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getFazendaByCodigo } from "@/lib/queries/fazenda";
 import { getAnimaisIndicadores, getCurraisEcategorias } from "@/lib/queries/animais";
 import { StatusBadge } from "@/components/StatusBadge";
+import { ScrollHint } from "@/components/ScrollHint";
 import { formatNumero } from "@/lib/format";
 
 export default async function AnimaisPage({
@@ -68,6 +69,7 @@ export default async function AnimaisPage({
 
       <p className="mb-2 text-sm text-zinc-500">{animais.length} animais</p>
 
+      <ScrollHint />
       <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
         <table className="w-full text-sm">
           <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">

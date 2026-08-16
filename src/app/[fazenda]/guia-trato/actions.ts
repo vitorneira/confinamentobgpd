@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { totalAjustado } from "@/lib/guia-trato/balanceamento";
 import { getCurraisComDietaVigente } from "@/lib/queries/guia-trato";
+import { erroAmigavel } from "@/lib/erros";
 
 export type CurralPayload = {
   curralId: string;
@@ -51,7 +52,7 @@ export async function confirmarGuia(
     )
     .select("id")
     .single();
-  if (guiaErr) return { ok: false, erro: guiaErr.message };
+  if (guiaErr) return { ok: false, erro: erroAmigavel(guiaErr) };
 
   const { error: curralErr } = await supabase.from("guia_trato_curral").upsert(
     payload.currais.map((c) => ({
@@ -63,7 +64,7 @@ export async function confirmarGuia(
     })),
     { onConflict: "guia_trato_id,curral_id" },
   );
-  if (curralErr) return { ok: false, erro: curralErr.message };
+  if (curralErr) return { ok: false, erro: erroAmigavel(curralErr) };
 
   const curraisComDieta = await getCurraisComDietaVigente(payload.fazendaId, payload.data);
   const dietaPorCurral = new Map(curraisComDieta.map((c) => [c.curralId, c]));
@@ -73,7 +74,7 @@ export async function confirmarGuia(
     .from("v_dieta_custo_vitrine")
     .select("dieta_id, custo_por_kg")
     .in("dieta_id", dietaIds);
-  if (custoErr) return { ok: false, erro: custoErr.message };
+  if (custoErr) return { ok: false, erro: erroAmigavel(custoErr) };
   const custoPorDieta = new Map((custosVitrine ?? []).map((c) => [c.dieta_id as string, c.custo_por_kg as number]));
 
   const tratos = [];
@@ -99,7 +100,7 @@ export async function confirmarGuia(
   const { error: tratoErr } = await supabase
     .from("tratos_diarios")
     .upsert(tratos, { onConflict: "fazenda_id,curral_id,data" });
-  if (tratoErr) return { ok: false, erro: tratoErr.message };
+  if (tratoErr) return { ok: false, erro: erroAmigavel(tratoErr) };
 
   revalidatePath(`/${payload.fazendaCodigo.toLowerCase()}/guia-trato`);
   revalidatePath(`/${payload.fazendaCodigo.toLowerCase()}/dashboard`);

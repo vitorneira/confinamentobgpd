@@ -43,7 +43,7 @@ export default async function GuiaTratoPage({
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-xl font-semibold text-black dark:text-zinc-50">Guia de Trato — {data}</h1>
         {guiaExistente && <span className="text-xs text-zinc-500">já confirmado neste dia (editando)</span>}
       </div>

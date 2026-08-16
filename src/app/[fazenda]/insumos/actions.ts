@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { erroAmigavel } from "@/lib/erros";
 
 function ok(fazendaCodigo: string) {
   const base = `/${fazendaCodigo.toLowerCase()}`;
@@ -28,7 +29,7 @@ export async function registrarCompra(
     qtd_kg: input.qtdKg,
     fornecedor: input.fornecedor,
   });
-  if (error) return { ok: false, erro: error.message };
+  if (error) return { ok: false, erro: erroAmigavel(error) };
 
   ok(fazendaCodigo);
   return { ok: true };
@@ -46,7 +47,7 @@ export async function criarIngrediente(
     .insert({ fazenda_id: fazendaId, nome: nome.trim() })
     .select("id")
     .single();
-  if (error) return { ok: false, erro: error.message };
+  if (error) return { ok: false, erro: erroAmigavel(error) };
   ok(fazendaCodigo);
   return { ok: true, id: data.id as string };
 }
@@ -71,12 +72,12 @@ export async function salvarComposicaoDieta(
       .insert({ fazenda_id: fazendaId, nome: input.nome.trim() })
       .select("id")
       .single();
-    if (error) return { ok: false, erro: error.message };
+    if (error) return { ok: false, erro: erroAmigavel(error) };
     dietaId = data.id as string;
   }
 
   const { error: delErr } = await supabase.from("dieta_ingredientes").delete().eq("dieta_id", dietaId);
-  if (delErr) return { ok: false, erro: delErr.message };
+  if (delErr) return { ok: false, erro: erroAmigavel(delErr) };
 
   const { error: insErr } = await supabase.from("dieta_ingredientes").insert(
     input.composicao.map((c) => ({
@@ -85,7 +86,7 @@ export async function salvarComposicaoDieta(
       proporcao: c.proporcao,
     })),
   );
-  if (insErr) return { ok: false, erro: insErr.message };
+  if (insErr) return { ok: false, erro: erroAmigavel(insErr) };
 
   ok(fazendaCodigo);
   return { ok: true };
@@ -101,7 +102,7 @@ export async function definirVigencia(
     dieta_id: input.dietaId,
     data_inicio: input.dataInicio,
   });
-  if (error) return { ok: false, erro: error.message };
+  if (error) return { ok: false, erro: erroAmigavel(error) };
 
   ok(fazendaCodigo);
   return { ok: true };

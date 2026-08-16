@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getFazendaByCodigo } from "@/lib/queries/fazenda";
 import { getCurraisComAtivos, getAnimaisAtivosDoCurral, getVendasFechadas } from "@/lib/queries/vendas";
 import { FechamentoForm } from "./FechamentoForm";
+import { ScrollHint } from "@/components/ScrollHint";
 import { corResultado, formatData, formatMoeda } from "@/lib/format";
 
 export default async function VendasPage({
@@ -33,6 +34,7 @@ export default async function VendasPage({
 
       <section>
         <h2 className="mb-3 text-sm font-medium uppercase tracking-wide text-zinc-500">Vendas fechadas</h2>
+        <ScrollHint />
         <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">

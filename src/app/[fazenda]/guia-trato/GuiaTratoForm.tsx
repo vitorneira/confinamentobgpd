@@ -4,6 +4,7 @@ import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { calcularBalanceamento, type CurralAjuste } from "@/lib/guia-trato/balanceamento";
 import { confirmarGuia } from "./actions";
+import { ScrollHint } from "@/components/ScrollHint";
 import { formatNumero, formatPercentual } from "@/lib/format";
 
 type CurralInicial = {
@@ -147,6 +148,7 @@ export function GuiaTratoForm({
         Soma dos splits: {formatPercentual(somaSplit)}
       </p>
 
+      <ScrollHint />
       <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
         <table className="w-full text-sm">
           <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">

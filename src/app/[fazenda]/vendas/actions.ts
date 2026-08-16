@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { erroAmigavel } from "@/lib/erros";
 
 function ok(fazendaCodigo: string) {
   const base = `/${fazendaCodigo.toLowerCase()}`;
@@ -45,7 +46,7 @@ export async function fecharVenda(
     .from("animais")
     .select("id, tipo, status, quantidade, curral_id")
     .in("id", animalIds);
-  if (animaisErr) return { ok: false, erro: animaisErr.message };
+  if (animaisErr) return { ok: false, erro: erroAmigavel(animaisErr) };
 
   const animalPorId = new Map((animais ?? []).map((a) => [a.id as string, a]));
 
@@ -84,7 +85,7 @@ export async function fecharVenda(
     })
     .select("id")
     .single();
-  if (vendaErr) return { ok: false, erro: vendaErr.message };
+  if (vendaErr) return { ok: false, erro: erroAmigavel(vendaErr) };
   const vendaLoteId = vendaLote.id as string;
 
   const { error: itensErr } = await supabase.from("venda_item").insert(
@@ -94,14 +95,14 @@ export async function fecharVenda(
       quantidade: item.tipo === "agregado" ? item.quantidadeVendida : null,
     })),
   );
-  if (itensErr) return { ok: false, erro: itensErr.message };
+  if (itensErr) return { ok: false, erro: erroAmigavel(itensErr) };
 
   // Baixa automática: individual sai por inteiro; agregado abate a quantidade
   // vendida e só marca vendido quando a quantidade remanescente chega a zero.
   for (const item of input.itens) {
     if (item.tipo === "individual") {
       const { error } = await supabase.from("animais").update({ status: "vendido" }).eq("id", item.animalId);
-      if (error) return { ok: false, erro: error.message };
+      if (error) return { ok: false, erro: erroAmigavel(error) };
     } else {
       const animal = animalPorId.get(item.animalId)!;
       const restante = ((animal.quantidade as number) ?? 0) - (item.quantidadeVendida ?? 0);
@@ -109,7 +110,7 @@ export async function fecharVenda(
         .from("animais")
         .update(restante <= 0 ? { status: "vendido", quantidade: 0 } : { quantidade: restante })
         .eq("id", item.animalId);
-      if (error) return { ok: false, erro: error.message };
+      if (error) return { ok: false, erro: erroAmigavel(error) };
     }
   }
 

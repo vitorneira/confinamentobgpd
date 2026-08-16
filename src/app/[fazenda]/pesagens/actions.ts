@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { erroAmigavel } from "@/lib/erros";
 import { parsePlanilhaImportacao } from "@/lib/pesagens/parser";
 import {
   validarAnimaisNovos,
@@ -67,7 +68,7 @@ export async function confirmarImportacao(
         })),
       )
       .select("id, brinco");
-    if (error) return { ok: false, erro: `Erro cadastrando animais: ${error.message}` };
+    if (error) return { ok: false, erro: `Erro cadastrando animais: ${erroAmigavel(error)}` };
     for (const a of inseridos ?? []) {
       if (a.brinco) brincoParaAnimalId.set((a.brinco as string).trim(), a.id as string);
     }
@@ -93,7 +94,7 @@ export async function confirmarImportacao(
         })),
       )
       .select("id, brinco");
-    if (error) return { ok: false, erro: `Erro cadastrando animais (via pesagem): ${error.message}` };
+    if (error) return { ok: false, erro: `Erro cadastrando animais (via pesagem): ${erroAmigavel(error)}` };
     for (const a of criados ?? []) {
       if (a.brinco) brincoParaAnimalId.set((a.brinco as string).trim(), a.id as string);
     }
@@ -110,7 +111,7 @@ export async function confirmarImportacao(
   }));
 
   const { error: pesagemErr } = await supabase.from("pesagens").insert(rows);
-  if (pesagemErr) return { ok: false, erro: `Erro gravando pesagens: ${pesagemErr.message}` };
+  if (pesagemErr) return { ok: false, erro: `Erro gravando pesagens: ${erroAmigavel(pesagemErr)}` };
 
   const base = `/${fazendaCodigo.toLowerCase()}`;
   revalidatePath(`${base}/dashboard`);
@@ -153,7 +154,7 @@ export async function lancarPesagemManual(
     peso_kg: input.pesoKg,
     evento_obs: "Lançamento manual",
   });
-  if (error) return { ok: false, erro: error.message };
+  if (error) return { ok: false, erro: erroAmigavel(error) };
 
   const base = `/${fazendaCodigo.toLowerCase()}`;
   revalidatePath(`${base}/dashboard`);

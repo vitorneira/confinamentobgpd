@@ -15,15 +15,20 @@ export default function LoginPage() {
     e.preventDefault();
     setErro(null);
     setCarregando(true);
-    const supabase = createClient();
-    const { error } = await supabase.auth.signInWithPassword({ email, password: senha });
-    setCarregando(false);
-    if (error) {
-      setErro("E-mail ou senha inválidos.");
-      return;
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithPassword({ email, password: senha });
+      if (error) {
+        setErro("E-mail ou senha inválidos.");
+        return;
+      }
+      router.push("/");
+      router.refresh();
+    } catch {
+      setErro("Não foi possível conectar. Verifique sua internet e tente de novo.");
+    } finally {
+      setCarregando(false);
     }
-    router.push("/");
-    router.refresh();
   }
 
   return (
