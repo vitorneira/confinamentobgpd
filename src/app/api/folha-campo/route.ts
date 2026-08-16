@@ -41,18 +41,30 @@ export async function GET(request: NextRequest) {
     brincos = (animais ?? []).map((a) => a.brinco as string);
   }
 
-  const pdf = await gerarFolhaCampoPDF({
-    fazenda: fazenda.codigo,
-    curral: curral.codigo,
-    modo,
-    brincos,
-    quantidade,
-  });
+  try {
+    const pdf = await gerarFolhaCampoPDF({
+      fazenda: fazenda.codigo,
+      curral: curral.codigo,
+      modo,
+      brincos,
+      quantidade,
+    });
 
-  return new NextResponse(new Uint8Array(pdf), {
-    headers: {
-      "Content-Type": "application/pdf",
-      "Content-Disposition": `inline; filename="folha-campo-${fazenda.codigo}-${curral.codigo}.pdf"`,
-    },
-  });
+    return new NextResponse(new Uint8Array(pdf), {
+      headers: {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `inline; filename="folha-campo-${fazenda.codigo}-${curral.codigo}.pdf"`,
+      },
+    });
+  } catch (err) {
+    // DEBUG TEMPORÁRIO — remover depois de descobrir a causa do 500 na Vercel
+    return NextResponse.json(
+      {
+        erro: "falha ao gerar PDF",
+        mensagem: err instanceof Error ? err.message : String(err),
+        stack: err instanceof Error ? err.stack : undefined,
+      },
+      { status: 500 },
+    );
+  }
 }
