@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
@@ -37,9 +38,30 @@ export default function LoginPage() {
         onSubmit={handleSubmit}
         className="w-full max-w-sm rounded-card border border-zinc-200 bg-white p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
       >
-        <h1 className="mb-6 text-xl font-semibold text-black dark:text-zinc-50">
-          Confinamento BG / PD
+        <div className="mb-5 flex justify-center">
+          <div className="flex h-24 w-24 items-center justify-center rounded-card bg-primary-50 p-3 dark:bg-primary-900/40">
+            <Image
+              src="/logo-bg-bordo.png"
+              alt="Bonsmara Barra Grande"
+              width={230}
+              height={100}
+              className="h-auto w-full dark:hidden"
+              priority
+            />
+            <Image
+              src="/logo-bg-mostarda.png"
+              alt="Bonsmara Barra Grande"
+              width={230}
+              height={100}
+              className="hidden h-auto w-full dark:block"
+              priority
+            />
+          </div>
+        </div>
+        <h1 className="text-center text-xl font-semibold text-black dark:text-zinc-50">
+          Gestão de Confinamento
         </h1>
+        <p className="mb-6 text-center text-sm text-zinc-500">Barra Grande &amp; Pau D&apos;Arco</p>
         <label className="mb-1 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
           E-mail
         </label>
