@@ -36,6 +36,21 @@ async function tratosAlemDoImportOriginal(fazendaId: string): Promise<boolean> {
   return !!data;
 }
 
+// Última pesagem do import original da BG (as vendas/abates de 12/08). Uso
+// real (lançamento manual ou planilha importada) cria pesagens depois disso.
+const LIMITE_PESAGENS_IMPORTADAS_BG = "2026-08-12";
+
+async function pesagensAlemDoImportOriginal(fazendaId: string): Promise<boolean> {
+  const { data } = await supabase
+    .from("pesagens")
+    .select("data")
+    .eq("fazenda_id", fazendaId)
+    .gt("data", LIMITE_PESAGENS_IMPORTADAS_BG)
+    .limit(1)
+    .maybeSingle();
+  return !!data;
+}
+
 async function testeCustoRealPorCurral() {
   console.log("\n== Custo real acumulado por curral (BG) — vs Custo_Nutricao_Lote.xlsx ==");
   const esperados: Record<string, number> = {
@@ -100,6 +115,15 @@ async function testeArrobaVivaTotal() {
   const esperados: Record<string, number> = { BG: 134331 / 30, PD: 258734 / 30 };
   for (const [codigo, esperado] of Object.entries(esperados)) {
     const { data: fazenda } = await supabase.from("fazendas").select("id").eq("codigo", codigo).single();
+
+    if (await pesagensAlemDoImportOriginal(fazenda!.id)) {
+      console.log(
+        `  ⊘ ${codigo} pulado: já existem pesagens reais depois de ${LIMITE_PESAGENS_IMPORTADAS_BG} (uso real do` +
+          " app, ex. planilha importada ou lançamento manual — o peso total legitimamente mudou).",
+      );
+      continue;
+    }
+
     const { data: rows, error } = await supabase
       .from("v_curral_indicadores")
       .select("arroba_viva_total")
@@ -181,6 +205,15 @@ async function testeRollupFazenda() {
 
   const rollup = calcularFazendaRollup(currais ?? [], parametros!);
   checar("numCabecas", rollup.numCabecas, 385, 0);
+
+  if (await pesagensAlemDoImportOriginal(fazenda!.id)) {
+    console.log(
+      `  ⊘ pesoTotalAtualKg/gmdMedio pulados: já existem pesagens reais depois de ${LIMITE_PESAGENS_IMPORTADAS_BG}` +
+        " (uso real do app — legitimamente não batem mais com o snapshot).",
+    );
+    return;
+  }
+
   checar("pesoTotalAtualKg", rollup.pesoTotalAtualKg, 134331, 0);
   checar("gmdMedio (Historico_KPIs AO VIVO)", rollup.gmdMedio, 2.3696280303497628, 0.001);
 }

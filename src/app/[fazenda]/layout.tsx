@@ -40,6 +40,9 @@ export default async function FazendaLayout({
           <Link href={`${base}/guia-trato`} className="whitespace-nowrap hover:text-black dark:hover:text-zinc-50">
             Guia de Trato
           </Link>
+          <Link href={`${base}/insumos`} className="whitespace-nowrap hover:text-black dark:hover:text-zinc-50">
+            Insumos
+          </Link>
         </div>
       </nav>
       <div className="flex-1 bg-zinc-50 dark:bg-black">{children}</div>
