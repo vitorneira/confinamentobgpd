@@ -20,6 +20,22 @@ function checar(label: string, atual: number | null, esperado: number, toleranci
   );
 }
 
+// Fronteira dos dados originais importados na Etapa 1 (BG). Uso real do app
+// (ex.: confirmar um Guia de Trato) cria tratos com data posterior a essa —
+// nesse caso os totais acumulados abaixo mudam de propósito (não é bug).
+const LIMITE_DADOS_IMPORTADOS_BG = "2026-08-11";
+
+async function tratosAlemDoImportOriginal(fazendaId: string): Promise<boolean> {
+  const { data } = await supabase
+    .from("tratos_diarios")
+    .select("data")
+    .eq("fazenda_id", fazendaId)
+    .gt("data", LIMITE_DADOS_IMPORTADOS_BG)
+    .limit(1)
+    .maybeSingle();
+  return !!data;
+}
+
 async function testeCustoRealPorCurral() {
   console.log("\n== Custo real acumulado por curral (BG) — vs Custo_Nutricao_Lote.xlsx ==");
   const esperados: Record<string, number> = {
@@ -29,6 +45,15 @@ async function testeCustoRealPorCurral() {
     "4-TN": 20138.40499999998,
   };
   const { data: fazenda } = await supabase.from("fazendas").select("id").eq("codigo", "BG").single();
+
+  if (await tratosAlemDoImportOriginal(fazenda!.id)) {
+    console.log(
+      `  ⊘ pulado: já existem tratos_diarios reais depois de ${LIMITE_DADOS_IMPORTADOS_BG} (uso real do app,` +
+        " ex. Guia de Trato confirmado — os acumulados legitimamente não batem mais com o snapshot do Excel).",
+    );
+    return;
+  }
+
   const { data: rows, error } = await supabase
     .from("v_curral_indicadores")
     .select("codigo, custo_racao_acumulado")
@@ -49,6 +74,12 @@ async function testeCustoCabDiaMedio() {
     "4-TN": 16.149482758620675,
   };
   const { data: fazenda } = await supabase.from("fazendas").select("id").eq("codigo", "BG").single();
+
+  if (await tratosAlemDoImportOriginal(fazenda!.id)) {
+    console.log(`  ⊘ pulado: mesma razão do teste de custo acumulado acima.`);
+    return;
+  }
+
   const { data: rows, error } = await supabase
     .from("v_curral_indicadores")
     .select("codigo, custo_cab_dia_medio_racao")
