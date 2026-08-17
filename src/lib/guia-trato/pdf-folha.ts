@@ -1,54 +1,57 @@
 import PDFDocument from "pdfkit";
 import { formatData, formatNumero } from "@/lib/format";
+import type { FolhaImpressao } from "./vagao-planilha";
 
 function mm(v: number): number {
   return v * 2.83464567;
 }
 
-export type ViagemImpressao = {
-  numero: number;
-  dietaNome: string;
-  curraisCodigos: string[];
-  kg: number;
-  ingredientes: Array<{ ingredienteNome: string; kg: number }>;
-};
+type Celula = { texto: string | string[]; negrito?: boolean; tamanho?: number; align?: "left" | "center" | "right" };
 
-export type HorarioImpressao = {
-  horario: "manha" | "almoco" | "tarde";
-  totalKg: number;
-  viagens: ViagemImpressao[];
-};
-
-export type CurralImpressao = {
-  curralCodigo: string;
-  dietaNome: string;
-  manha: number;
-  almoco: number;
-  tarde: number;
-};
-
-export type FolhaGuiaTratoInput = {
-  fazendaNome: string;
-  data: string;
-  currais: CurralImpressao[];
-  horarios: HorarioImpressao[];
-};
-
-const LABEL_HORARIO = { manha: "Manhã", almoco: "Almoço", tarde: "Tarde" } as const;
-
-/** Agrupa vagões do mesmo tamanho (arredondado a 0.1 kg) — vira uma "viagem" numerada cada. */
-export function agruparVagoes(cargas: number[]): Array<{ kg: number; quantidade: number }> {
-  const grupos = new Map<number, number>();
-  for (const carga of cargas) {
-    const chave = Math.round(carga * 10) / 10;
-    grupos.set(chave, (grupos.get(chave) ?? 0) + 1);
+/** Uma linha de tabela com borda fina em toda célula — layout genérico usado
+ * pelos dois blocos (curral e receita) da folha, no padrão da planilha
+ * original (bordas em tudo, cabeçalho em negrito, números grandes). */
+function desenharLinha(
+  doc: PDFKit.PDFDocument,
+  x: number,
+  y: number,
+  larguras: number[],
+  celulas: Celula[],
+  alturaLinha: number,
+) {
+  let cx = x;
+  for (let i = 0; i < celulas.length; i++) {
+    const w = larguras[i];
+    doc.lineWidth(0.75).rect(cx, y, w, alturaLinha).stroke("#000000");
+    const cel = celulas[i];
+    const linhas = Array.isArray(cel.texto) ? cel.texto : [cel.texto];
+    const tamanho = cel.tamanho ?? 10;
+    doc.font(cel.negrito ? "Helvetica-Bold" : "Helvetica").fontSize(tamanho).fillColor("#000000");
+    const alturaTexto = linhas.length * tamanho * 1.2;
+    let ty = y + Math.max((alturaLinha - alturaTexto) / 2, 2);
+    for (const linha of linhas) {
+      doc.text(linha, cx + mm(1), ty, { width: w - mm(2), align: cel.align ?? "center" });
+      ty += tamanho * 1.2;
+    }
+    cx += w;
   }
-  return [...grupos.entries()]
-    .map(([kg, quantidade]) => ({ kg, quantidade }))
-    .sort((a, b) => b.kg - a.kg);
 }
 
-export async function gerarFolhaGuiaTratoPDF(input: FolhaGuiaTratoInput): Promise<Buffer> {
+function garantirEspaco(doc: PDFKit.PDFDocument, alturaNecessaria: number) {
+  if (doc.y + alturaNecessaria > doc.page.height - mm(15)) doc.addPage();
+}
+
+/** Como garantirEspaco, mas pra um bloco inteiro (cabeçalho + linhas + rodapé)
+ * — evita quebrar a tabela deixando o cabeçalho numa página e o corpo na
+ * seguinte. Se o bloco nem cabe inteiro numa página em branco, não força
+ * nada (a quebra linha-a-linha de garantirEspaco ainda protege cada linha). */
+function garantirEspacoBloco(doc: PDFKit.PDFDocument, alturaTotal: number) {
+  const espacoDisponivel = doc.page.height - mm(15) - doc.y;
+  const alturaPagina = doc.page.height - mm(30);
+  if (alturaTotal > espacoDisponivel && alturaTotal <= alturaPagina) doc.addPage();
+}
+
+export async function gerarFolhaGuiaTratoPDF(input: FolhaImpressao): Promise<Buffer> {
   const doc = new PDFDocument({ size: "A4", margin: mm(15) });
   const chunks: Buffer[] = [];
   doc.on("data", (chunk) => chunks.push(chunk));
@@ -56,87 +59,134 @@ export async function gerarFolhaGuiaTratoPDF(input: FolhaGuiaTratoInput): Promis
     doc.on("end", () => resolve(Buffer.concat(chunks)));
   });
 
+  const x0 = mm(15);
   const larguraUtil = doc.page.width - mm(30);
 
-  doc.font("Helvetica-Bold").fontSize(16).text("Guia de Trato", mm(15), mm(12));
+  doc.font("Helvetica-Bold").fontSize(15).text(`GUIA DE TRATO — ${input.fazendaNome.toUpperCase()}`, x0, doc.y);
   doc
     .font("Helvetica")
     .fontSize(10)
     .fillColor("#52525b")
-    .text(`${input.fazendaNome} · ${formatData(input.data)}`, mm(15), doc.y + mm(1));
-  doc.moveDown(1);
+    .text(formatData(input.data), x0, doc.y + mm(1));
   doc.fillColor("#000000");
+  doc.moveDown(1);
 
-  doc.font("Helvetica-Bold").fontSize(10.5).text("KG POR CURRAL POR TRATO", mm(15), doc.y);
-  doc.moveDown(0.3);
+  // ---------- Bloco 1: KG por curral por trato ----------
+  const colunasBloco1 = ["CURRAL", ...(input.mostrarColunaDieta ? ["DIETA"] : []), ...input.cabecalhoCurral];
+  const larguraCurral = mm(22);
+  const larguraDieta = input.mostrarColunaDieta ? mm(38) : 0;
+  const larguraKg = (larguraUtil - larguraCurral - larguraDieta) / input.cabecalhoCurral.length;
+  const largurasBloco1 = [larguraCurral, ...(input.mostrarColunaDieta ? [larguraDieta] : []), ...input.cabecalhoCurral.map(() => larguraKg)];
 
-  const colW = larguraUtil / 5;
-  const headerY = doc.y;
-  doc.font("Helvetica-Bold").fontSize(8.5);
-  ["CURRAL", "DIETA", "MANHÃ", "ALMOÇO", "TARDE"].forEach((titulo, i) => {
-    doc.text(titulo, mm(15) + i * colW, headerY, { width: colW, align: i >= 2 ? "right" : "left" });
-  });
-  doc.moveDown(0.5);
-  doc.moveTo(mm(15), doc.y).lineTo(mm(15) + larguraUtil, doc.y).lineWidth(0.5).stroke();
-  doc.moveDown(0.3);
+  const alturaHeader1 = mm(9);
+  const alturaLinhaCurral = mm(9);
+  garantirEspacoBloco(doc, alturaHeader1 + input.currais.length * alturaLinhaCurral);
+  desenharLinha(
+    doc,
+    x0,
+    doc.y,
+    largurasBloco1,
+    colunasBloco1.map((titulo) => ({ texto: titulo, negrito: true, tamanho: 9 })),
+    alturaHeader1,
+  );
+  doc.y += alturaHeader1;
 
-  doc.font("Helvetica").fontSize(9);
   for (const c of input.currais) {
-    const y = doc.y;
-    doc.text(c.curralCodigo, mm(15), y, { width: colW });
-    doc.text(c.dietaNome, mm(15) + colW, y, { width: colW });
-    doc.text(formatNumero(c.manha, 1), mm(15) + 2 * colW, y, { width: colW, align: "right" });
-    doc.text(formatNumero(c.almoco, 1), mm(15) + 3 * colW, y, { width: colW, align: "right" });
-    doc.text(formatNumero(c.tarde, 1), mm(15) + 4 * colW, y, { width: colW, align: "right" });
-    doc.moveDown(0.4);
+    garantirEspaco(doc, alturaLinhaCurral);
+    const celulas: Celula[] = [{ texto: c.curralCodigo, negrito: true, tamanho: 13 }];
+    if (input.mostrarColunaDieta) celulas.push({ texto: c.dietaNome ?? "?", tamanho: 8.5, align: "left" });
+    for (const v of c.valores) celulas.push({ texto: formatNumero(v, 0), tamanho: 12 });
+    desenharLinha(doc, x0, doc.y, largurasBloco1, celulas, alturaLinhaCurral);
+    doc.y += alturaLinhaCurral;
   }
+
+  // ---------- Legenda ----------
+  doc.moveDown(0.5);
+  const alturaLegenda = mm(6) * input.legenda.length + mm(2);
+  garantirEspaco(doc, alturaLegenda);
+  desenharLinha(
+    doc,
+    x0,
+    doc.y,
+    [larguraUtil],
+    [{ texto: input.legenda, negrito: true, tamanho: 9, align: "center" }],
+    alturaLegenda,
+  );
+  doc.y += alturaLegenda;
   doc.moveDown(0.8);
 
-  // Um vagão só carrega uma dieta por vez, mas o peão precisa de UMA lista
-  // simples e sequencial por horário — não fragmentada por dieta — pra não
-  // errar. O total de viagens já soma tudo (todas as dietas daquele horário).
-  for (const h of input.horarios) {
-    if (h.viagens.length === 0) continue;
-    if (doc.y > doc.page.height - mm(50)) doc.addPage();
+  // ---------- Bloco 2: receita de cada vagão (uma tabela por dieta) ----------
+  const larguraIngrediente = mm(42);
+  for (const bloco of input.blocosDieta) {
+    const alturaHeader2 = mm(13);
+    const alturaLinhaIng = mm(8);
+    const alturaRodape = mm(7) * bloco.rodape.length + mm(2);
+    const alturaSubtitulo = bloco.dietaNome ? mm(7) : 0;
+    garantirEspacoBloco(
+      doc,
+      alturaSubtitulo + alturaHeader2 + bloco.ingredientes.length * alturaLinhaIng + mm(2) + alturaRodape,
+    );
 
-    doc
-      .font("Helvetica-Bold")
-      .fontSize(12)
-      .fillColor("#6B1A28")
-      .text(
-        `${LABEL_HORARIO[h.horario].toUpperCase()} — ${h.viagens.length} ${h.viagens.length === 1 ? "VIAGEM" : "VIAGENS"} · ${formatNumero(h.totalKg, 1)} KG NO TOTAL`,
-        mm(15),
-        doc.y,
-      );
-    doc.fillColor("#000000");
-    doc.moveDown(0.5);
-
-    for (const v of h.viagens) {
-      if (doc.y > doc.page.height - mm(35)) doc.addPage();
-      doc
-        .font("Helvetica-Bold")
-        .fontSize(10)
-        .text(
-          `Viagem ${v.numero} — ${formatNumero(v.kg, 1)} kg — dieta ${v.dietaNome} — currais ${v.curraisCodigos.join(", ")}`,
-          mm(15),
-          doc.y,
-          { width: larguraUtil },
-        );
-      doc.moveDown(0.15);
-      const ingredientesTxt = v.ingredientes.map((ing) => `${ing.ingredienteNome} ${formatNumero(ing.kg, 1)}kg`).join(" · ");
-      doc.font("Helvetica").fontSize(8.5).fillColor("#3f3f46").text(ingredientesTxt, mm(15), doc.y, { width: larguraUtil });
+    if (bloco.dietaNome) {
+      doc.font("Helvetica-Bold").fontSize(11).fillColor("#6B1A28").text(`RECEITA — ${bloco.dietaNome.toUpperCase()}`, x0, doc.y);
       doc.fillColor("#000000");
-      doc.moveDown(0.6);
+      doc.moveDown(0.3);
     }
+
+    const larguraColuna = (larguraUtil - larguraIngrediente) / bloco.colunas.length;
+    const largurasBloco2 = [larguraIngrediente, ...bloco.colunas.map(() => larguraColuna)];
+
+    garantirEspaco(doc, alturaHeader2);
+    desenharLinha(
+      doc,
+      x0,
+      doc.y,
+      largurasBloco2,
+      [
+        { texto: "INGREDIENTE", negrito: true, tamanho: 9, align: "left" },
+        ...bloco.colunas.map((col) => ({ texto: [col.tituloLinha1, col.tituloLinha2], negrito: true, tamanho: 8.5 })),
+      ],
+      alturaHeader2,
+    );
+    doc.y += alturaHeader2;
+
+    for (const ing of bloco.ingredientes) {
+      garantirEspaco(doc, alturaLinhaIng);
+      desenharLinha(
+        doc,
+        x0,
+        doc.y,
+        largurasBloco2,
+        [
+          { texto: ing.ingredienteNome.toUpperCase(), negrito: true, tamanho: 10.5, align: "left" },
+          ...ing.valores.map((v) => ({ texto: formatNumero(v, 1), tamanho: 12 })),
+        ],
+        alturaLinhaIng,
+      );
+      doc.y += alturaLinhaIng;
+    }
+
+    // ---------- Rodapé (resumo de batidas) desse bloco/dieta ----------
     doc.moveDown(0.4);
+    garantirEspaco(doc, alturaRodape);
+    desenharLinha(
+      doc,
+      x0,
+      doc.y,
+      [larguraUtil],
+      [{ texto: bloco.rodape, negrito: true, tamanho: 10.5, align: "center" }],
+      alturaRodape,
+    );
+    doc.y += alturaRodape;
+    doc.moveDown(1);
   }
 
-  doc.moveDown(0.5);
+  doc.moveDown(0.3);
   doc
     .font("Helvetica-Oblique")
     .fontSize(8)
     .fillColor("#a1a1aa")
-    .text(`Gerado pelo sistema de gestão de confinamento · ${formatData(new Date().toISOString().slice(0, 10))}`, mm(15), doc.y);
+    .text(`Gerado pelo sistema de gestão de confinamento · ${formatData(new Date().toISOString().slice(0, 10))}`, x0, doc.y);
 
   doc.end();
   return done;

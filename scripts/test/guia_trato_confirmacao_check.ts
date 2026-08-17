@@ -3,18 +3,8 @@
 // (kg por vagão editado manualmente). Direto no banco (bypassa RLS via
 // service role, como os outros _check.ts), data sintética futura, limpa tudo.
 import { supabase } from "../import/lib";
-import { agruparVagoes } from "../../src/lib/guia-trato/pdf-folha";
 
 const DATA_TESTE = "2099-02-01";
-
-function testeAgruparVagoes() {
-  console.log("\n== agruparVagoes agrupa por tamanho e conta ==");
-  const grupos = agruparVagoes([655, 655, 288, 655]);
-  const esperado = JSON.stringify([{ kg: 655, quantidade: 3 }, { kg: 288, quantidade: 1 }]);
-  const passou = JSON.stringify(grupos) === esperado;
-  console.log(`  ${JSON.stringify(grupos)} -> ${passou ? "OK" : "FALHOU (esperado " + esperado + ")"}`);
-  return passou;
-}
 
 async function testeFluxoDuasEtapas() {
   console.log("\n== Salvar plano não cria trato; confirmar sim (e guia_trato_vagao persiste) ==");
@@ -107,9 +97,8 @@ async function testeFluxoDuasEtapas() {
 }
 
 async function main() {
-  const okAgrupar = testeAgruparVagoes();
   const okFluxo = await testeFluxoDuasEtapas();
-  if (!okAgrupar || !okFluxo) throw new Error("Alguma verificação falhou.");
+  if (!okFluxo) throw new Error("Alguma verificação falhou.");
 }
 
 main().catch((err) => {
