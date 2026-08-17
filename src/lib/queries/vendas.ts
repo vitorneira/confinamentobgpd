@@ -70,6 +70,89 @@ export async function getAnimaisAtivosDoCurral(fazendaId: string, curralId: stri
   ).concat(resultado.filter((a) => a.tipo === "agregado"));
 }
 
+export type VendaLoteEditavel = {
+  vendaLoteId: string;
+  curralId: string;
+  tipoVenda: "abate" | "direta";
+  comprador: string | null;
+  frigorifico: string | null;
+  nf: string | null;
+  dataAbate: string | null;
+  dataSaida: string;
+  precoArroba: number | null;
+  precoArrobaEntrada: number;
+  pesoCarcacaTotal: number | null;
+  frete: number;
+  comissao: number;
+  deducoes: number;
+};
+
+export async function getVendaLoteEditavel(fazendaId: string, vendaLoteId: string): Promise<VendaLoteEditavel | null> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("venda_lote")
+    .select(
+      "id, curral_id, tipo_venda, comprador, frigorifico, nf, data_abate, data_saida, preco_arroba, preco_arroba_entrada, peso_carcaca_total, frete, comissao, deducoes",
+    )
+    .eq("fazenda_id", fazendaId)
+    .eq("id", vendaLoteId)
+    .maybeSingle();
+  if (!data) return null;
+
+  return {
+    vendaLoteId: data.id as string,
+    curralId: data.curral_id as string,
+    tipoVenda: data.tipo_venda as "abate" | "direta",
+    comprador: data.comprador,
+    frigorifico: data.frigorifico,
+    nf: data.nf,
+    dataAbate: data.data_abate,
+    dataSaida: data.data_saida as string,
+    precoArroba: data.preco_arroba,
+    precoArrobaEntrada: data.preco_arroba_entrada as number,
+    pesoCarcacaTotal: data.peso_carcaca_total,
+    frete: data.frete as number,
+    comissao: data.comissao as number,
+    deducoes: data.deducoes as number,
+  };
+}
+
+export type ItemVendaDetalhe = {
+  vendaItemId: string;
+  animalId: string;
+  tipo: "individual" | "agregado";
+  brinco: string | null;
+  categoriaNome: string;
+  quantidade: number | null;
+  valorNegociado: number | null;
+};
+
+export async function getItensVenda(vendaLoteId: string): Promise<ItemVendaDetalhe[]> {
+  const supabase = await createClient();
+  const { data: itens } = await supabase
+    .from("venda_item")
+    .select("id, quantidade, valor_negociado, animais(id, tipo, brinco, categorias(nome))")
+    .eq("venda_lote_id", vendaLoteId);
+
+  return (itens ?? []).map((it) => {
+    const animal = it.animais as unknown as {
+      id: string;
+      tipo: "individual" | "agregado";
+      brinco: string | null;
+      categorias: { nome: string } | null;
+    } | null;
+    return {
+      vendaItemId: it.id as string,
+      animalId: animal?.id ?? "",
+      tipo: animal?.tipo ?? "individual",
+      brinco: animal?.brinco ?? null,
+      categoriaNome: animal?.categorias?.nome ?? "?",
+      quantidade: it.quantidade,
+      valorNegociado: it.valor_negociado,
+    };
+  });
+}
+
 export type VendaListada = {
   vendaLoteId: string;
   curralCodigo: string;
@@ -151,6 +234,8 @@ export type ApuracaoVenda = {
   roi: number | null;
   custoArrobaSoRacao: number | null;
   custoArrobaTotal: number | null;
+  porCategoria: { categoriaNome: string; quantidade: number }[];
+  itensIndividuais: { brinco: string; valorNegociado: number | null }[];
 };
 
 export async function getApuracaoVenda(fazendaId: string, vendaLoteId: string): Promise<ApuracaoVenda | null> {
@@ -163,7 +248,16 @@ export async function getApuracaoVenda(fazendaId: string, vendaLoteId: string): 
     .maybeSingle();
   if (!data) return null;
 
-  const { data: curral } = await supabase.from("currais").select("codigo").eq("id", data.curral_id).maybeSingle();
+  const [{ data: curral }, itens] = await Promise.all([
+    supabase.from("currais").select("codigo").eq("id", data.curral_id).maybeSingle(),
+    getItensVenda(vendaLoteId),
+  ]);
+
+  const porCategoriaMapa = new Map<string, number>();
+  for (const it of itens) {
+    const qtd = it.tipo === "agregado" ? (it.quantidade ?? 0) : 1;
+    porCategoriaMapa.set(it.categoriaNome, (porCategoriaMapa.get(it.categoriaNome) ?? 0) + qtd);
+  }
 
   return {
     vendaLoteId: data.venda_lote_id as string,
@@ -204,5 +298,11 @@ export async function getApuracaoVenda(fazendaId: string, vendaLoteId: string): 
     roi: data.roi,
     custoArrobaSoRacao: data.custo_arroba_so_racao,
     custoArrobaTotal: data.custo_arroba_total,
+    porCategoria: [...porCategoriaMapa.entries()]
+      .map(([categoriaNome, quantidade]) => ({ categoriaNome, quantidade }))
+      .sort((a, b) => b.quantidade - a.quantidade),
+    itensIndividuais: itens
+      .filter((it) => it.tipo === "individual")
+      .map((it) => ({ brinco: it.brinco ?? "?", valorNegociado: it.valorNegociado })),
   };
 }

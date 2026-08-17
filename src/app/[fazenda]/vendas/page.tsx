@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FileDown } from "lucide-react";
-import { getFazendaByCodigo } from "@/lib/queries/fazenda";
+import { FileDown, Pencil } from "lucide-react";
+import { getFazendaByCodigo, getPapelUsuario } from "@/lib/queries/fazenda";
 import { getCurraisComAtivos, getAnimaisAtivosDoCurral, getVendasFechadas } from "@/lib/queries/vendas";
 import { FechamentoForm } from "./FechamentoForm";
 import { ScrollHint } from "@/components/ScrollHint";
@@ -19,7 +19,12 @@ export default async function VendasPage({
   const fazenda = await getFazendaByCodigo(codigo);
   if (!fazenda) notFound();
 
-  const [currais, vendas] = await Promise.all([getCurraisComAtivos(fazenda.id), getVendasFechadas(fazenda.id)]);
+  const [currais, vendas, papel] = await Promise.all([
+    getCurraisComAtivos(fazenda.id),
+    getVendasFechadas(fazenda.id),
+    getPapelUsuario(fazenda.id),
+  ]);
+  const ehDono = papel === "dono";
   const animais = curralId ? await getAnimaisAtivosDoCurral(fazenda.id, curralId) : [];
 
   const base = `/${codigo.toLowerCase()}/vendas`;
@@ -77,14 +82,24 @@ export default async function VendasPage({
                       {formatMoeda(v.lucroPorCab)}
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <a
-                        href={`/api/venda-recibo?fazenda=${codigo}&id=${v.vendaLoteId}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 rounded-btn border border-zinc-300 px-2.5 py-1 text-xs font-medium text-zinc-700 transition-colors hover:border-zinc-400 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
-                      >
-                        <FileDown size={13} /> PDF
-                      </a>
+                      <div className="inline-flex items-center gap-1.5">
+                        {ehDono && (
+                          <Link
+                            href={`${base}/${v.vendaLoteId}/editar`}
+                            className="inline-flex items-center gap-1 rounded-btn border border-zinc-300 px-2.5 py-1 text-xs font-medium text-zinc-700 transition-colors hover:border-zinc-400 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                          >
+                            <Pencil size={13} /> Editar
+                          </Link>
+                        )}
+                        <a
+                          href={`/api/venda-recibo?fazenda=${codigo}&id=${v.vendaLoteId}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 rounded-btn border border-zinc-300 px-2.5 py-1 text-xs font-medium text-zinc-700 transition-colors hover:border-zinc-400 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                        >
+                          <FileDown size={13} /> PDF
+                        </a>
+                      </div>
                     </td>
                   </tr>
                 ))}

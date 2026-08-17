@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FileDown } from "lucide-react";
-import { getFazendaByCodigo } from "@/lib/queries/fazenda";
+import { FileDown, Pencil } from "lucide-react";
+import { getFazendaByCodigo, getPapelUsuario } from "@/lib/queries/fazenda";
 import { getApuracaoVenda } from "@/lib/queries/vendas";
 import { corResultado, formatData, formatMoeda, formatNumero, formatPercentual } from "@/lib/format";
 
@@ -36,8 +36,9 @@ export default async function ApuracaoVendaPage({
   const fazenda = await getFazendaByCodigo(codigo);
   if (!fazenda) notFound();
 
-  const ap = await getApuracaoVenda(fazenda.id, id);
+  const [ap, papel] = await Promise.all([getApuracaoVenda(fazenda.id, id), getPapelUsuario(fazenda.id)]);
   if (!ap) notFound();
+  const ehDono = papel === "dono";
 
   const lucroPositivo = (ap.lucroLote ?? 0) >= 0;
 
@@ -58,14 +59,24 @@ export default async function ApuracaoVendaPage({
             {ap.dataAbate && ` · abate ${formatData(ap.dataAbate)}`}
           </p>
         </div>
-        <a
-          href={`/api/venda-recibo?fazenda=${codigo}&id=${ap.vendaLoteId}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex shrink-0 items-center gap-1.5 rounded-btn bg-primary-900 px-4 py-2 text-sm font-medium whitespace-nowrap text-white dark:bg-primary-500 dark:text-white"
-        >
-          <FileDown size={15} /> Baixar PDF
-        </a>
+        <div className="flex shrink-0 items-center gap-2">
+          {ehDono && (
+            <Link
+              href={`/${codigo.toLowerCase()}/vendas/${ap.vendaLoteId}/editar`}
+              className="flex items-center gap-1.5 rounded-btn border border-zinc-300 px-4 py-2 text-sm font-medium whitespace-nowrap text-zinc-700 dark:border-zinc-700 dark:text-zinc-300"
+            >
+              <Pencil size={15} /> Editar venda
+            </Link>
+          )}
+          <a
+            href={`/api/venda-recibo?fazenda=${codigo}&id=${ap.vendaLoteId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 rounded-btn bg-primary-900 px-4 py-2 text-sm font-medium whitespace-nowrap text-white dark:bg-primary-500 dark:text-white"
+          >
+            <FileDown size={15} /> Baixar PDF
+          </a>
+        </div>
       </div>
 
       <div
@@ -122,6 +133,24 @@ export default async function ApuracaoVendaPage({
         <Linha label="ROI sobre o custo" valor={formatPercentual(ap.roi, 1)} />
         <Linha label="Custo da @ produzida (só ração)" valor={formatMoeda(ap.custoArrobaSoRacao)} />
         <Linha label="Custo da @ produzida (ração + fixo)" valor={formatMoeda(ap.custoArrobaTotal)} />
+      </Card>
+
+      <Card titulo="Composição da venda">
+        {ap.porCategoria.map((c) => (
+          <Linha key={c.categoriaNome} label={c.categoriaNome} valor={`${c.quantidade} cab.`} />
+        ))}
+        {ap.itensIndividuais.length > 0 && (
+          <div className="mt-3 border-t border-zinc-100 pt-3 dark:border-zinc-800">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">Animais individuais</p>
+            {ap.itensIndividuais.map((it, i) => (
+              <Linha
+                key={`${it.brinco}-${i}`}
+                label={it.brinco}
+                valor={it.valorNegociado !== null ? formatMoeda(it.valorNegociado) : "—"}
+              />
+            ))}
+          </div>
+        )}
       </Card>
 
       <Card titulo="Zootécnico">

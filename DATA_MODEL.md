@@ -79,6 +79,9 @@ resto do sistema para quem não tem rendimento de carcaça apurado.
 Um usuário pode ter várias fazendas (próprias ou arrendadas) e uma fazenda pode
 ter vários usuários. A RLS libera cada usuário para as fazendas em que tem vínculo.
 O gestor de BG e PD é a mesma pessoa, com uma conta só.
+`venda_lote`/`venda_item`: **criar** uma venda continua dono+gestor (evento normal);
+**editar/excluir** uma venda já fechada exige `papel = 'dono'` (RLS em
+`0011_venda_edicao_dono.sql`, mais checagem explícita nas server actions de edição).
 
 ### `parametros` (1 por fazenda)
 `preco_arroba_referencia, pct_materia_seca, custo_fixo_dia, gmd_meta,
@@ -140,6 +143,9 @@ Ao confirmar → cria/atualiza os `tratos_diarios` do dia.
 - Em venda **direta** (valor combinado, sem abate — ex. touros PO): os campos de
   carcaça/rendimento não se aplicam (ficam vazios); o restante da apuração
   (lucro, margem, ROI, custo da @ pela arroba viva do ganho) funciona igual.
+- O relatório também mostra composição da venda: quantidade **por categoria** e,
+  para itens individuais, **brinco + valor negociado** de cada um (agrupado em
+  JS a partir de `venda_item`, não é view nova).
 
 ### Dashboard = agregações das views acima + painel de alertas.
 ### Simulação = recalcula @/valor/resultado com parâmetros do usuário, sem gravar.

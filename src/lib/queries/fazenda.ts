@@ -11,6 +11,24 @@ export async function getFazendaByCodigo(codigo: string) {
   return data;
 }
 
+export type Papel = "dono" | "gestor" | "leitura";
+
+export async function getPapelUsuario(fazendaId: string): Promise<Papel | null> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return null;
+
+  const { data } = await supabase
+    .from("usuarios_fazendas")
+    .select("papel")
+    .eq("fazenda_id", fazendaId)
+    .eq("usuario_id", user.id)
+    .maybeSingle();
+  return (data?.papel as Papel | undefined) ?? null;
+}
+
 export async function getParametros(fazendaId: string): Promise<Parametros | null> {
   const supabase = await createClient();
   const { data } = await supabase

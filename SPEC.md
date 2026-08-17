@@ -107,6 +107,13 @@ a última pesagem do lote** (alerta 21/30).
   ganho no lugar da arroba de carcaça, que não existe nesse caso).
 - **Venda parcial**: por lista de brincos (individual) ou por quantidade (agregado /
   boi de ponta). **Baixa automática** no rebanho ativo; animais ficam no histórico.
+- **Editar uma venda já fechada** (corrigir animal esquecido, ajustar valores/frete/
+  comissão, adicionar ou remover animal) é restrito ao papel **dono** — gestor só
+  fecha vendas novas, não edita as já gravadas (reforçado por RLS, não só na UI).
+- O relatório de uma venda fechada mostra **composição por categoria** (quantas
+  cabeças de cada categoria saíram) e, quando há animal individual na venda, o
+  **brinco + valor financeiro de saída** de cada um (útil pros touros PO da venda
+  direta, onde cada animal tem preço próprio).
 
 ### 10. Simulação (só dono)
 Cenários com parâmetros diferentes (rendimento de carcaça, preço da @, GMD alvo, peso

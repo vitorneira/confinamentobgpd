@@ -122,6 +122,29 @@ export async function gerarReciboVendaPDF(
     { label: "Dias de confinamento (média)", valor: formatNumero(ap.diasConfinamentoMedio, 1) },
   ], x, larguraUtil);
 
+  if (ap.porCategoria.length > 0) {
+    secao(
+      doc,
+      "Composição da venda",
+      ap.porCategoria.map((c) => ({ label: c.categoriaNome, valor: `${c.quantidade} cab.` })),
+      x,
+      larguraUtil,
+    );
+  }
+
+  if (ap.itensIndividuais.length > 0) {
+    secao(
+      doc,
+      "Animais individuais",
+      ap.itensIndividuais.map((it) => ({
+        label: it.brinco,
+        valor: it.valorNegociado !== null ? formatMoeda(it.valorNegociado) : "—",
+      })),
+      x,
+      larguraUtil,
+    );
+  }
+
   doc.moveDown(0.5);
   doc
     .font("Helvetica-Oblique")
