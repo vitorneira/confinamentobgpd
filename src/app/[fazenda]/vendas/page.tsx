@@ -43,7 +43,8 @@ export default async function VendasPage({
                 <tr>
                   <th className="px-4 py-3">Data saída</th>
                   <th className="px-4 py-3">Curral</th>
-                  <th className="px-4 py-3">Frigorífico</th>
+                  <th className="px-4 py-3">Tipo</th>
+                  <th className="px-4 py-3">Frigorífico / comprador</th>
                   <th className="px-4 py-3 text-right">Cabeças</th>
                   <th className="px-4 py-3 text-right">Lucro/lote</th>
                   <th className="px-4 py-3 text-right">Lucro/cab</th>
@@ -62,7 +63,12 @@ export default async function VendasPage({
                       </Link>
                     </td>
                     <td className="px-4 py-3 text-zinc-600 dark:text-zinc-400">{v.curralCodigo}</td>
-                    <td className="px-4 py-3 text-zinc-600 dark:text-zinc-400">{v.frigorifico ?? "—"}</td>
+                    <td className="px-4 py-3 text-zinc-600 dark:text-zinc-400">
+                      {v.tipoVenda === "direta" ? "Venda direta" : "Abate"}
+                    </td>
+                    <td className="px-4 py-3 text-zinc-600 dark:text-zinc-400">
+                      {v.tipoVenda === "direta" ? (v.comprador ?? "—") : (v.frigorifico ?? "—")}
+                    </td>
                     <td className="px-4 py-3 text-right tabular-nums text-zinc-600 dark:text-zinc-400">{v.cabecas}</td>
                     <td className={`px-4 py-3 text-right tabular-nums font-medium ${corResultado(v.lucroLote)}`}>
                       {formatMoeda(v.lucroLote)}
@@ -84,7 +90,7 @@ export default async function VendasPage({
                 ))}
                 {vendas.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="px-4 py-8 text-center text-zinc-500">
+                    <td colSpan={8} className="px-4 py-8 text-center text-zinc-500">
                       Nenhuma venda fechada ainda.
                     </td>
                   </tr>

@@ -73,8 +73,10 @@ export async function getAnimaisAtivosDoCurral(fazendaId: string, curralId: stri
 export type VendaListada = {
   vendaLoteId: string;
   curralCodigo: string;
+  tipoVenda: "abate" | "direta";
   dataSaida: string | null;
   frigorifico: string | null;
+  comprador: string | null;
   cabecas: number;
   lucroLote: number | null;
   lucroPorCab: number | null;
@@ -84,7 +86,7 @@ export async function getVendasFechadas(fazendaId: string): Promise<VendaListada
   const supabase = await createClient();
   const { data: lotes } = await supabase
     .from("venda_lote")
-    .select("id, curral_id, data_saida, frigorifico, currais(codigo)")
+    .select("id, curral_id, tipo_venda, data_saida, frigorifico, comprador, currais(codigo)")
     .eq("fazenda_id", fazendaId)
     .order("data_saida", { ascending: false });
 
@@ -99,8 +101,10 @@ export async function getVendasFechadas(fazendaId: string): Promise<VendaListada
     return {
       vendaLoteId: l.id as string,
       curralCodigo: (l.currais as unknown as { codigo: string } | null)?.codigo ?? "?",
+      tipoVenda: l.tipo_venda as "abate" | "direta",
       dataSaida: l.data_saida,
       frigorifico: l.frigorifico,
+      comprador: l.comprador,
       cabecas: ap?.cabecas ?? 0,
       lucroLote: ap?.lucro_lote ?? null,
       lucroPorCab: ap?.lucro_por_cab ?? null,
@@ -111,14 +115,18 @@ export async function getVendasFechadas(fazendaId: string): Promise<VendaListada
 export type ApuracaoVenda = {
   vendaLoteId: string;
   curralCodigo: string;
+  tipoVenda: "abate" | "direta";
+  comprador: string | null;
   frigorifico: string | null;
   nf: string | null;
   dataAbate: string | null;
   dataSaida: string | null;
   cabecas: number;
-  precoArroba: number;
+  precoArroba: number | null;
   precoArrobaEntrada: number;
   pesoCarcacaTotal: number | null;
+  frete: number;
+  comissao: number;
   deducoes: number;
   pesoEntradaTotalKg: number;
   pesoSaidaTotalKg: number;
@@ -160,6 +168,8 @@ export async function getApuracaoVenda(fazendaId: string, vendaLoteId: string): 
   return {
     vendaLoteId: data.venda_lote_id as string,
     curralCodigo: curral?.codigo ?? "?",
+    tipoVenda: data.tipo_venda as "abate" | "direta",
+    comprador: data.comprador,
     frigorifico: data.frigorifico,
     nf: data.nf,
     dataAbate: data.data_abate,
@@ -168,6 +178,8 @@ export async function getApuracaoVenda(fazendaId: string, vendaLoteId: string): 
     precoArroba: data.preco_arroba,
     precoArrobaEntrada: data.preco_arroba_entrada,
     pesoCarcacaTotal: data.peso_carcaca_total,
+    frete: data.frete,
+    comissao: data.comissao,
     deducoes: data.deducoes,
     pesoEntradaTotalKg: data.peso_entrada_total_kg,
     pesoSaidaTotalKg: data.peso_saida_total_kg,

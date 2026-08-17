@@ -93,9 +93,18 @@ a última pesagem do lote** (alerta 21/30).
 - **Conversão alimentar** por lote e por rebanho.
 
 ### 9. Fechamento de lote / Venda
-- Registrar abate/venda (frigorífico, NF, cabeças, preço @, peso de carcaça,
-  rendimento **real**). Apura receita líquida, custo total (entrada + ração real +
-  fixo), **lucro/lote, lucro/cab, margem, ROI, custo da @ produzida**.
+- Dois tipos de fechamento (`tipo_venda`, escolhido por fechamento, não por animal):
+  - **Abate**: registrar frigorífico, NF, cabeças, preço @, peso de carcaça,
+    rendimento **real** — como antes.
+  - **Venda direta** (valor combinado — ex. touros PO da BG, ou qualquer animal das
+    duas fazendas vendido fora da lógica de abate): registrar comprador e o valor
+    combinado **por animal** (a avaliação muda de bicho pra bicho, não é preço
+    uniforme nem total único do lote).
+- Em qualquer tipo: **frete** e **comissão** são custos que podem existir na venda,
+  abatidos do valor bruto junto com as demais deduções.
+- Apura receita líquida, custo total (entrada + ração real + fixo), **lucro/lote,
+  lucro/cab, margem, ROI, custo da @ produzida** (venda direta usa arroba viva do
+  ganho no lugar da arroba de carcaça, que não existe nesse caso).
 - **Venda parcial**: por lista de brincos (individual) ou por quantidade (agregado /
   boi de ponta). **Baixa automática** no rebanho ativo; animais ficam no histórico.
 

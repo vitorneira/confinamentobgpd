@@ -53,7 +53,8 @@ export default async function ApuracaoVendaPage({
           </Link>
           <h1 className="mt-1 text-xl font-semibold text-black dark:text-zinc-50">Curral {ap.curralCodigo}</h1>
           <p className="text-sm text-zinc-500">
-            {ap.frigorifico ?? "—"} {ap.nf && `· ${ap.nf}`} · saída {formatData(ap.dataSaida)}
+            {ap.tipoVenda === "direta" ? (ap.comprador ?? "—") : (ap.frigorifico ?? "—")}
+            {ap.nf && ` · ${ap.nf}`} · saída {formatData(ap.dataSaida)}
             {ap.dataAbate && ` · abate ${formatData(ap.dataAbate)}`}
           </p>
         </div>
@@ -88,13 +89,21 @@ export default async function ApuracaoVendaPage({
 
       <Card titulo="Dados da venda">
         <Linha label="Cabeças" valor={ap.cabecas} />
-        <Linha label="Preço da @ (venda)" valor={formatMoeda(ap.precoArroba)} />
-        <Linha label="Peso de carcaça total (kg)" valor={formatNumero(ap.pesoCarcacaTotal)} />
-        <Linha label="Arrobas de carcaça (@)" valor={formatNumero(ap.arrobasCarcaca, 2)} />
-        <Linha label="Carcaça média por cabeça (kg)" valor={formatNumero(ap.carcacaMediaPorCab, 1)} />
-        <Linha label="Rendimento de carcaça (calculado)" valor={formatPercentual(ap.rendimentoCalculado, 2)} />
+        {ap.tipoVenda === "abate" ? (
+          <>
+            <Linha label="Preço da @ (venda)" valor={formatMoeda(ap.precoArroba)} />
+            <Linha label="Peso de carcaça total (kg)" valor={formatNumero(ap.pesoCarcacaTotal)} />
+            <Linha label="Arrobas de carcaça (@)" valor={formatNumero(ap.arrobasCarcaca, 2)} />
+            <Linha label="Carcaça média por cabeça (kg)" valor={formatNumero(ap.carcacaMediaPorCab, 1)} />
+            <Linha label="Rendimento de carcaça (calculado)" valor={formatPercentual(ap.rendimentoCalculado, 2)} />
+          </>
+        ) : (
+          <Linha label="Comprador" valor={ap.comprador ?? "—"} />
+        )}
         <Linha label="Valor bruto" valor={formatMoeda(ap.valorBruto)} />
-        <Linha label="(−) Deduções" valor={formatMoeda(ap.deducoes)} />
+        <Linha label="(−) Frete" valor={formatMoeda(ap.frete)} />
+        <Linha label="(−) Comissão" valor={formatMoeda(ap.comissao)} />
+        <Linha label="(−) Outras deduções" valor={formatMoeda(ap.deducoes)} />
         <Linha label="Valor líquido" valor={formatMoeda(ap.valorLiquido)} destaque />
       </Card>
 

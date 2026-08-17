@@ -10,16 +10,16 @@ export default async function AnimaisPage({
   searchParams,
 }: {
   params: Promise<{ fazenda: string }>;
-  searchParams: Promise<{ curral?: string; categoria?: string }>;
+  searchParams: Promise<{ curral?: string; categoria?: string; q?: string }>;
 }) {
   const { fazenda: codigo } = await params;
-  const { curral, categoria } = await searchParams;
+  const { curral, categoria, q } = await searchParams;
   const fazenda = await getFazendaByCodigo(codigo);
   if (!fazenda) notFound();
 
   const [{ currais, categorias }, animais] = await Promise.all([
     getCurraisEcategorias(fazenda.id),
-    getAnimaisIndicadores(fazenda.id, { curralCodigo: curral, categoriaNome: categoria }),
+    getAnimaisIndicadores(fazenda.id, { curralCodigo: curral, categoriaNome: categoria, busca: q }),
   ]);
 
   const base = `/${codigo.toLowerCase()}/animais`;
@@ -29,6 +29,13 @@ export default async function AnimaisPage({
       <h1 className="mb-4 text-xl font-semibold text-black dark:text-zinc-50">Animais</h1>
 
       <form className="mb-4 flex flex-wrap gap-3" method="get">
+        <input
+          type="text"
+          name="q"
+          defaultValue={q ?? ""}
+          placeholder="Buscar brinco..."
+          className="rounded-input border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+        />
         <select
           name="curral"
           defaultValue={curral ?? ""}
@@ -59,7 +66,7 @@ export default async function AnimaisPage({
         >
           Filtrar
         </button>
-        {(curral || categoria) && (
+        {(curral || categoria || q) && (
           <Link href={base} className="self-center text-sm text-zinc-500 underline">
             limpar
           </Link>

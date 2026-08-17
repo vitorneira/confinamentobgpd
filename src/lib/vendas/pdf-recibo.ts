@@ -51,7 +51,7 @@ export async function gerarReciboVendaPDF(
     .fillColor("#71717a")
     .text(
       [
-        ap.frigorifico ?? "—",
+        ap.tipoVenda === "direta" ? (ap.comprador ?? "—") : (ap.frigorifico ?? "—"),
         ap.nf ? `NF ${ap.nf}` : null,
         ap.dataAbate ? `abate ${formatData(ap.dataAbate)}` : null,
         `saída ${formatData(ap.dataSaida)}`,
@@ -81,13 +81,19 @@ export async function gerarReciboVendaPDF(
 
   secao(doc, "Dados da venda", [
     { label: "Cabeças", valor: String(ap.cabecas) },
-    { label: "Preço da @ (venda)", valor: formatMoeda(ap.precoArroba) },
-    { label: "Peso de carcaça total (kg)", valor: formatNumero(ap.pesoCarcacaTotal) },
-    { label: "Arrobas de carcaça (@)", valor: formatNumero(ap.arrobasCarcaca, 2) },
-    { label: "Carcaça média por cabeça (kg)", valor: formatNumero(ap.carcacaMediaPorCab, 1) },
-    { label: "Rendimento de carcaça (calculado)", valor: formatPercentual(ap.rendimentoCalculado, 2) },
+    ...(ap.tipoVenda === "abate"
+      ? [
+          { label: "Preço da @ (venda)", valor: formatMoeda(ap.precoArroba) },
+          { label: "Peso de carcaça total (kg)", valor: formatNumero(ap.pesoCarcacaTotal) },
+          { label: "Arrobas de carcaça (@)", valor: formatNumero(ap.arrobasCarcaca, 2) },
+          { label: "Carcaça média por cabeça (kg)", valor: formatNumero(ap.carcacaMediaPorCab, 1) },
+          { label: "Rendimento de carcaça (calculado)", valor: formatPercentual(ap.rendimentoCalculado, 2) },
+        ]
+      : [{ label: "Comprador", valor: ap.comprador ?? "—" }]),
     { label: "Valor bruto", valor: formatMoeda(ap.valorBruto) },
-    { label: "(-) Deduções", valor: formatMoeda(ap.deducoes) },
+    { label: "(-) Frete", valor: formatMoeda(ap.frete) },
+    { label: "(-) Comissão", valor: formatMoeda(ap.comissao) },
+    { label: "(-) Outras deduções", valor: formatMoeda(ap.deducoes) },
     { label: "Valor líquido", valor: formatMoeda(ap.valorLiquido), destaque: true },
   ], x, larguraUtil);
 

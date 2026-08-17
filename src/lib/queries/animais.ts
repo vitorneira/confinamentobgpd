@@ -29,7 +29,7 @@ export async function getCurraisEcategorias(fazendaId: string) {
 
 export async function getAnimaisIndicadores(
   fazendaId: string,
-  filtros: { curralCodigo?: string; categoriaNome?: string },
+  filtros: { curralCodigo?: string; categoriaNome?: string; busca?: string },
 ): Promise<AnimalListado[]> {
   const supabase = await createClient();
   const { currais, categorias } = await getCurraisEcategorias(fazendaId);
@@ -62,6 +62,10 @@ export async function getAnimaisIndicadores(
   }
   if (filtros.categoriaNome) {
     animais = animais.filter((a) => a.categoriaNome === filtros.categoriaNome);
+  }
+  if (filtros.busca) {
+    const termo = filtros.busca.trim().toLowerCase();
+    animais = animais.filter((a) => a.brinco.toLowerCase().includes(termo));
   }
 
   return ordenarPorBrinco(animais, (a) => a.brinco);

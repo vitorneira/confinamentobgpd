@@ -16,6 +16,7 @@ export type ItemSelecionado = {
   animalId: string;
   tipo: "individual" | "agregado";
   quantidadeVendida: number | null;
+  valorNegociado: number | null;
 };
 
 export async function fecharVenda(
@@ -23,21 +24,36 @@ export async function fecharVenda(
   fazendaId: string,
   input: {
     curralId: string;
+    tipoVenda: "abate" | "direta";
+    comprador: string | null;
     frigorifico: string | null;
     nf: string | null;
     dataAbate: string | null;
     dataSaida: string;
-    precoArroba: number;
+    precoArroba: number | null;
     precoArrobaEntrada: number;
     pesoCarcacaTotal: number | null;
+    frete: number;
+    comissao: number;
     deducoes: number;
     itens: ItemSelecionado[];
   },
 ): Promise<{ ok: boolean; erro?: string; vendaLoteId?: string }> {
   if (input.itens.length === 0) return { ok: false, erro: "Selecione ao menos um animal ou lote." };
-  if (input.precoArroba <= 0) return { ok: false, erro: "Preço da @ deve ser maior que zero." };
   if (input.precoArrobaEntrada <= 0) return { ok: false, erro: "Preço da @ de entrada deve ser maior que zero." };
+  if (input.frete < 0) return { ok: false, erro: "Frete não pode ser negativo." };
+  if (input.comissao < 0) return { ok: false, erro: "Comissão não pode ser negativa." };
   if (input.deducoes < 0) return { ok: false, erro: "Deduções não podem ser negativas." };
+
+  if (input.tipoVenda === "abate") {
+    if (!input.precoArroba || input.precoArroba <= 0) {
+      return { ok: false, erro: "Preço da @ deve ser maior que zero." };
+    }
+  } else {
+    if (input.itens.some((i) => !i.valorNegociado || i.valorNegociado <= 0)) {
+      return { ok: false, erro: "Informe o valor combinado de cada animal/lote selecionado." };
+    }
+  }
 
   const supabase = await createClient();
 
@@ -73,14 +89,18 @@ export async function fecharVenda(
     .insert({
       fazenda_id: fazendaId,
       curral_id: input.curralId,
+      tipo_venda: input.tipoVenda,
+      comprador: input.comprador,
       frigorifico: input.frigorifico,
       nf: input.nf,
       data_abate: input.dataAbate,
       data_saida: input.dataSaida,
       cabecas,
-      preco_arroba: input.precoArroba,
+      preco_arroba: input.tipoVenda === "abate" ? input.precoArroba : null,
       preco_arroba_entrada: input.precoArrobaEntrada,
-      peso_carcaca_total: input.pesoCarcacaTotal,
+      peso_carcaca_total: input.tipoVenda === "abate" ? input.pesoCarcacaTotal : null,
+      frete: input.frete,
+      comissao: input.comissao,
       deducoes: input.deducoes,
     })
     .select("id")
@@ -93,6 +113,7 @@ export async function fecharVenda(
       venda_lote_id: vendaLoteId,
       animal_id: item.animalId,
       quantidade: item.tipo === "agregado" ? item.quantidadeVendida : null,
+      valor_negociado: input.tipoVenda === "direta" ? item.valorNegociado : null,
     })),
   );
   if (itensErr) return { ok: false, erro: erroAmigavel(itensErr) };

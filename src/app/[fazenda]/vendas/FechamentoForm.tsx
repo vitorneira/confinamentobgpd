@@ -25,9 +25,13 @@ export function FechamentoForm({
   const [pending, startTransition] = useTransition();
   const [erro, setErro] = useState<string | null>(null);
 
+  const [busca, setBusca] = useState("");
   const [selecionados, setSelecionados] = useState<Set<string>>(new Set());
   const [quantidades, setQuantidades] = useState<Record<string, string>>({});
+  const [valoresNegociados, setValoresNegociados] = useState<Record<string, string>>({});
 
+  const [tipoVenda, setTipoVenda] = useState<"abate" | "direta">("abate");
+  const [comprador, setComprador] = useState("");
   const [frigorifico, setFrigorifico] = useState("");
   const [nf, setNf] = useState("");
   const [dataAbate, setDataAbate] = useState(hojeISO());
@@ -35,7 +39,14 @@ export function FechamentoForm({
   const [precoArroba, setPrecoArroba] = useState("");
   const [precoArrobaEntrada, setPrecoArrobaEntrada] = useState("");
   const [pesoCarcacaTotal, setPesoCarcacaTotal] = useState("");
+  const [frete, setFrete] = useState("0");
+  const [comissao, setComissao] = useState("0");
   const [deducoes, setDeducoes] = useState("0");
+
+  const termo = busca.trim().toLowerCase();
+  const animaisFiltrados = termo
+    ? animais.filter((a) => (a.brinco ?? a.categoriaNome).toLowerCase().includes(termo))
+    : animais;
 
   function toggleIndividual(animalId: string) {
     setSelecionados((prev) => {
@@ -52,11 +63,14 @@ export function FechamentoForm({
 
     const itens: ItemSelecionado[] = [];
     for (const a of animais) {
+      const valorNegociado = valoresNegociados[a.animalId] ? Number(valoresNegociados[a.animalId]) : null;
       if (a.tipo === "individual") {
-        if (selecionados.has(a.animalId)) itens.push({ animalId: a.animalId, tipo: "individual", quantidadeVendida: null });
+        if (selecionados.has(a.animalId)) {
+          itens.push({ animalId: a.animalId, tipo: "individual", quantidadeVendida: null, valorNegociado });
+        }
       } else {
         const qtd = Number(quantidades[a.animalId] ?? "0");
-        if (qtd > 0) itens.push({ animalId: a.animalId, tipo: "agregado", quantidadeVendida: qtd });
+        if (qtd > 0) itens.push({ animalId: a.animalId, tipo: "agregado", quantidadeVendida: qtd, valorNegociado });
       }
     }
     if (itens.length === 0) {
@@ -67,13 +81,17 @@ export function FechamentoForm({
     startTransition(async () => {
       const r = await fecharVenda(fazendaCodigo, fazendaId, {
         curralId,
+        tipoVenda,
+        comprador: comprador || null,
         frigorifico: frigorifico || null,
         nf: nf || null,
         dataAbate: dataAbate || null,
         dataSaida,
-        precoArroba: Number(precoArroba),
+        precoArroba: precoArroba ? Number(precoArroba) : null,
         precoArrobaEntrada: Number(precoArrobaEntrada),
         pesoCarcacaTotal: pesoCarcacaTotal ? Number(pesoCarcacaTotal) : null,
+        frete: Number(frete || "0"),
+        comissao: Number(comissao || "0"),
         deducoes: Number(deducoes || "0"),
         itens,
       });
@@ -87,6 +105,30 @@ export function FechamentoForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="flex flex-wrap items-end gap-3">
+        <label className="text-sm">
+          <span className="mb-1 block text-zinc-500">Tipo de venda</span>
+          <select
+            value={tipoVenda}
+            onChange={(e) => setTipoVenda(e.target.value as "abate" | "direta")}
+            className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          >
+            <option value="abate">Abate (frigorífico)</option>
+            <option value="direta">Venda direta (valor combinado)</option>
+          </select>
+        </label>
+        <label className="text-sm">
+          <span className="mb-1 block text-zinc-500">Buscar brinco</span>
+          <input
+            type="text"
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+            placeholder="Ex.: BBG 998"
+            className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          />
+        </label>
+      </div>
+
       <div className="overflow-x-auto rounded-card border border-zinc-200 shadow-sm dark:border-zinc-800">
         <table className="w-full text-sm">
           <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">
@@ -96,10 +138,11 @@ export function FechamentoForm({
               <th className="px-3 py-2">Categoria</th>
               <th className="px-3 py-2 text-right">Peso atual (kg)</th>
               <th className="px-3 py-2 text-right">Disponível / vender</th>
+              {tipoVenda === "direta" && <th className="px-3 py-2 text-right">Valor combinado (R$)</th>}
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800">
-            {animais.map((a) => (
+            {animaisFiltrados.map((a) => (
               <tr key={a.animalId} className="bg-white dark:bg-zinc-950">
                 <td className="px-3 py-2">
                   {a.tipo === "individual" && (
@@ -128,12 +171,26 @@ export function FechamentoForm({
                     "1"
                   )}
                 </td>
+                {tipoVenda === "direta" && (
+                  <td className="px-3 py-2 text-right">
+                    <input
+                      type="number"
+                      min={0}
+                      step="0.01"
+                      value={valoresNegociados[a.animalId] ?? ""}
+                      onChange={(e) =>
+                        setValoresNegociados((prev) => ({ ...prev, [a.animalId]: e.target.value }))
+                      }
+                      className="w-28 rounded-input border border-zinc-300 px-2 py-1 text-right dark:border-zinc-700 dark:bg-zinc-900"
+                    />
+                  </td>
+                )}
               </tr>
             ))}
-            {animais.length === 0 && (
+            {animaisFiltrados.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-3 py-4 text-center text-zinc-500">
-                  Nenhum animal ativo nesse curral.
+                <td colSpan={tipoVenda === "direta" ? 6 : 5} className="px-3 py-4 text-center text-zinc-500">
+                  {animais.length === 0 ? "Nenhum animal ativo nesse curral." : "Nenhum animal encontrado para essa busca."}
                 </td>
               </tr>
             )}
@@ -141,34 +198,51 @@ export function FechamentoForm({
         </table>
       </div>
 
+      {tipoVenda === "abate" ? (
+        <div className="flex flex-wrap items-end gap-3">
+          <label className="text-sm">
+            <span className="mb-1 block text-zinc-500">Frigorífico</span>
+            <input
+              type="text"
+              value={frigorifico}
+              onChange={(e) => setFrigorifico(e.target.value)}
+              className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            />
+          </label>
+          <label className="text-sm">
+            <span className="mb-1 block text-zinc-500">NF / Pedido</span>
+            <input
+              type="text"
+              value={nf}
+              onChange={(e) => setNf(e.target.value)}
+              className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            />
+          </label>
+          <label className="text-sm">
+            <span className="mb-1 block text-zinc-500">Data do abate</span>
+            <input
+              type="date"
+              value={dataAbate}
+              onChange={(e) => setDataAbate(e.target.value)}
+              className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            />
+          </label>
+        </div>
+      ) : (
+        <div className="flex flex-wrap items-end gap-3">
+          <label className="text-sm">
+            <span className="mb-1 block text-zinc-500">Comprador</span>
+            <input
+              type="text"
+              value={comprador}
+              onChange={(e) => setComprador(e.target.value)}
+              className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            />
+          </label>
+        </div>
+      )}
+
       <div className="flex flex-wrap items-end gap-3">
-        <label className="text-sm">
-          <span className="mb-1 block text-zinc-500">Frigorífico</span>
-          <input
-            type="text"
-            value={frigorifico}
-            onChange={(e) => setFrigorifico(e.target.value)}
-            className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
-          />
-        </label>
-        <label className="text-sm">
-          <span className="mb-1 block text-zinc-500">NF / Pedido</span>
-          <input
-            type="text"
-            value={nf}
-            onChange={(e) => setNf(e.target.value)}
-            className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
-          />
-        </label>
-        <label className="text-sm">
-          <span className="mb-1 block text-zinc-500">Data do abate</span>
-          <input
-            type="date"
-            value={dataAbate}
-            onChange={(e) => setDataAbate(e.target.value)}
-            className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
-          />
-        </label>
         <label className="text-sm">
           <span className="mb-1 block text-zinc-500">Data de saída da fazenda</span>
           <input
@@ -177,20 +251,6 @@ export function FechamentoForm({
             onChange={(e) => setDataSaida(e.target.value)}
             required
             className="rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
-          />
-        </label>
-      </div>
-
-      <div className="flex flex-wrap items-end gap-3">
-        <label className="text-sm">
-          <span className="mb-1 block text-zinc-500">Preço da @ de venda (R$)</span>
-          <input
-            type="number"
-            step="0.01"
-            value={precoArroba}
-            onChange={(e) => setPrecoArroba(e.target.value)}
-            required
-            className="w-28 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
         <label className="text-sm">
@@ -204,18 +264,56 @@ export function FechamentoForm({
             className="w-28 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
+        {tipoVenda === "abate" && (
+          <>
+            <label className="text-sm">
+              <span className="mb-1 block text-zinc-500">Preço da @ de venda (R$)</span>
+              <input
+                type="number"
+                step="0.01"
+                value={precoArroba}
+                onChange={(e) => setPrecoArroba(e.target.value)}
+                required
+                className="w-28 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+              />
+            </label>
+            <label className="text-sm">
+              <span className="mb-1 block text-zinc-500">Peso de carcaça total (kg)</span>
+              <input
+                type="number"
+                step="0.01"
+                value={pesoCarcacaTotal}
+                onChange={(e) => setPesoCarcacaTotal(e.target.value)}
+                className="w-32 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+              />
+            </label>
+          </>
+        )}
+      </div>
+
+      <div className="flex flex-wrap items-end gap-3">
         <label className="text-sm">
-          <span className="mb-1 block text-zinc-500">Peso de carcaça total (kg)</span>
+          <span className="mb-1 block text-zinc-500">Frete (R$)</span>
           <input
             type="number"
             step="0.01"
-            value={pesoCarcacaTotal}
-            onChange={(e) => setPesoCarcacaTotal(e.target.value)}
-            className="w-32 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            value={frete}
+            onChange={(e) => setFrete(e.target.value)}
+            className="w-28 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
           />
         </label>
         <label className="text-sm">
-          <span className="mb-1 block text-zinc-500">Deduções (R$)</span>
+          <span className="mb-1 block text-zinc-500">Comissão (R$)</span>
+          <input
+            type="number"
+            step="0.01"
+            value={comissao}
+            onChange={(e) => setComissao(e.target.value)}
+            className="w-28 rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          />
+        </label>
+        <label className="text-sm">
+          <span className="mb-1 block text-zinc-500">Outras deduções (R$)</span>
           <input
             type="number"
             step="0.01"

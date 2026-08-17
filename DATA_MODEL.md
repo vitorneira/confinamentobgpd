@@ -45,12 +45,30 @@ lote_origem, data_entrada, status ('ativo'|'vendido')`
 - **agregado**: `quantidade`, `peso_medio_entrada_kg` (1 linha = 1 lote; sem brinco).
 
 ### `venda_lote` + `venda_item` — evento de saída (generaliza a antiga `Venda_Nelore`)
-`venda_lote`: `id, fazenda_id, curral/lote, frigorifico, nf, data_abate, data_saida,
-cabecas, preco_arroba, peso_carcaca_total, rendimento_real, deducoes`.
+`venda_lote`: `id, fazenda_id, curral/lote, tipo_venda ('abate'|'direta'), comprador,
+frigorifico, nf, data_abate, data_saida, cabecas, preco_arroba, peso_carcaca_total,
+rendimento_real, frete, comissao, deducoes`.
 `venda_item`: liga a venda aos animais (lista de brincos) OU registra a quantidade
-vendida de um lote agregado. Ao gravar a venda, os animais recebem `status='vendido'`
+vendida de um lote agregado; `valor_negociado` guarda o preço combinado daquele item
+quando `tipo_venda = 'direta'`. Ao gravar a venda, os animais recebem `status='vendido'`
 (**baixa automática**); em lote agregado com venda parcial, a quantidade remanescente
 mantém o peso médio e o custo de ração acumulado é rateado proporcionalmente.
+
+`tipo_venda` distingue dois jeitos de apurar o valor bruto de um mesmo fechamento
+(um fechamento inteiro é sempre um dos dois, nunca mistura):
+- **abate** (frigorífico): `valor_bruto = (peso_carcaca_total / 15) × preco_arroba`,
+  como sempre foi.
+- **direta** (valor combinado — ex.: touros PO, ou qualquer animal vendido fora da
+  lógica de abate, nas duas fazendas): `valor_bruto` = soma de `venda_item.valor_negociado`
+  dos itens do lote — preço negociado **por animal**, não uniforme nem um total único,
+  porque a avaliação muda de bicho pra bicho. `peso_carcaca_total`/`preco_arroba` ficam
+  nulos nesse caso.
+
+Em qualquer tipo, `valor_liquido = valor_bruto − frete − comissao − deducoes` (frete e
+comissão são custos de entrega/intermediação que podem existir em qualquer venda, não
+só na direta). Para "custo da @ produzida", vendas diretas (sem carcaça real) usam
+arroba **viva** do ganho (ganho ÷ 30) no lugar de arrobas de carcaça — mesmo padrão do
+resto do sistema para quem não tem rendimento de carcaça apurado.
 
 ## CONFIGURAÇÃO / CADASTRO
 
@@ -119,6 +137,9 @@ Ao confirmar → cria/atualiza os `tratos_diarios` do dia.
 - arrobas de carcaça, carcaça média/cab, valor bruto/líquido, custo de entrada,
   ração real, custo fixo, custo total e /cab, **lucro/lote, lucro/cab, margem, ROI,
   custo da @ produzida**.
+- Em venda **direta** (valor combinado, sem abate — ex. touros PO): os campos de
+  carcaça/rendimento não se aplicam (ficam vazios); o restante da apuração
+  (lucro, margem, ROI, custo da @ pela arroba viva do ganho) funciona igual.
 
 ### Dashboard = agregações das views acima + painel de alertas.
 ### Simulação = recalcula @/valor/resultado com parâmetros do usuário, sem gravar.
