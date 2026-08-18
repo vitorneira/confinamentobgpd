@@ -61,7 +61,6 @@ export default async function SimulacaoPage({
           dataReferencia={parametros.data_referencia}
           precoArrobaReferencia={parametros.preco_arroba_referencia}
           pesoAbateAlvoPadrao={parametros.peso_abate_alvo}
-          custoFixoDia={parametros.custo_fixo_dia}
         />
       )}
     </div>

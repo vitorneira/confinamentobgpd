@@ -15,7 +15,8 @@
     "test:importacao": "tsx scripts/test/importacao_check.ts",
     "test:insumos": "tsx scripts/test/insumos_check.ts",
     "test:venda": "tsx scripts/test/venda_check.ts",
-    "test:guia-trato-confirmacao": "tsx scripts/test/guia_trato_confirmacao_check.ts"
+    "test:guia-trato-confirmacao": "tsx scripts/test/guia_trato_confirmacao_check.ts",
+    "test:simulacao": "tsx scripts/test/simulacao_check.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",
