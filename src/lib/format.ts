@@ -23,3 +23,27 @@ export function formatData(v: string | null | undefined): string {
   const [ano, mes, dia] = v.split("-");
   return `${dia}/${mes}/${ano}`;
 }
+
+/**
+ * Ordenação natural de códigos (curral, etc.): compara trecho numérico como
+ * número (1 < 2 < 10) e trecho não-numérico alfabeticamente, segmento a
+ * segmento — cobre casos como "2","3","4","4-TN","5" e "1".."10".
+ */
+export function compararCodigo(a: string, b: string): number {
+  const partsA = a.match(/(\d+|\D+)/g) ?? [a];
+  const partsB = b.match(/(\d+|\D+)/g) ?? [b];
+  const len = Math.max(partsA.length, partsB.length);
+  for (let i = 0; i < len; i++) {
+    const pa = partsA[i] ?? "";
+    const pb = partsB[i] ?? "";
+    if (pa === pb) continue;
+    const na = Number(pa);
+    const nb = Number(pb);
+    if (pa !== "" && pb !== "" && !Number.isNaN(na) && !Number.isNaN(nb)) {
+      if (na !== nb) return na - nb;
+      continue;
+    }
+    return pa.localeCompare(pb, "pt-BR");
+  }
+  return 0;
+}

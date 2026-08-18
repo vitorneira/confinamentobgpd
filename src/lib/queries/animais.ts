@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { ordenarPorBrinco } from "@/lib/brinco-sort";
+import { compararCodigo } from "@/lib/format";
 
 export type AnimalListado = {
   animalId: string;
@@ -22,7 +23,7 @@ export async function getCurraisEcategorias(fazendaId: string) {
     supabase.from("categorias").select("id, nome").eq("fazenda_id", fazendaId),
   ]);
   return {
-    currais: currais ?? [],
+    currais: [...(currais ?? [])].sort((a, b) => compararCodigo(a.codigo as string, b.codigo as string)),
     categorias: categorias ?? [],
   };
 }

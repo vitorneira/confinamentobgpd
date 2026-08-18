@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { totalAjustado } from "@/lib/guia-trato/balanceamento";
+import { compararCodigo } from "@/lib/format";
 
 export type CurralComDieta = {
   curralId: string;
@@ -17,10 +18,12 @@ export async function getCurraisComDietaVigente(
   const { data: currais } = await supabase
     .from("currais")
     .select("id, codigo")
-    .eq("fazenda_id", fazendaId)
-    .order("codigo");
+    .eq("fazenda_id", fazendaId);
+  const curraisOrdenados = [...(currais ?? [])].sort((a, b) =>
+    compararCodigo(a.codigo as string, b.codigo as string),
+  );
 
-  const curralIds = (currais ?? []).map((c) => c.id as string);
+  const curralIds = curraisOrdenados.map((c) => c.id as string);
   if (curralIds.length === 0) return [];
 
   const { data: vigencias } = await supabase
@@ -37,7 +40,7 @@ export async function getCurraisComDietaVigente(
     if (dieta) dietaPorCurral.set(v.curral_id as string, dieta);
   }
 
-  return (currais ?? []).map((c) => ({
+  return curraisOrdenados.map((c) => ({
     curralId: c.id as string,
     curralCodigo: c.codigo as string,
     dietaId: dietaPorCurral.get(c.id as string)?.id ?? null,
@@ -181,7 +184,7 @@ export async function getItensConfirmacao(
         confirmado: !!trato,
       };
     })
-    .sort((a, b) => b.data.localeCompare(a.data) || a.curralCodigo.localeCompare(b.curralCodigo));
+    .sort((a, b) => b.data.localeCompare(a.data) || compararCodigo(a.curralCodigo, b.curralCodigo));
 }
 
 export type VagaoSalvo = { dietaId: string; horario: "manha" | "almoco" | "tarde"; cargas: number[] };
