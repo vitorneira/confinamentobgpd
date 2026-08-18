@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { compararCodigo } from "@/lib/format";
 
 export type CompraListada = {
   id: string;
@@ -112,8 +113,11 @@ export type CurralComVigencias = {
 
 export async function getCurraisComVigencias(fazendaId: string): Promise<CurralComVigencias[]> {
   const supabase = await createClient();
-  const { data: currais } = await supabase.from("currais").select("id, codigo").eq("fazenda_id", fazendaId).order("codigo");
-  const curralIds = (currais ?? []).map((c) => c.id);
+  const { data: currais } = await supabase.from("currais").select("id, codigo").eq("fazenda_id", fazendaId);
+  const curraisOrdenados = [...(currais ?? [])].sort((a, b) =>
+    compararCodigo(a.codigo as string, b.codigo as string),
+  );
+  const curralIds = curraisOrdenados.map((c) => c.id);
 
   const { data: vigencias } = await supabase
     .from("dieta_vigencia")
@@ -121,7 +125,7 @@ export async function getCurraisComVigencias(fazendaId: string): Promise<CurralC
     .in("curral_id", curralIds)
     .order("data_inicio", { ascending: false });
 
-  return (currais ?? []).map((c) => {
+  return curraisOrdenados.map((c) => {
     const historico = (vigencias ?? [])
       .filter((v) => v.curral_id === c.id)
       .map((v) => ({

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getFazendaByCodigo } from "@/lib/queries/fazenda";
 import { createClient } from "@/lib/supabase/server";
+import { compararCodigo } from "@/lib/format";
 import { ImportarPlanilha } from "./ImportarPlanilha";
 import { LancamentoManual } from "./LancamentoManual";
 
@@ -14,11 +15,11 @@ export default async function PesagensPage({
   if (!fazenda) notFound();
 
   const supabase = await createClient();
-  const { data: currais } = await supabase
+  const { data: curraisRaw } = await supabase
     .from("currais")
     .select("id, codigo")
-    .eq("fazenda_id", fazenda.id)
-    .order("codigo");
+    .eq("fazenda_id", fazenda.id);
+  const currais = [...(curraisRaw ?? [])].sort((a, b) => compararCodigo(a.codigo as string, b.codigo as string));
 
   return (
     <div className="mx-auto max-w-4xl space-y-10 px-4 py-8">

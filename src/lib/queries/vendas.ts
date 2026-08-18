@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { ordenarPorBrinco } from "@/lib/brinco-sort";
+import { compararCodigo } from "@/lib/format";
 
 export type CurralComAtivos = {
   curralId: string;
@@ -10,7 +11,7 @@ export type CurralComAtivos = {
 export async function getCurraisComAtivos(fazendaId: string): Promise<CurralComAtivos[]> {
   const supabase = await createClient();
   const [{ data: currais }, { data: animais }] = await Promise.all([
-    supabase.from("currais").select("id, codigo").eq("fazenda_id", fazendaId).order("codigo"),
+    supabase.from("currais").select("id, codigo").eq("fazenda_id", fazendaId),
     supabase.from("animais").select("curral_id, tipo, quantidade").eq("fazenda_id", fazendaId).eq("status", "ativo"),
   ]);
 
@@ -21,7 +22,9 @@ export async function getCurraisComAtivos(fazendaId: string): Promise<CurralComA
     cabecasPorCurral.set(curralId, (cabecasPorCurral.get(curralId) ?? 0) + soma);
   }
 
-  return (currais ?? []).map((c) => ({
+  return [...(currais ?? [])]
+    .sort((a, b) => compararCodigo(a.codigo as string, b.codigo as string))
+    .map((c) => ({
     curralId: c.id as string,
     curralCodigo: c.codigo as string,
     cabecasAtivas: cabecasPorCurral.get(c.id as string) ?? 0,

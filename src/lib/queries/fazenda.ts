@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import type { CurralIndicadores, IngredienteEstoque, Parametros } from "@/lib/kpi/types";
+import { compararCodigo } from "@/lib/format";
 
 export async function getFazendaByCodigo(codigo: string) {
   const supabase = await createClient();
@@ -46,9 +47,8 @@ export async function getCurraisIndicadores(fazendaId: string): Promise<CurralIn
   const { data } = await supabase
     .from("v_curral_indicadores_completo")
     .select("*")
-    .eq("fazenda_id", fazendaId)
-    .order("codigo");
-  return data ?? [];
+    .eq("fazenda_id", fazendaId);
+  return [...(data ?? [])].sort((a, b) => compararCodigo(a.codigo as string, b.codigo as string));
 }
 
 export async function getIngredienteEstoque(fazendaId: string): Promise<IngredienteEstoque[]> {
