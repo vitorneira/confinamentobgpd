@@ -129,26 +129,38 @@ decidir segurar ou vender o boi — não é só uma calculadora de números.
   modo — sinaliza que a decisão é **vender agora**, mostra o resultado da venda
   imediata (dia 0) e esconde a comparação de horizontes e o ponto ótimo de abate
   (não fazem sentido pra quem já está no alvo).
-- **Dois resultados lado a lado, sem ambiguidade**:
+- **Herói da tela: spread por @ produzida**, não o resultado bruto — responde
+  direto "vale a pena continuar engordando ou vender agora": `custo marginal da @
+  carcaça = (custo de ração real + custo fixo, por cabeça/dia) ÷ (GMD × rendimento
+  ÷ 15)`; `spread = preço da @ carcaça − custo marginal da @`. Verde quando
+  `spread ≥ 0`, vermelho quando `< 0`, neutro ("—") quando GMD ≤ 0 (a divisão não
+  tem sentido sem produção diária de @ — só esse indicador fica em branco, o resto
+  da tela continua calculando). Implementação: `calcularPontoOtimo` (retorna
+  `custoArrobaMarginal`) + `calcularSpread`.
+- **Dois resultados pareados, sem ambiguidade**:
   - *Contribuição do confinamento* = receita de abate − custo real de ração − custo
-    fixo (**sem** o custo de entrada/compra do lote).
-  - *Resultado cheio* = contribuição − custo de entrada. O custo de entrada **não
-    existe no sistema** pra um lote ainda não vendido (só é digitado no fechamento
-    da venda) — a tela pede o **preço da @ pago na entrada (R$)** como campo opcional
-    e calcula `peso de entrada total × 50% ÷ 15 × preço informado` (mesma fórmula do
-    fechamento real). Sem esse valor, mostra "—" em vez de estimar.
+    fixo (**sem** o valor de compra do lote).
+  - *Resultado cheio (com compra)* = contribuição − valor de compra do lote. Esse
+    valor **não existe no sistema** pra um lote ainda não vendido (só é digitado no
+    fechamento da venda, como `venda_lote.preco_arroba_entrada`) — a tela pede um
+    campo opcional **"valor de compra do lote (R$)"**, um total direto (não
+    preço-por-@) que o dono já sabe de cabeça. Sem esse valor, mostra "—" em vez de
+    estimar. Card com borda mais grossa + badge "Este manda" — é o número que
+    decide.
   - O cálculo incremental (contribuição) nunca é rotulado "margem"/"ROI" sozinho —
     aparece como **"margem sobre custo de operação"** (contribuição ÷ custo de
     operação). **ROI** só existe atrelado ao resultado cheio (resultado cheio ÷
-    (custo de operação + custo de entrada)).
-- **KPI heroi**: custo da @ produzida (@ **viva**, peso/30) nas duas visões do
-  resto do sistema — só ração e total com fixo — comparado ao preço da @ de venda.
-  Fica **vermelho** quando `custo da @ produzida ≥ preço da @ de venda`. Traz também
-  a **conversão alimentar** projetada (kg ração ÷ kg ganho), de primeira classe como
-  no resto do sistema.
+    (custo de operação + valor de compra)).
+- **KPIs de referência**: custo da @ produzida (@ **viva**, peso/30) nas duas
+  visões do resto do sistema — só ração e total com fixo — comparado ao preço da @
+  de venda. Fica **vermelho** quando `custo da @ produzida ≥ preço da @ de venda`.
+  Essa é a média do ciclo (não confundir com o custo MARGINAL do herói acima, que é
+  o que decide continuar ou parar). Traz também a **conversão alimentar** projetada
+  (kg ração ÷ kg ganho), de primeira classe como no resto do sistema.
 - **Cenários**: comparação lado a lado de horizontes configuráveis — "vender agora"
   (dia 0) vs. +N dias vs. +M dias (padrão 30/60) — nas mesmas métricas (peso
-  projetado, @ viva produzida, custo da @, contribuição, resultado cheio).
+  projetado, @ viva produzida, contribuição, resultado cheio). Escondido quando o
+  lote já está no peso alvo.
 - **Sensibilidade ao preço da @**: mini-tabela do resultado (cheio, ou contribuição
   se a compra não foi informada) a preço base −20/−10/base/+10/+20 (R$/@), no
   cenário do peso alvo (ou de vender agora, se já no alvo).
@@ -160,11 +172,21 @@ decidir segurar ou vender o boi — não é só uma calculadora de números.
   peso alvo** (margem diária > 0) ou **vender agora** (margem diária ≤ 0). Um ponto
   ótimo genuinamente intermediário exigiria uma curva de GMD por peso, fora do
   escopo atual. Implementação: `src/lib/kpi/simulacao.ts::calcularPontoOtimo`.
-- **Break-even**: linha em destaque "abaixo de R$ ___/@ este curral dá prejuízo (com
-  a compra)" — `preço break-even = (custo total projetado + custo de entrada) ÷
-  arrobas de carcaça projetadas` (receita é linear no preço, então é álgebra direta;
-  sem custo de entrada informado, mostra o break-even sem a compra e pede o preço
-  de entrada pro break-even completo). Implementação: `calcularBreakEven`.
+- **Dois break-evens, cards de insight separados** (companheiros, não a mesma
+  pergunta):
+  - *Break-even marginal* = o próprio custo marginal da @ do herói — "abaixo desse
+    preço, mais um dia de trato já destrói valor". Escondido quando o lote já está
+    no peso alvo (não há mais dia a decidir).
+  - *Break-even do ciclo (com compra)* = `(custo total projetado + valor de compra)
+    ÷ arrobas de carcaça projetadas` (receita é linear no preço, então é álgebra
+    direta) — "abaixo desse preço, o ciclo inteiro dá prejuízo, já contando a
+    compra". Sem valor de compra informado, mostra o break-even sem a compra e pede
+    o valor pro break-even completo. Implementação: `calcularBreakEven`.
+- **Alertas de negócio** (aviso, nunca estilo de erro de sistema — banner âmbar com
+  ícone de bolinha, empilhados no topo, podem estar ativos junto):
+  - GMD fora da faixa válida (0 a 2,5 kg/dia).
+  - Lote já no peso alvo (peso médio atual ≥ peso de abate alvo) — a tela sinaliza
+    que a decisão é vender agora e esconde cenários/ponto ótimo/break-even marginal.
 - **Nomenclatura**: o campo de preço é rotulado **"Preço da @ carcaça (R$)"** (com
   tooltip explicando) — a receita de abate usa arroba de carcaça, mas o resto do
   sistema rastreia arroba **viva**; a 50% de rendimento os números coincidem
@@ -172,6 +194,7 @@ decidir segurar ou vender o boi — não é só uma calculadora de números.
   hipotético, deixam de ser a mesma unidade.
 - Lógica de cálculo pura e testável em `src/lib/kpi/simulacao.ts`, sem componente de
   tela; regressão em `scripts/test/simulacao_check.ts` (`npm run test:simulacao`).
+  Mockup de revisão do layout: `Simulacao Redesign.dc.html` (raiz do projeto).
 
 ### 11. Parâmetros (por fazenda, só admin)
 Preço da @ de referência, % matéria seca, custo fixo diário, GMD meta, peso de abate

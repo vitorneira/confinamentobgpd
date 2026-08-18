@@ -51,8 +51,8 @@ export type ParametrosCenario = {
   /** 0–1. Só 50% é exatamente equivalente à arroba viva usada no custo/@ — ver nomenclatura na tela. */
   rendimentoCarcaca: number;
   precoArrobaCarcaca: number;
-  /** Preço da @ pago na entrada (R$) — informado pelo usuário; null = desconhecido (não existe no sistema pra lote ainda não vendido). */
-  precoArrobaEntrada: number | null;
+  /** Valor total pago pelo lote (R$) — informado pelo usuário; null = desconhecido (não existe no sistema pra lote ainda não vendido). */
+  valorCompraLote: number | null;
 };
 
 export type Cenario = {
@@ -111,8 +111,7 @@ export function projetarCenario(base: BaseSimulacao, p: ParametrosCenario, dias:
 
   const contribuicaoConfinamento = receitaProjetada - custoTotalReais;
 
-  const custoEntradaReais =
-    p.precoArrobaEntrada === null ? null : ((base.pesoEntradaMedioKg * numCabecas * 0.5) / 15) * p.precoArrobaEntrada;
+  const custoEntradaReais = p.valorCompraLote;
   const resultadoCheio = custoEntradaReais === null ? null : contribuicaoConfinamento - custoEntradaReais;
 
   const margemOperacional = custoTotalReais > 0 ? contribuicaoConfinamento / custoTotalReais : null;
@@ -154,6 +153,13 @@ export type PontoOtimo = {
   margemDiariaReais: number;
   valeEsperar: boolean;
   diaOtimo: number | null;
+  /**
+   * Custo marginal por @ de CARCAÇA (mesma base do preço de venda, não a
+   * arroba viva usada no custo/@ produzida médio) — null se GMD ≤ 0, onde
+   * não há produção diária de @ pra dividir o custo do dia. É o break-even
+   * marginal: abaixo desse preço, mais um dia de trato já destrói valor.
+   */
+  custoArrobaMarginal: number | null;
 };
 
 /**
@@ -174,10 +180,14 @@ export type PontoOtimo = {
  * intermediário exigiria uma curva de GMD por peso, fora do escopo atual.
  */
 export function calcularPontoOtimo(base: BaseSimulacao, p: ParametrosCenario, diasParaAlvo: number | null): PontoOtimo {
+  const custoDiarioPorCabecaReais = base.custoRacaoCabDiaMedioReais + base.custoFixoDia;
   const valorMarginalDiaReais = ((p.gmdKgDia * base.numCabecas * p.rendimentoCarcaca) / 15) * p.precoArrobaCarcaca;
-  const custoMarginalDiaReais = (base.custoRacaoCabDiaMedioReais + base.custoFixoDia) * base.numCabecas;
+  const custoMarginalDiaReais = custoDiarioPorCabecaReais * base.numCabecas;
   const margemDiariaReais = valorMarginalDiaReais - custoMarginalDiaReais;
   const valeEsperar = margemDiariaReais > 0;
+
+  const producaoDiariaArrobaPorCab = (p.gmdKgDia * p.rendimentoCarcaca) / 15;
+  const custoArrobaMarginal = producaoDiariaArrobaPorCab > 0 ? custoDiarioPorCabecaReais / producaoDiariaArrobaPorCab : null;
 
   return {
     valorMarginalDiaReais,
@@ -185,7 +195,18 @@ export function calcularPontoOtimo(base: BaseSimulacao, p: ParametrosCenario, di
     margemDiariaReais,
     valeEsperar,
     diaOtimo: valeEsperar ? diasParaAlvo : 0,
+    custoArrobaMarginal,
   };
+}
+
+/**
+ * Spread por @ produzida — o herói da tela. Preço de venda menos o custo
+ * MARGINAL da @ (não a média do ciclo inteiro, que é `custoArrobaSoRacao`/
+ * `custoArrobaTotal` em `Cenario`) — responde "vale a pena continuar
+ * engordando ou vender agora", não "como foi o ciclo até aqui".
+ */
+export function calcularSpread(custoArrobaMarginal: number | null, precoArrobaCarcaca: number): number | null {
+  return custoArrobaMarginal === null ? null : precoArrobaCarcaca - custoArrobaMarginal;
 }
 
 export type BreakEven = {

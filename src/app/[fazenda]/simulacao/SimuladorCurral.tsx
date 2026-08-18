@@ -6,6 +6,7 @@ import {
   baseSimulacaoDoCurral,
   calcularBreakEven,
   calcularPontoOtimo,
+  calcularSpread,
   diasParaAtingirPeso,
   gmdForaDaFaixa,
   projetarCenario,
@@ -25,9 +26,7 @@ function somarDias(dataIso: string, dias: number): string {
 /** Vermelho quando produzir mais @ está dando prejuízo (custo da @ produzida >= preço de venda). */
 function corCustoArroba(custoArroba: number | null, precoArroba: number): string {
   if (custoArroba === null) return "text-zinc-500";
-  return custoArroba >= precoArroba
-    ? "text-red-600 dark:text-red-400"
-    : "text-green-700 dark:text-green-400";
+  return custoArroba >= precoArroba ? "text-red-600 dark:text-red-400" : "text-green-700 dark:text-green-400";
 }
 
 export function SimuladorCurral({
@@ -49,7 +48,7 @@ export function SimuladorCurral({
   );
   const [rendimento, setRendimento] = useState("50");
   const [precoArroba, setPrecoArroba] = useState(String(precoArrobaReferencia));
-  const [precoArrobaEntrada, setPrecoArrobaEntrada] = useState("");
+  const [valorCompraLote, setValorCompraLote] = useState("");
   const [horizonte2, setHorizonte2] = useState("30");
   const [horizonte3, setHorizonte3] = useState("60");
 
@@ -62,7 +61,7 @@ export function SimuladorCurral({
     const pesoAbateNum = Number(pesoAbate) || 0;
     const rendimentoNum = (Number(rendimento) || 0) / 100;
     const precoArrobaNum = Number(precoArroba) || 0;
-    const precoArrobaEntradaNum = precoArrobaEntrada.trim() === "" ? null : Number(precoArrobaEntrada) || 0;
+    const valorCompraLoteNum = valorCompraLote.trim() === "" ? null : Number(valorCompraLote) || 0;
     const horizonte2Num = Math.max(Number(horizonte2) || 0, 0);
     const horizonte3Num = Math.max(Number(horizonte3) || 0, 0);
 
@@ -70,7 +69,7 @@ export function SimuladorCurral({
       gmdKgDia: gmdNum,
       rendimentoCarcaca: rendimentoNum,
       precoArrobaCarcaca: precoArrobaNum,
-      precoArrobaEntrada: precoArrobaEntradaNum,
+      valorCompraLote: valorCompraLoteNum,
     };
 
     const diasNecessarios = diasParaAtingirPeso(base.pesoAtualKg, gmdNum, pesoAbateNum);
@@ -82,6 +81,7 @@ export function SimuladorCurral({
 
     const cenarioAlvo = projetarCenario(base, parametros, diasReferencia);
     const pontoOtimo = calcularPontoOtimo(base, parametros, diasNecessarios);
+    const spread = calcularSpread(pontoOtimo.custoArrobaMarginal, precoArrobaNum);
     const breakEven = calcularBreakEven(cenarioAlvo);
 
     const cenarios: Array<{ label: string; cenario: Cenario }> = [
@@ -93,11 +93,7 @@ export function SimuladorCurral({
     const sensibilidade = DELTAS_SENSIBILIDADE.map((delta) => ({
       delta,
       precoArroba: precoArrobaNum + delta,
-      cenario: projetarCenario(
-        base,
-        { ...parametros, precoArrobaCarcaca: precoArrobaNum + delta },
-        diasReferencia,
-      ),
+      cenario: projetarCenario(base, { ...parametros, precoArrobaCarcaca: precoArrobaNum + delta }, diasReferencia),
     }));
 
     return {
@@ -108,11 +104,12 @@ export function SimuladorCurral({
       dataEstimada,
       cenarioAlvo,
       pontoOtimo,
+      spread,
       breakEven,
       cenarios,
       sensibilidade,
     };
-  }, [base, gmdNum, pesoAbate, rendimento, precoArroba, precoArrobaEntrada, horizonte2, horizonte3, dataReferencia]);
+  }, [base, gmdNum, pesoAbate, rendimento, precoArroba, valorCompraLote, horizonte2, horizonte3, dataReferencia]);
 
   if (!base || !calculo) {
     return (
@@ -129,76 +126,144 @@ export function SimuladorCurral({
     );
   }
 
-  const { jaNoAlvo, cenarioAlvo, pontoOtimo, breakEven, cenarios, sensibilidade } = calculo;
+  const { jaNoAlvo, cenarioAlvo, pontoOtimo, spread, breakEven, cenarios, sensibilidade } = calculo;
+  const spreadIndefinido = spread === null;
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-4 rounded-card border border-zinc-200 bg-white p-5 shadow-sm sm:grid-cols-4 dark:border-zinc-800 dark:bg-zinc-900">
-        <label className="text-sm">
-          <span className="mb-1 block text-zinc-500">GMD assumido (kg/dia)</span>
-          <input
-            type="number"
-            step="0.01"
-            value={gmd}
-            onChange={(e) => setGmd(e.target.value)}
-            className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
-          />
-        </label>
-        <label className="text-sm">
-          <span className="mb-1 block text-zinc-500">Peso de abate alvo (kg)</span>
-          <input
-            type="number"
-            step="1"
-            value={pesoAbate}
-            onChange={(e) => setPesoAbate(e.target.value)}
-            className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
-          />
-        </label>
-        <label className="text-sm">
-          <span className="mb-1 block text-zinc-500">Rendimento de carcaça (%)</span>
-          <input
-            type="number"
-            step="0.1"
-            value={rendimento}
-            onChange={(e) => setRendimento(e.target.value)}
-            className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
-          />
-        </label>
-        <label
-          className="text-sm"
-          title="A receita de abate usa arroba de CARCAÇA (peso × rendimento ÷ 15). O custo da @ produzida usa arroba VIVA (peso ÷ 30), padrão do resto do sistema. A 50% de rendimento os dois coincidem — em outro rendimento hipotético, deixam de ser a mesma unidade."
-        >
-          <span className="mb-1 block text-zinc-500">Preço da @ carcaça (R$)</span>
-          <input
-            type="number"
-            step="0.01"
-            value={precoArroba}
-            onChange={(e) => setPrecoArroba(e.target.value)}
-            className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
-          />
-        </label>
+      {/* Premissas */}
+      <div className="rounded-card border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">
+          Premissas — o que você ajusta
+        </p>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
+          <label className="text-sm">
+            <span className="mb-1 block text-zinc-500">GMD assumido (kg/dia)</span>
+            <input
+              type="number"
+              step="0.01"
+              value={gmd}
+              onChange={(e) => setGmd(e.target.value)}
+              className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
+            />
+          </label>
+          <label className="text-sm">
+            <span className="mb-1 block text-zinc-500">Peso de abate alvo (kg)</span>
+            <input
+              type="number"
+              step="1"
+              value={pesoAbate}
+              onChange={(e) => setPesoAbate(e.target.value)}
+              className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
+            />
+          </label>
+          <label className="text-sm">
+            <span className="mb-1 block text-zinc-500">Rendimento de carcaça (%)</span>
+            <input
+              type="number"
+              step="0.1"
+              value={rendimento}
+              onChange={(e) => setRendimento(e.target.value)}
+              className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
+            />
+          </label>
+          <label
+            className="text-sm"
+            title="A receita de abate usa arroba de CARCAÇA (peso × rendimento ÷ 15). O custo da @ produzida usa arroba VIVA (peso ÷ 30), padrão do resto do sistema. A 50% de rendimento os dois coincidem — em outro rendimento hipotético, deixam de ser a mesma unidade."
+          >
+            <span className="mb-1 block text-zinc-500">Preço da @ carcaça (R$)</span>
+            <input
+              type="number"
+              step="0.01"
+              value={precoArroba}
+              onChange={(e) => setPrecoArroba(e.target.value)}
+              className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
+            />
+          </label>
+          <label className="text-sm">
+            <span className="mb-1 block text-zinc-500">Valor de compra do lote (R$)</span>
+            <input
+              type="number"
+              step="100"
+              placeholder="opcional — não existe no sistema ainda"
+              value={valorCompraLote}
+              onChange={(e) => setValorCompraLote(e.target.value)}
+              className="w-full rounded-input border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
+            />
+          </label>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-4 border-t border-zinc-100 pt-3 text-xs text-zinc-500 dark:border-zinc-800">
+          <span>
+            Peso médio atual: <b className="text-black dark:text-zinc-50">{formatNumero(base.pesoAtualKg)} kg</b>
+          </span>
+          <span>
+            Custo acumulado:{" "}
+            <b className="text-black dark:text-zinc-50">{formatMoeda(base.custoTotalAcumulado)}</b>
+          </span>
+          <span>
+            Cabeças: <b className="text-black dark:text-zinc-50">{formatNumero(base.numCabecas)}</b>
+          </span>
+        </div>
       </div>
 
-      {gmdAlerta && (
-        <p className="rounded-card border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-400">
-          GMD fora da faixa esperada (0 a 2,5 kg/dia) — verifique as pesagens deste curral. O cálculo continua
-          rodando com o valor informado; ajuste o campo acima se quiser sobrescrever.
-        </p>
+      {(gmdAlerta || jaNoAlvo) && (
+        <div className="space-y-2">
+          {gmdAlerta && (
+            <div className="flex items-start gap-2 rounded-card border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-400">
+              <span className="mt-1.5 h-2 w-2 flex-none rounded-full bg-amber-500" />
+              <p>
+                <strong>GMD fora da faixa esperada</strong> (0 a 2,5 kg/dia) — verifique as pesagens deste curral. O
+                cálculo continua rodando com o valor informado; o spread e o break-even marginal ficam em branco
+                porque dependem de um GMD positivo.
+              </p>
+            </div>
+          )}
+          {jaNoAlvo && (
+            <div className="flex items-start gap-2 rounded-card border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-400">
+              <span className="mt-1.5 h-2 w-2 flex-none rounded-full bg-amber-500" />
+              <p>
+                <strong>Este lote já está no peso alvo</strong> — a decisão é vender agora, não engordar mais.
+                Cenários de espera e ponto ótimo ficam escondidos abaixo.
+              </p>
+            </div>
+          )}
+        </div>
       )}
 
-      {jaNoAlvo && (
-        <p className="rounded-card border border-blue-300 bg-blue-50 p-3 text-sm text-blue-900 dark:border-blue-900 dark:bg-blue-950/40 dark:text-blue-300">
-          Este lote já está no peso alvo — a decisão aqui é <strong>vender agora</strong>, não engordar mais. Os
-          números abaixo são do resultado da venda imediata (sem projeção de ganho futuro).
+      {/* Herói: spread por @ produzida */}
+      <div
+        className={`rounded-card border p-5 shadow-sm ${
+          spreadIndefinido
+            ? "border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900"
+            : spread! >= 0
+              ? "border-green-200 bg-green-50 dark:border-green-900 dark:bg-green-950/40"
+              : "border-red-200 bg-red-50 dark:border-red-900 dark:bg-red-950/40"
+        }`}
+      >
+        <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+          Spread por @ produzida — segurar ou vender
         </p>
-      )}
+        <p
+          className={`mt-1 text-4xl font-bold tabular-nums ${
+            spreadIndefinido ? "text-zinc-400 dark:text-zinc-600" : corResultado(spread)
+          }`}
+        >
+          {spreadIndefinido ? "—" : `${formatMoeda(spread)}/@`}
+        </p>
+        <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+          {spreadIndefinido ? (
+            <>GMD ≤ 0 — sem produção diária de @, o spread marginal não se aplica. Corrija o GMD assumido acima.</>
+          ) : (
+            <>
+              preço da @ <b className="text-black dark:text-zinc-50">{formatMoeda(calculo.precoArrobaNum)}</b> −
+              custo marginal da @ produzida{" "}
+              <b className="text-black dark:text-zinc-50">{formatMoeda(pontoOtimo.custoArrobaMarginal)}</b>
+            </>
+          )}
+        </p>
+      </div>
 
-      <p className="text-xs text-zinc-500">
-        Ponto de partida real do curral {curral.codigo}: {curral.num_cabecas} cabeças, peso médio atual{" "}
-        {formatNumero(base.pesoAtualKg)} kg, custo acumulado {formatMoeda(base.custoTotalAcumulado)}. Nada aqui é
-        gravado — é só projeção.
-      </p>
-
+      {/* Resultados pareados */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="rounded-card border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
@@ -213,41 +278,34 @@ export function SimuladorCurral({
           </p>
         </div>
         <div
-          className={`rounded-card border p-5 shadow-sm ${
+          className={`rounded-card border-2 p-5 shadow-sm ${
             cenarioAlvo.resultadoCheio === null
               ? "border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900"
               : cenarioAlvo.resultadoCheio >= 0
-                ? "border-green-200 bg-green-50 dark:border-green-900 dark:bg-green-950/40"
-                : "border-red-200 bg-red-50 dark:border-red-900 dark:bg-red-950/40"
+                ? "border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-950/40"
+                : "border-red-300 bg-red-50 dark:border-red-800 dark:bg-red-950/40"
           }`}
         >
-          <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Resultado cheio</p>
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Resultado cheio</p>
+            <span className="rounded-full border border-primary-500 bg-primary-50 px-2 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide text-primary-700 dark:bg-primary-900/30 dark:text-primary-300">
+              Este manda
+            </span>
+          </div>
           <p className={`mt-1 text-2xl font-bold tabular-nums ${corResultado(cenarioAlvo.resultadoCheio)}`}>
             {cenarioAlvo.resultadoCheio === null ? "—" : formatMoeda(cenarioAlvo.resultadoCheio)}
           </p>
-          {cenarioAlvo.resultadoCheio === null ? (
-            <p className="mt-1 text-xs text-zinc-500">
-              Informe abaixo o preço da @ pago na entrada pra ver o resultado completo (com a compra do lote).
-            </p>
-          ) : (
-            <p className="mt-1 text-xs text-zinc-500">
-              Contribuição − custo de entrada. ROI: {formatPercentual(cenarioAlvo.roi, 1)}.
-            </p>
-          )}
-          <label className="mt-3 block text-sm">
-            <span className="mb-1 block text-zinc-500">Preço da @ pago na entrada (R$) — opcional</span>
-            <input
-              type="number"
-              step="0.01"
-              placeholder="não existe no sistema pra lote ainda não vendido — informe pra calcular"
-              value={precoArrobaEntrada}
-              onChange={(e) => setPrecoArrobaEntrada(e.target.value)}
-              className="w-full rounded-input border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
-            />
-          </label>
+          <p className="mt-1 text-xs text-zinc-500">
+            {cenarioAlvo.resultadoCheio === null ? (
+              <>Informe o valor de compra do lote acima pra ver o resultado completo (com a compra).</>
+            ) : (
+              <>Contribuição − valor de compra do lote. ROI: {formatPercentual(cenarioAlvo.roi, 1)}.</>
+            )}
+          </p>
         </div>
       </div>
 
+      {/* KPIs secundários: custo da @ produzida (base viva) + conversão alimentar */}
       <div className="grid gap-4 sm:grid-cols-3">
         <div className="rounded-card border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <p className="text-xs text-zinc-500">Custo da @ produzida (só ração)</p>
@@ -256,7 +314,7 @@ export function SimuladorCurral({
           >
             {cenarioAlvo.custoArrobaSoRacao === null ? "—" : formatMoeda(cenarioAlvo.custoArrobaSoRacao)}
           </p>
-          <p className="mt-1 text-xs text-zinc-500">vs. preço de venda {formatMoeda(calculo.precoArrobaNum)}</p>
+          <p className="mt-1 text-xs text-zinc-500">base viva (peso ÷ 30), média do período</p>
         </div>
         <div className="rounded-card border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <p className="text-xs text-zinc-500">Custo da @ produzida (total, com fixo)</p>
@@ -265,7 +323,7 @@ export function SimuladorCurral({
           >
             {cenarioAlvo.custoArrobaTotal === null ? "—" : formatMoeda(cenarioAlvo.custoArrobaTotal)}
           </p>
-          <p className="mt-1 text-xs text-zinc-500">vs. preço de venda {formatMoeda(calculo.precoArrobaNum)}</p>
+          <p className="mt-1 text-xs text-zinc-500">base viva, ração + fixo</p>
         </div>
         <div className="rounded-card border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <p className="text-xs text-zinc-500">Conversão alimentar projetada</p>
@@ -320,52 +378,11 @@ export function SimuladorCurral({
         </div>
       </div>
 
-      <div className="rounded-card border border-amber-300 bg-amber-50 p-5 dark:border-amber-900 dark:bg-amber-950/40">
-        <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-amber-800 dark:text-amber-400">
-          Break-even
-        </h2>
-        {breakEven.precoArrobaComCompra !== null ? (
-          <p className="text-sm text-amber-900 dark:text-amber-300">
-            Abaixo de <strong>{formatMoeda(breakEven.precoArrobaComCompra)}/@</strong> este curral dá prejuízo (com
-            a compra do lote).
-          </p>
-        ) : (
-          <p className="text-sm text-amber-900 dark:text-amber-300">
-            Sem a compra do lote, abaixo de <strong>{formatMoeda(breakEven.precoArrobaSemCompra)}/@</strong> este
-            curral dá prejuízo. Informe o preço da @ na entrada acima pra ver o break-even completo (com a
-            compra).
-          </p>
-        )}
-      </div>
-
-      {!jaNoAlvo && (
-        <div className="rounded-card border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-          <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-zinc-500">Ponto ótimo de abate</h2>
-          <p className="text-sm text-black dark:text-zinc-50">
-            {pontoOtimo.valeEsperar
-              ? `Ponto ótimo estimado: no peso alvo${
-                  pontoOtimo.diaOtimo === null ? "" : `, ~dia ${formatNumero(pontoOtimo.diaOtimo, 0)}`
-                } — cada dia extra de trato ainda gera mais valor do que custa.`
-              : "Ponto ótimo estimado: agora — o custo de mais um dia de trato já supera a @ adicional produzida."}
-          </p>
-          <p className="mt-1 text-xs text-zinc-500">
-            Valor de +1 dia: {formatMoeda(pontoOtimo.valorMarginalDiaReais)} · Custo de +1 dia:{" "}
-            {formatMoeda(pontoOtimo.custoMarginalDiaReais)} · margem diária:{" "}
-            <span className={corResultado(pontoOtimo.margemDiariaReais)}>
-              {formatMoeda(pontoOtimo.margemDiariaReais)}
-            </span>
-            . Assume GMD e custo diário constantes (o sistema não modela desaceleração de GMD por peso) — por
-            isso o resultado é sempre &ldquo;vá até o alvo&rdquo; ou &ldquo;venda agora&rdquo;, nunca um dia
-            intermediário.
-          </p>
-        </div>
-      )}
-
       {!jaNoAlvo && (
         <div className="overflow-x-auto rounded-card border border-zinc-200 shadow-sm dark:border-zinc-800">
-          <div className="flex items-end gap-3 border-b border-zinc-200 bg-zinc-50 p-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+          <div className="flex flex-wrap items-end gap-3 border-b border-zinc-200 bg-zinc-50 p-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">
             <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-              Cenários — horizontes
+              Cenários — vender agora vs. esperar
             </span>
             <label className="text-xs text-zinc-500">
               Horizonte 2 (dias)
@@ -386,74 +403,36 @@ export function SimuladorCurral({
               />
             </label>
           </div>
-          <table className="w-full text-sm">
-            <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-900">
-              <tr>
-                <th className="px-3 py-2"></th>
-                {cenarios.map((c) => (
-                  <th key={c.label} className="px-3 py-2 text-right">
-                    {c.label}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800">
-              <tr className="bg-white dark:bg-zinc-950">
-                <td className="px-3 py-2 text-zinc-500">Peso projetado (kg)</td>
-                {cenarios.map((c) => (
-                  <td key={c.label} className="px-3 py-2 text-right tabular-nums">
-                    {formatNumero(c.cenario.pesoProjetadoKg)}
-                  </td>
-                ))}
-              </tr>
-              <tr className="bg-white dark:bg-zinc-950">
-                <td className="px-3 py-2 text-zinc-500">@ viva produzida</td>
-                {cenarios.map((c) => (
-                  <td key={c.label} className="px-3 py-2 text-right tabular-nums">
-                    {formatNumero(c.cenario.arrobaProduzidaTotal, 1)}
-                  </td>
-                ))}
-              </tr>
-              <tr className="bg-white dark:bg-zinc-950">
-                <td className="px-3 py-2 text-zinc-500">Custo da @ (só ração)</td>
-                {cenarios.map((c) => (
-                  <td key={c.label} className="px-3 py-2 text-right tabular-nums">
-                    {c.cenario.custoArrobaSoRacao === null ? "—" : formatMoeda(c.cenario.custoArrobaSoRacao)}
-                  </td>
-                ))}
-              </tr>
-              <tr className="bg-white dark:bg-zinc-950">
-                <td className="px-3 py-2 text-zinc-500">Custo da @ (total)</td>
-                {cenarios.map((c) => (
-                  <td key={c.label} className="px-3 py-2 text-right tabular-nums">
-                    {c.cenario.custoArrobaTotal === null ? "—" : formatMoeda(c.cenario.custoArrobaTotal)}
-                  </td>
-                ))}
-              </tr>
-              <tr className="bg-white dark:bg-zinc-950">
-                <td className="px-3 py-2 text-zinc-500">Contribuição do confinamento</td>
-                {cenarios.map((c) => (
-                  <td
-                    key={c.label}
-                    className={`px-3 py-2 text-right tabular-nums font-medium ${corResultado(c.cenario.contribuicaoConfinamento)}`}
-                  >
-                    {formatMoeda(c.cenario.contribuicaoConfinamento)}
-                  </td>
-                ))}
-              </tr>
-              <tr className="bg-white dark:bg-zinc-950">
-                <td className="px-3 py-2 text-zinc-500">Resultado cheio</td>
-                {cenarios.map((c) => (
-                  <td
-                    key={c.label}
-                    className={`px-3 py-2 text-right tabular-nums font-medium ${corResultado(c.cenario.resultadoCheio)}`}
-                  >
+          <div className="grid gap-3 p-3 sm:grid-cols-3">
+            {cenarios.map((c) => (
+              <div
+                key={c.label}
+                className="rounded-card border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950"
+              >
+                <h3 className="mb-2 text-sm font-semibold text-black dark:text-zinc-50">{c.label}</h3>
+                <dl className="space-y-1.5 text-sm">
+                  <div className="flex justify-between border-b border-zinc-200 pb-1.5 dark:border-zinc-800">
+                    <dt className="text-zinc-500">Peso projetado</dt>
+                    <dd className="tabular-nums font-medium">{formatNumero(c.cenario.pesoProjetadoKg, 0)} kg</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-zinc-200 pb-1.5 dark:border-zinc-800">
+                    <dt className="text-zinc-500">@ viva produzida</dt>
+                    <dd className="tabular-nums font-medium">{formatNumero(c.cenario.arrobaProduzidaTotal, 1)}</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-zinc-500">Contribuição</dt>
+                    <dd className="tabular-nums font-medium">{formatMoeda(c.cenario.contribuicaoConfinamento)}</dd>
+                  </div>
+                </dl>
+                <div className="mt-2 border-t border-zinc-200 pt-2 dark:border-zinc-800">
+                  <p className="text-xs text-zinc-500">Resultado cheio</p>
+                  <p className={`text-lg font-bold tabular-nums ${corResultado(c.cenario.resultadoCheio)}`}>
                     {c.cenario.resultadoCheio === null ? "—" : formatMoeda(c.cenario.resultadoCheio)}
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
@@ -488,9 +467,54 @@ export function SimuladorCurral({
         </table>
       </div>
       <p className="text-xs text-zinc-500">
-        Resultado cheio (ou contribuição, se o preço de entrada não foi informado) — o que muda é só o preço da @
+        Resultado cheio (ou contribuição, se o valor de compra não foi informado) — o que muda é só o preço da @
         de venda; tudo o mais fica no cenário {jaNoAlvo ? "de vender agora" : "no peso alvo"}.
       </p>
+
+      {!jaNoAlvo && (
+        <div className="grid gap-4 sm:grid-cols-3">
+          <div className="rounded-card border-y border-r border-zinc-200 border-l-4 border-l-primary-500 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Ponto ótimo de abate</p>
+            <p className="mt-2 text-lg font-bold text-black dark:text-zinc-50">
+              {pontoOtimo.valeEsperar
+                ? `No peso alvo${pontoOtimo.diaOtimo === null ? "" : `, ~dia ${formatNumero(pontoOtimo.diaOtimo, 0)}`}`
+                : "Vender agora"}
+            </p>
+            <p className="mt-2 text-xs text-zinc-500">
+              {pontoOtimo.valeEsperar
+                ? `Cada dia extra ainda gera ${formatMoeda(pontoOtimo.margemDiariaReais)} de margem pro lote inteiro.`
+                : `Mais um dia de trato já custa ${formatMoeda(Math.abs(pontoOtimo.margemDiariaReais))} mais do que produz.`}{" "}
+              Assume GMD e custo diário constantes — nunca um dia intermediário, só um dos dois extremos.
+            </p>
+          </div>
+          <div className="rounded-card border-y border-r border-zinc-200 border-l-4 border-l-primary-500 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Break-even marginal</p>
+            <p className="mt-2 text-lg font-bold text-black dark:text-zinc-50">
+              {pontoOtimo.custoArrobaMarginal === null ? "—" : `${formatMoeda(pontoOtimo.custoArrobaMarginal)}/@`}
+            </p>
+            <p className="mt-2 text-xs text-zinc-500">
+              Abaixo desse preço, mais um dia de trato já destrói valor — companheiro do ponto ótimo ao lado.
+            </p>
+          </div>
+          <div className="rounded-card border-y border-r border-zinc-200 border-l-4 border-l-primary-500 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+              Break-even do ciclo (com compra)
+            </p>
+            <p className="mt-2 text-lg font-bold text-black dark:text-zinc-50">
+              {breakEven.precoArrobaComCompra !== null
+                ? `${formatMoeda(breakEven.precoArrobaComCompra)}/@`
+                : breakEven.precoArrobaSemCompra !== null
+                  ? `${formatMoeda(breakEven.precoArrobaSemCompra)}/@`
+                  : "—"}
+            </p>
+            <p className="mt-2 text-xs text-zinc-500">
+              {breakEven.precoArrobaComCompra !== null
+                ? "Abaixo disso, o ciclo inteiro dá prejuízo — já contando o que foi pago pelo lote."
+                : "Esse valor ainda não inclui a compra do lote — informe o valor de compra acima pra ver o break-even completo."}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

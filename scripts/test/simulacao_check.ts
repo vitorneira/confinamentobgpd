@@ -5,6 +5,7 @@ import {
   baseSimulacaoDoCurral,
   calcularBreakEven,
   calcularPontoOtimo,
+  calcularSpread,
   diasParaAtingirPeso,
   gmdForaDaFaixa,
   projetarCenario,
@@ -74,7 +75,7 @@ checar("GMD <= 0 e falta peso -> nunca (null)", diasParaAtingirPeso(450, 0, 500)
 console.log("\n== projetarCenario (dia 0 = vender agora) ==");
 const cenarioAgora = projetarCenario(
   base,
-  { gmdKgDia: 1.2, rendimentoCarcaca: 0.5, precoArrobaCarcaca: 320, precoArrobaEntrada: 280 },
+  { gmdKgDia: 1.2, rendimentoCarcaca: 0.5, precoArrobaCarcaca: 320, valorCompraLote: 32666.67 },
   0,
 );
 // arroba carcaça = 450*0.5*10/15 = 150 @ ; receita = 150*320 = 48000
@@ -82,17 +83,17 @@ checar("arroba carcaça dia 0", cenarioAgora.arrobaCarcacaTotal, 150);
 checar("receita dia 0", cenarioAgora.receitaProjetada, 48000);
 // arroba produzida (viva) = ganho total (450-350)*10/30 = 33.33
 checar("arroba produzida (viva) dia 0", cenarioAgora.arrobaProduzidaTotal, 33.33, 0.1);
-// custo entrada = 350*10*0.5/15*280 = 32666.67
+// valor de compra do lote agora é informado direto em R$ (não mais derivado de preço da @ na entrada)
 checar("custo de entrada dia 0", cenarioAgora.custoEntradaReais!, 32666.67, 0.5);
 // contribuição = 48000 - 12000 = 36000
 checar("contribuição do confinamento dia 0", cenarioAgora.contribuicaoConfinamento, 36000);
 // resultado cheio = 36000 - 32666.67 = 3333.33
 checar("resultado cheio dia 0", cenarioAgora.resultadoCheio!, 3333.33, 0.5);
 
-console.log("\n== projetarCenario (+100 dias, sem preço de entrada informado) ==");
+console.log("\n== projetarCenario (+100 dias, sem valor de compra informado) ==");
 const cenario100 = projetarCenario(
   base,
-  { gmdKgDia: 1.2, rendimentoCarcaca: 0.5, precoArrobaCarcaca: 320, precoArrobaEntrada: null },
+  { gmdKgDia: 1.2, rendimentoCarcaca: 0.5, precoArrobaCarcaca: 320, valorCompraLote: null },
   100,
 );
 checar("peso projetado em 100 dias", cenario100.pesoProjetadoKg, 570);
@@ -104,15 +105,25 @@ checar("conversão alimentar projetada", cenario100.conversaoAlimentarProjetada!
 
 console.log("\n== calcularPontoOtimo ==");
 // valor marginal/dia = 1.2*10*0.5/15*320 = 128 ; custo marginal/dia = (9+3)*10 = 120 -> vale esperar
-const otimoPositivo = calcularPontoOtimo(base, { gmdKgDia: 1.2, rendimentoCarcaca: 0.5, precoArrobaCarcaca: 320, precoArrobaEntrada: null }, 100);
+const otimoPositivo = calcularPontoOtimo(base, { gmdKgDia: 1.2, rendimentoCarcaca: 0.5, precoArrobaCarcaca: 320, valorCompraLote: null }, 100);
 checar("margem diária positiva", otimoPositivo.margemDiariaReais, 8);
 checar("vale esperar", otimoPositivo.valeEsperar, true);
 checar("dia ótimo = dia do alvo (100)", otimoPositivo.diaOtimo, 100);
+// custo marginal/@ carcaça = custo/cab/dia (12) / produção diária de @/cab (1.2*0.5/15=0.04) = 300
+checar("custo da @ marginal", otimoPositivo.custoArrobaMarginal!, 300);
+// spread = preço (320) - custo marginal (300) = 20
+checar("spread positivo", calcularSpread(otimoPositivo.custoArrobaMarginal, 320)!, 20);
 
 // preço mais baixo inverte a decisão: valor marginal/dia = 1.2*10*0.5/15*150 = 60 < custo 120
-const otimoNegativo = calcularPontoOtimo(base, { gmdKgDia: 1.2, rendimentoCarcaca: 0.5, precoArrobaCarcaca: 150, precoArrobaEntrada: null }, 100);
+const otimoNegativo = calcularPontoOtimo(base, { gmdKgDia: 1.2, rendimentoCarcaca: 0.5, precoArrobaCarcaca: 150, valorCompraLote: null }, 100);
 checar("margem diária negativa a preço baixo", otimoNegativo.valeEsperar, false);
 checar("dia ótimo = agora (0)", otimoNegativo.diaOtimo, 0);
+checar("spread negativo a preço baixo", calcularSpread(otimoNegativo.custoArrobaMarginal, 150)!, -150);
+
+// GMD <= 0 -> sem produção diária de @, custo marginal e spread indefinidos (null, não um número fabricado)
+const otimoGmdInvalido = calcularPontoOtimo(base, { gmdKgDia: -1.9, rendimentoCarcaca: 0.5, precoArrobaCarcaca: 320, valorCompraLote: null }, null);
+checar("custo da @ marginal indefinido com GMD <= 0", otimoGmdInvalido.custoArrobaMarginal, null);
+checar("spread indefinido com GMD <= 0", calcularSpread(otimoGmdInvalido.custoArrobaMarginal, 320), null);
 
 console.log("\n== calcularBreakEven ==");
 // break-even sem compra no dia 0: custoTotalReais(12000) / arrobaCarcacaTotal(150) = 80
