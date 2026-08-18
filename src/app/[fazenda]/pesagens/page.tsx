@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { FileDown } from "lucide-react";
 import { getFazendaByCodigo } from "@/lib/queries/fazenda";
 import { createClient } from "@/lib/supabase/server";
 import { compararCodigo } from "@/lib/format";
@@ -23,7 +24,15 @@ export default async function PesagensPage({
 
   return (
     <div className="mx-auto max-w-4xl space-y-10 px-4 py-8">
-      <h1 className="text-xl font-semibold text-black dark:text-zinc-50">Pesagens</h1>
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-xl font-semibold text-black dark:text-zinc-50">Pesagens</h1>
+        <a
+          href={`/api/pesagens-planilha?fazenda=${codigo}`}
+          className="flex items-center gap-1 text-sm text-zinc-600 underline dark:text-zinc-400"
+        >
+          <FileDown size={14} /> Exportar histórico (Excel)
+        </a>
+      </div>
 
       <section>
         <h2 className="mb-3 text-sm font-medium uppercase tracking-wide text-zinc-500">

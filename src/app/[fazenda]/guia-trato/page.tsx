@@ -60,6 +60,12 @@ export default async function GuiaTratoPage({
           <Link href={`${base_}/guia-trato/confirmacao`} className="text-zinc-600 underline dark:text-zinc-400">
             Confirmar tratos
           </Link>
+          <a
+            href={`/api/tratos-planilha?fazenda=${codigo}`}
+            className="flex items-center gap-1 text-zinc-600 underline dark:text-zinc-400"
+          >
+            <FileDown size={14} /> Exportar histórico (Excel)
+          </a>
           {guiaExistente && (
             <a
               href={`/api/guia-trato-folha?fazenda=${codigo}&data=${data}`}

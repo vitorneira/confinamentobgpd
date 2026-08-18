@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FileDown } from "lucide-react";
 import { getFazendaByCodigo } from "@/lib/queries/fazenda";
 import { getAnimaisIndicadores, getCurraisEcategorias } from "@/lib/queries/animais";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -24,9 +25,22 @@ export default async function AnimaisPage({
 
   const base = `/${codigo.toLowerCase()}/animais`;
 
+  const paramsExportacao = new URLSearchParams({ fazenda: codigo });
+  if (curral) paramsExportacao.set("curral", curral);
+  if (categoria) paramsExportacao.set("categoria", categoria);
+  if (q) paramsExportacao.set("q", q);
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
-      <h1 className="mb-4 text-xl font-semibold text-black dark:text-zinc-50">Animais</h1>
+      <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-xl font-semibold text-black dark:text-zinc-50">Animais</h1>
+        <a
+          href={`/api/animais-planilha?${paramsExportacao.toString()}`}
+          className="flex items-center gap-1 text-sm text-zinc-600 underline dark:text-zinc-400"
+        >
+          <FileDown size={14} /> Exportar lista (Excel)
+        </a>
+      </div>
 
       <form className="mb-4 flex flex-wrap gap-3" method="get">
         <input

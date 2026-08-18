@@ -187,6 +187,50 @@ export async function getItensConfirmacao(
     .sort((a, b) => b.data.localeCompare(a.data) || compararCodigo(a.curralCodigo, b.curralCodigo));
 }
 
+export type TratoExportado = {
+  data: string;
+  curralCodigo: string;
+  dietaNome: string;
+  tratoManhaKg: number;
+  tratoAlmocoKg: number;
+  tratoTardeKg: number;
+  totalDiaKg: number;
+  precoDietaCongelado: number;
+  custoDia: number;
+  obs: string | null;
+};
+
+/** Histórico completo de tratos confirmados (tratos_diarios — o que gera custo real), para exportação. */
+export async function getTratosParaExportacao(fazendaId: string): Promise<TratoExportado[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("tratos_diarios")
+    .select(
+      "data, trato_manha_kg, trato_almoco_kg, trato_tarde_kg, preco_dieta_congelado, obs, currais(codigo), dietas(nome)",
+    )
+    .eq("fazenda_id", fazendaId);
+
+  return (data ?? [])
+    .map((t) => {
+      const curral = t.currais as unknown as { codigo: string } | null;
+      const dieta = t.dietas as unknown as { nome: string } | null;
+      const totalDiaKg = Number(t.trato_manha_kg) + Number(t.trato_almoco_kg) + Number(t.trato_tarde_kg);
+      return {
+        data: t.data as string,
+        curralCodigo: curral?.codigo ?? "?",
+        dietaNome: dieta?.nome ?? "?",
+        tratoManhaKg: t.trato_manha_kg as number,
+        tratoAlmocoKg: t.trato_almoco_kg as number,
+        tratoTardeKg: t.trato_tarde_kg as number,
+        totalDiaKg,
+        precoDietaCongelado: t.preco_dieta_congelado as number,
+        custoDia: totalDiaKg * (t.preco_dieta_congelado as number),
+        obs: t.obs as string | null,
+      };
+    })
+    .sort((a, b) => b.data.localeCompare(a.data) || compararCodigo(a.curralCodigo, b.curralCodigo));
+}
+
 export type VagaoSalvo = { dietaId: string; horario: "manha" | "almoco" | "tarde"; cargas: number[] };
 
 export async function getVagoesSalvos(guiaTratoId: string): Promise<VagaoSalvo[]> {
