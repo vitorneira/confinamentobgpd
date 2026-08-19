@@ -7,10 +7,13 @@ export type AnimalListado = {
   brinco: string;
   curralCodigo: string;
   categoriaNome: string;
+  dataEntrada: string;
+  pesoEntradaKg: number | null;
   pesoAtualKg: number | null;
   diasConfinado: number | null;
   gmdKgDia: number | null;
   arrobaViva: number | null;
+  dataUltimaPesagem: string | null;
   diasDesdeUltimaPesagem: number | null;
   alertaPesagem: "ok" | "atencao" | "critico";
   atingiuMetaGmd: boolean | null;
@@ -40,7 +43,7 @@ export async function getAnimaisIndicadores(
   const { data } = await supabase
     .from("v_animal_indicadores")
     .select(
-      "animal_id, brinco, curral_id, categoria_id, peso_atual_kg, dias_confinado, gmd_kg_dia, arroba_viva, dias_desde_ultima_pesagem, alerta_pesagem, atingiu_meta_gmd",
+      "animal_id, brinco, curral_id, categoria_id, data_entrada, peso_entrada_kg, peso_atual_kg, dias_confinado, gmd_kg_dia, arroba_viva, data_ultima_pesagem, dias_desde_ultima_pesagem, alerta_pesagem, atingiu_meta_gmd",
     )
     .eq("fazenda_id", fazendaId);
 
@@ -49,10 +52,13 @@ export async function getAnimaisIndicadores(
     brinco: a.brinco as string,
     curralCodigo: curralNomeById.get(a.curral_id as string) ?? "?",
     categoriaNome: categoriaNomeById.get(a.categoria_id as string) ?? "?",
+    dataEntrada: a.data_entrada,
+    pesoEntradaKg: a.peso_entrada_kg,
     pesoAtualKg: a.peso_atual_kg,
     diasConfinado: a.dias_confinado,
     gmdKgDia: a.gmd_kg_dia,
     arrobaViva: a.arroba_viva,
+    dataUltimaPesagem: a.data_ultima_pesagem,
     diasDesdeUltimaPesagem: a.dias_desde_ultima_pesagem,
     alertaPesagem: a.alerta_pesagem as "ok" | "atencao" | "critico",
     atingiuMetaGmd: a.atingiu_meta_gmd,

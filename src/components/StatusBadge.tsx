@@ -12,12 +12,18 @@ const LABELS: Record<string, string> = {
   critico: "Crítico",
 };
 
-export function StatusBadge({ status }: { status: "ok" | "atencao" | "critico" }) {
+export function StatusBadge({
+  status,
+  label,
+}: {
+  status: "ok" | "atencao" | "critico";
+  label?: string;
+}) {
   return (
     <span
       className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${ESTILOS[status]}`}
     >
-      {LABELS[status]}
+      {label ?? LABELS[status]}
     </span>
   );
 }

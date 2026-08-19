@@ -4,7 +4,7 @@ import { FileDown } from "lucide-react";
 import { getFazendaByCodigo } from "@/lib/queries/fazenda";
 import { getAnimaisIndicadores, getCurraisEcategorias } from "@/lib/queries/animais";
 import { StatusBadge } from "@/components/StatusBadge";
-import { formatNumero } from "@/lib/format";
+import { formatData, formatNumero } from "@/lib/format";
 
 export default async function AnimaisPage({
   params,
@@ -103,8 +103,9 @@ export default async function AnimaisPage({
               <th className="px-3 py-2 text-right">Dias conf.</th>
               <th className="px-3 py-2 text-right">GMD</th>
               <th className="px-3 py-2 text-right">@ viva</th>
-              <th className="px-3 py-2">Pesagem</th>
-              <th className="px-3 py-2">Meta</th>
+              <th className="px-3 py-2">Peso entrada</th>
+              <th className="px-3 py-2">Última pesagem</th>
+              <th className="px-3 py-2">Dias sem pesar</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800">
@@ -121,11 +122,16 @@ export default async function AnimaisPage({
                 <td className="px-3 py-2 text-right tabular-nums">{formatNumero(a.diasConfinado)}</td>
                 <td className="px-3 py-2 text-right tabular-nums">{formatNumero(a.gmdKgDia, 3)}</td>
                 <td className="px-3 py-2 text-right tabular-nums">{formatNumero(a.arrobaViva, 1)}</td>
-                <td className="px-3 py-2">
-                  <StatusBadge status={a.alertaPesagem} />
+                <td className="px-3 py-2 whitespace-nowrap">
+                  {formatNumero(a.pesoEntradaKg)} kg
+                  <span className="ml-1 text-xs text-zinc-500">({formatData(a.dataEntrada)})</span>
                 </td>
+                <td className="px-3 py-2 whitespace-nowrap">{formatData(a.dataUltimaPesagem)}</td>
                 <td className="px-3 py-2">
-                  {a.atingiuMetaGmd === null ? "—" : a.atingiuMetaGmd ? "✓" : "✗"}
+                  <StatusBadge
+                    status={a.alertaPesagem}
+                    label={`${formatNumero(a.diasDesdeUltimaPesagem)} dias`}
+                  />
                 </td>
               </tr>
             ))}
