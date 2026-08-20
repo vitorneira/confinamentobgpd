@@ -1,0 +1,6112 @@
+[
+  {
+    "brinco": "BBG 3339",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3339"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243339",
+      "apelido": "BBG3339",
+      "rgn": "BBG0404/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "SOBERANO",
+      "rgn_pai": "SOBERANO",
+      "rgd_pai": "CCP 120453",
+      "mae": "BBG 160404",
+      "mae_receptora": "",
+      "avo_paterno": "MEXICANO",
+      "avo_paterna": "CCP090031",
+      "avo_materno": "MANDELA",
+      "avo_materna": "CCP 120438"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-06-20",
+      "peso_nascimento_kg": 30,
+      "peso_desmame_kg": 265,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 578,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 670,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 753,
+      "dias_confinado": 43,
+      "ganho_total_kg": 83,
+      "gmd_kg_dia": 1.976,
+      "arroba_atual": 26.606,
+      "ganho_arroba": 2.933,
+      "valor_atual_rs": 8247.86,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-06-20"
+    }
+  },
+  {
+    "brinco": "BBG 3348",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3348"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243348",
+      "apelido": "BBG3348",
+      "rgn": "BBG0284/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "SOBERANO",
+      "rgn_pai": "SOBERANO",
+      "rgd_pai": "CCP 120453",
+      "mae": "BBG 160284",
+      "mae_receptora": "",
+      "avo_paterno": "MEXICANO",
+      "avo_paterna": "CCP090031",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "CCP 120070"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-07-24",
+      "peso_nascimento_kg": 34,
+      "peso_desmame_kg": 270,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 445,
+      "data_peso_po": "2026-02-03"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Bela Vista",
+      "data_entrada": "2026-08-11",
+      "peso_entrada_kg": 611,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 611,
+      "dias_confinado": 1,
+      "ganho_total_kg": 0,
+      "gmd_kg_dia": null,
+      "arroba_atual": 21.589,
+      "ganho_arroba": 0,
+      "valor_atual_rs": 6692.487,
+      "meta_gmd_atingida": null
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "CENTRAL SEMEN",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-07-24"
+    }
+  },
+  {
+    "brinco": "BBG 3351",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3351"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243351",
+      "apelido": "BBG3351",
+      "rgn": "BBG0005/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200347",
+      "rgn_pai": "JUMA",
+      "rgd_pai": "JAT20-0347",
+      "mae": "BBG 150005",
+      "mae_receptora": "",
+      "avo_paterno": "JAT16 0150",
+      "avo_paterna": "JAT07 0076",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130010"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-07-29",
+      "peso_nascimento_kg": 50,
+      "peso_desmame_kg": 285,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 447,
+      "data_peso_po": "2026-02-03"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Bela Vista",
+      "data_entrada": "2026-08-11",
+      "peso_entrada_kg": 674,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 674,
+      "dias_confinado": 1,
+      "ganho_total_kg": 0,
+      "gmd_kg_dia": null,
+      "arroba_atual": 23.815,
+      "ganho_arroba": 0,
+      "valor_atual_rs": 7382.547,
+      "meta_gmd_atingida": null
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "CENTRAL SEMEN",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-07-29"
+    }
+  },
+  {
+    "brinco": "BBG 3356",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3356"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243356",
+      "apelido": "BBG3356",
+      "rgn": "BBG0094/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 150094",
+      "mae_receptora": "",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "FBB000002",
+      "avo_materna": "CCP 130031"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-05",
+      "peso_nascimento_kg": 36,
+      "peso_desmame_kg": 228,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 506,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 577,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 645,
+      "dias_confinado": 43,
+      "ganho_total_kg": 68,
+      "gmd_kg_dia": 1.619,
+      "arroba_atual": 22.79,
+      "ganho_arroba": 2.403,
+      "valor_atual_rs": 7064.9,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-05"
+    }
+  },
+  {
+    "brinco": "BBG 3358",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3358"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243358",
+      "apelido": "BBG3358",
+      "rgn": "1855/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "CARTEADO",
+      "rgn_pai": "CARTEADO",
+      "rgd_pai": "BBG 170887",
+      "mae": "BBG 191611",
+      "mae_receptora": "1855",
+      "avo_paterno": "MALBORO",
+      "avo_paterna": "CCP 120412",
+      "avo_materno": "TABACO",
+      "avo_materna": "BBG 160205"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-07",
+      "peso_nascimento_kg": 22,
+      "peso_desmame_kg": 224,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 475,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 548,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 611,
+      "dias_confinado": 43,
+      "ganho_total_kg": 63,
+      "gmd_kg_dia": 1.5,
+      "arroba_atual": 21.589,
+      "ganho_arroba": 2.226,
+      "valor_atual_rs": 6692.487,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-07"
+    }
+  },
+  {
+    "brinco": "BBG 3359",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3359"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243359",
+      "apelido": "BBG3359",
+      "rgn": "1982/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "SOBERANO",
+      "rgn_pai": "SOBERANO",
+      "rgd_pai": "CCP 120453",
+      "mae": "BBG 170808",
+      "mae_receptora": "1982",
+      "avo_paterno": "MEXICANO",
+      "avo_paterna": "CCP090031",
+      "avo_materno": "CASSINO",
+      "avo_materna": "BBG 150021"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-08",
+      "peso_nascimento_kg": 25,
+      "peso_desmame_kg": 186,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 448,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 508,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 576,
+      "dias_confinado": 43,
+      "ganho_total_kg": 68,
+      "gmd_kg_dia": 1.619,
+      "arroba_atual": 20.352,
+      "ganho_arroba": 2.403,
+      "valor_atual_rs": 6309.12,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-08"
+    }
+  },
+  {
+    "brinco": "BBG 3368",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3368"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243368",
+      "apelido": "BBG3368",
+      "rgn": "BBG1322/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 181322",
+      "mae_receptora": "",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "SUDÃO",
+      "avo_materna": "CCP 120438"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-15",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 193,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 489,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 584,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 661,
+      "dias_confinado": 43,
+      "ganho_total_kg": 77,
+      "gmd_kg_dia": 1.833,
+      "arroba_atual": 23.355,
+      "ganho_arroba": 2.721,
+      "valor_atual_rs": 7240.153,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-15"
+    }
+  },
+  {
+    "brinco": "BBG 3370",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3370"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243370",
+      "apelido": "BBG3370",
+      "rgn": "BBG0667/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "CARTEADO",
+      "rgn_pai": "CARTEADO",
+      "rgd_pai": "BBG 170887",
+      "mae": "BBG 160667",
+      "mae_receptora": "",
+      "avo_paterno": "MALBORO",
+      "avo_paterna": "CCP 120412",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "BBG 150031"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-15",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 235,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 448,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 501,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 538,
+      "dias_confinado": 43,
+      "ganho_total_kg": 37,
+      "gmd_kg_dia": 0.881,
+      "arroba_atual": 19.009,
+      "ganho_arroba": 1.307,
+      "valor_atual_rs": 5892.893,
+      "meta_gmd_atingida": "Não"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-15"
+    }
+  },
+  {
+    "brinco": "BBG 3376",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3376"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243376",
+      "apelido": "BBG3376",
+      "rgn": "BBG0115/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200434",
+      "rgn_pai": "BANTU",
+      "rgd_pai": "JAT20-0434",
+      "mae": "BBG 150115",
+      "mae_receptora": "",
+      "avo_paterno": "JAT16 0103",
+      "avo_paterna": "JAT12 0046",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130031"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-16",
+      "peso_nascimento_kg": 46,
+      "peso_desmame_kg": 233,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 403,
+      "data_peso_po": "2026-02-03"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Bela Vista",
+      "data_entrada": "2026-08-11",
+      "peso_entrada_kg": 591,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 591,
+      "dias_confinado": 1,
+      "ganho_total_kg": 0,
+      "gmd_kg_dia": null,
+      "arroba_atual": 20.882,
+      "ganho_arroba": 0,
+      "valor_atual_rs": 6473.42,
+      "meta_gmd_atingida": null
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "CENTRAL SEMEN",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-16"
+    }
+  },
+  {
+    "brinco": "BBG 3378",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3378"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243378",
+      "apelido": "BBG3378",
+      "rgn": "BBG2222/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200347",
+      "rgn_pai": "JUMA",
+      "rgd_pai": "JAT20-0347",
+      "mae": "BBG 202222",
+      "mae_receptora": "",
+      "avo_paterno": "JAT16 0150",
+      "avo_paterna": "JAT07 0076",
+      "avo_materno": "GANDHI",
+      "avo_materna": "BBG 170926"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-18",
+      "peso_nascimento_kg": 43,
+      "peso_desmame_kg": 212,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 385,
+      "data_peso_po": "2026-02-03"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Bela Vista",
+      "data_entrada": "2026-08-11",
+      "peso_entrada_kg": 589,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 589,
+      "dias_confinado": 1,
+      "ganho_total_kg": 0,
+      "gmd_kg_dia": null,
+      "arroba_atual": 20.811,
+      "ganho_arroba": 0,
+      "valor_atual_rs": 6451.513,
+      "meta_gmd_atingida": null
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "CENTRAL SEMEN",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-18"
+    }
+  },
+  {
+    "brinco": "BBG 3379",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3379"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243379",
+      "apelido": "BBG3379",
+      "rgn": "BBG1287/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MUMBA",
+      "rgn_pai": "MUMBA",
+      "rgd_pai": "JAT 180137",
+      "mae": "BBG 181287",
+      "mae_receptora": "",
+      "avo_paterno": "BBA 130046",
+      "avo_paterna": "JAT 110098",
+      "avo_materno": "SOBERANO",
+      "avo_materna": "MAR 072856"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-18",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 212,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 376,
+      "data_peso_po": "2026-02-03"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Bela Vista",
+      "data_entrada": "2026-08-11",
+      "peso_entrada_kg": 605,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 605,
+      "dias_confinado": 1,
+      "ganho_total_kg": 0,
+      "gmd_kg_dia": null,
+      "arroba_atual": 21.377,
+      "ganho_arroba": 0,
+      "valor_atual_rs": 6626.767,
+      "meta_gmd_atingida": null
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "CENTRAL SEMEN",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-18"
+    }
+  },
+  {
+    "brinco": "BBG 3380",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3380"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243380",
+      "apelido": "BBG3380",
+      "rgn": "BBG0665/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "DESCONHECIDO",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "BBG 160665",
+      "mae_receptora": "",
+      "avo_paterno": "",
+      "avo_paterna": "",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130033"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-18",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 235,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 471,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 546,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 612,
+      "dias_confinado": 43,
+      "ganho_total_kg": 66,
+      "gmd_kg_dia": 1.571,
+      "arroba_atual": 21.624,
+      "ganho_arroba": 2.332,
+      "valor_atual_rs": 6703.44,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-18"
+    }
+  },
+  {
+    "brinco": "BBG 3382",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3382"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243382",
+      "apelido": "BBG3382",
+      "rgn": "1847/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "CASSINO",
+      "rgn_pai": "CASSINO",
+      "rgd_pai": "BBG 140003",
+      "mae": "BBG 160665",
+      "mae_receptora": "1847",
+      "avo_paterno": "MALBORO",
+      "avo_paterna": "CCP 130033",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130033"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-18",
+      "peso_nascimento_kg": 37,
+      "peso_desmame_kg": 239,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 435,
+      "data_peso_po": "2026-02-03"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Bela Vista",
+      "data_entrada": "2026-08-11",
+      "peso_entrada_kg": 655,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 655,
+      "dias_confinado": 1,
+      "ganho_total_kg": 0,
+      "gmd_kg_dia": null,
+      "arroba_atual": 23.143,
+      "ganho_arroba": 0,
+      "valor_atual_rs": 7174.433,
+      "meta_gmd_atingida": null
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "CENTRAL SEMEN",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-18"
+    }
+  },
+  {
+    "brinco": "BBG 3384",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3384"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243384",
+      "apelido": "BBG3384",
+      "rgn": "BBG2587/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 150119",
+      "rgn_pai": "RIFT",
+      "rgd_pai": "JAT15-0119",
+      "mae": "BBG 212587",
+      "mae_receptora": "",
+      "avo_paterno": "JAT07 0023",
+      "avo_paterna": "JAT04 0023",
+      "avo_materno": "MADIBA",
+      "avo_materna": "BBG 150055"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-22",
+      "peso_nascimento_kg": 38,
+      "peso_desmame_kg": 157,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 460,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 519,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 600,
+      "dias_confinado": 43,
+      "ganho_total_kg": 81,
+      "gmd_kg_dia": 1.929,
+      "arroba_atual": 21.2,
+      "ganho_arroba": 2.862,
+      "valor_atual_rs": 6572,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-22"
+    }
+  },
+  {
+    "brinco": "BBG 3390",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3390"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243390",
+      "apelido": "BBG3390",
+      "rgn": "BBG1179/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MUMBA",
+      "rgn_pai": "MUMBA",
+      "rgd_pai": "JAT 180137",
+      "mae": "BBG 171179",
+      "mae_receptora": "",
+      "avo_paterno": "BBA 130046",
+      "avo_paterna": "JAT 110098",
+      "avo_materno": "SOBERANO",
+      "avo_materna": "CCP 130033"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-22",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 221,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 480,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 555,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 630,
+      "dias_confinado": 43,
+      "ganho_total_kg": 75,
+      "gmd_kg_dia": 1.786,
+      "arroba_atual": 22.26,
+      "ganho_arroba": 2.65,
+      "valor_atual_rs": 6900.6,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "FRANCISCO BALBINO",
+      "data_aquisicao": "2024-08-22"
+    }
+  },
+  {
+    "brinco": "BBG 3394",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3394"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243394",
+      "apelido": "BBG3394",
+      "rgn": "0919/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "CCP 160166",
+      "rgn_pai": "CONVERTER 3X",
+      "rgd_pai": "R17143",
+      "mae": "BBG 170873",
+      "mae_receptora": "0919",
+      "avo_paterno": "MEXICANO",
+      "avo_paterna": "CCP100008",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-22",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 222,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 459,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 551,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 598,
+      "dias_confinado": 43,
+      "ganho_total_kg": 47,
+      "gmd_kg_dia": 1.119,
+      "arroba_atual": 21.129,
+      "ganho_arroba": 1.661,
+      "valor_atual_rs": 6550.093,
+      "meta_gmd_atingida": "Não"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-22"
+    }
+  },
+  {
+    "brinco": "BBG 3396",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3396"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243396",
+      "apelido": "BBG3396",
+      "rgn": "0903/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200434",
+      "rgn_pai": "BANTU",
+      "rgd_pai": "JAT20-0434",
+      "mae": "BBG 160300",
+      "mae_receptora": "0903",
+      "avo_paterno": "JAT16 0103",
+      "avo_paterna": "JAT12 0046",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "CCP 130039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-05",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 257,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 423,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 506,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 584,
+      "dias_confinado": 43,
+      "ganho_total_kg": 78,
+      "gmd_kg_dia": 1.857,
+      "arroba_atual": 20.635,
+      "ganho_arroba": 2.756,
+      "valor_atual_rs": 6396.747,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-05"
+    }
+  },
+  {
+    "brinco": "BBG 3400",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3400"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243400",
+      "apelido": "BBG3400",
+      "rgn": "BBG0106/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "DESCONHECIDO",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "BBG 150106",
+      "mae_receptora": "",
+      "avo_paterno": "DESCONHECIDO",
+      "avo_paterna": "",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130021"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-11",
+      "peso_nascimento_kg": 38,
+      "peso_desmame_kg": 222,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 498,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 554,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 625,
+      "dias_confinado": 43,
+      "ganho_total_kg": 71,
+      "gmd_kg_dia": 1.69,
+      "arroba_atual": 22.083,
+      "ganho_arroba": 2.509,
+      "valor_atual_rs": 6845.833,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-11"
+    }
+  },
+  {
+    "brinco": "BBG 3404",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3404"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243404",
+      "apelido": "BBG3404",
+      "rgn": "BBG0495/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 160495",
+      "mae_receptora": "",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "MANDELA",
+      "avo_materna": "CCP 120412"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-13",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 190,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 354,
+      "data_peso_po": "2026-01-27"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Bela Vista",
+      "data_entrada": "2026-08-11",
+      "peso_entrada_kg": 596,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 596,
+      "dias_confinado": 1,
+      "ganho_total_kg": 0,
+      "gmd_kg_dia": null,
+      "arroba_atual": 21.059,
+      "ganho_arroba": 0,
+      "valor_atual_rs": 6528.187,
+      "meta_gmd_atingida": null
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-13"
+    }
+  },
+  {
+    "brinco": "BBG 3409",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3409"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243409",
+      "apelido": "BBG3409",
+      "rgn": "1886/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "CARTEADO",
+      "rgn_pai": "CARTEADO",
+      "rgd_pai": "BBG 170887",
+      "mae": "BBG 160205",
+      "mae_receptora": "1886",
+      "avo_paterno": "MALBORO",
+      "avo_paterna": "CCP 120412",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "CCP 130020"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-15",
+      "peso_nascimento_kg": 29,
+      "peso_desmame_kg": 186,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 473,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 535,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 603,
+      "dias_confinado": 43,
+      "ganho_total_kg": 68,
+      "gmd_kg_dia": 1.619,
+      "arroba_atual": 21.306,
+      "ganho_arroba": 2.403,
+      "valor_atual_rs": 6604.86,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-15"
+    }
+  },
+  {
+    "brinco": "BBG 3410",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3410"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243410",
+      "apelido": "BBG3410",
+      "rgn": "1660/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 160378",
+      "mae_receptora": "1660",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "GAITEIRO",
+      "avo_materna": "RAP 130844"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-15",
+      "peso_nascimento_kg": 41,
+      "peso_desmame_kg": 220,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 401,
+      "data_peso_po": "2026-02-03"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Bela Vista",
+      "data_entrada": "2026-08-11",
+      "peso_entrada_kg": 636,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 636,
+      "dias_confinado": 1,
+      "ganho_total_kg": 0,
+      "gmd_kg_dia": null,
+      "arroba_atual": 22.472,
+      "ganho_arroba": 0,
+      "valor_atual_rs": 6966.32,
+      "meta_gmd_atingida": null
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "CENTRAL SEMEN",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-15"
+    }
+  },
+  {
+    "brinco": "BBG 3419",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3419"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243419",
+      "apelido": "BBG3419",
+      "rgn": "1620/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "CARTEADO",
+      "rgn_pai": "CARTEADO",
+      "rgd_pai": "BBG 170887",
+      "mae": "BBG 160300",
+      "mae_receptora": "1620",
+      "avo_paterno": "MALBORO",
+      "avo_paterna": "CCP 120412",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "CCP 130039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-24",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 188,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 379,
+      "data_peso_po": "2026-02-03"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Bela Vista",
+      "data_entrada": "2026-08-11",
+      "peso_entrada_kg": 609,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 609,
+      "dias_confinado": 1,
+      "ganho_total_kg": 0,
+      "gmd_kg_dia": null,
+      "arroba_atual": 21.518,
+      "ganho_arroba": 0,
+      "valor_atual_rs": 6670.58,
+      "meta_gmd_atingida": null
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "CENTRAL SEMEN",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-24"
+    }
+  },
+  {
+    "brinco": "BBG 3420",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3420"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243420",
+      "apelido": "BBG3420",
+      "rgn": "1045/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 170795",
+      "mae_receptora": "1045",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "RAP 130844"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-24",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 207,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 493,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 575,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 657,
+      "dias_confinado": 43,
+      "ganho_total_kg": 82,
+      "gmd_kg_dia": 1.952,
+      "arroba_atual": 23.214,
+      "ganho_arroba": 2.897,
+      "valor_atual_rs": 7196.34,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-24"
+    }
+  },
+  {
+    "brinco": "BBG 3421",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3421"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243421",
+      "apelido": "BBG3421",
+      "rgn": "0922/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "CARTEADO",
+      "rgn_pai": "CARTEADO",
+      "rgd_pai": "BBG 170887",
+      "mae": "BBG 160300",
+      "mae_receptora": "0922",
+      "avo_paterno": "MALBORO",
+      "avo_paterna": "CCP 120412",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "CCP 130039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-24",
+      "peso_nascimento_kg": 37,
+      "peso_desmame_kg": 213,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 492,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 555,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 618,
+      "dias_confinado": 43,
+      "ganho_total_kg": 63,
+      "gmd_kg_dia": 1.5,
+      "arroba_atual": 21.836,
+      "ganho_arroba": 2.226,
+      "valor_atual_rs": 6769.16,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-24"
+    }
+  },
+  {
+    "brinco": "BBG 3428",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3428"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243428",
+      "apelido": "BBG3428",
+      "rgn": "1343/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MUMBA",
+      "rgn_pai": "MUMBA",
+      "rgd_pai": "JAT 180137",
+      "mae": "BBG 170813",
+      "mae_receptora": "1343",
+      "avo_paterno": "BBA 130046",
+      "avo_paterna": "JAT 110098",
+      "avo_materno": "CASSINO",
+      "avo_materna": "BBG 140002"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-26",
+      "peso_nascimento_kg": 37,
+      "peso_desmame_kg": 231,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 466,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 523,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 594,
+      "dias_confinado": 43,
+      "ganho_total_kg": 71,
+      "gmd_kg_dia": 1.69,
+      "arroba_atual": 20.988,
+      "ganho_arroba": 2.509,
+      "valor_atual_rs": 6506.28,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-26"
+    }
+  },
+  {
+    "brinco": "BBG 3429",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3429"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243429",
+      "apelido": "BBG3429",
+      "rgn": "1164/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "CARTEADO",
+      "rgn_pai": "CARTEADO",
+      "rgd_pai": "BBG 170887",
+      "mae": "BBG 160300",
+      "mae_receptora": "1164",
+      "avo_paterno": "MALBORO",
+      "avo_paterna": "CCP 120412",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "CCP 130039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-26",
+      "peso_nascimento_kg": 38,
+      "peso_desmame_kg": 218,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 493,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 556,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 624,
+      "dias_confinado": 43,
+      "ganho_total_kg": 68,
+      "gmd_kg_dia": 1.619,
+      "arroba_atual": 22.048,
+      "ganho_arroba": 2.403,
+      "valor_atual_rs": 6834.88,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-26"
+    }
+  },
+  {
+    "brinco": "BBG 3431",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3431"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243431",
+      "apelido": "BBG3431",
+      "rgn": "1019/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "CARTEADO",
+      "rgn_pai": "CARTEADO",
+      "rgd_pai": "BBG 170887",
+      "mae": "BBG 171069",
+      "mae_receptora": "1019",
+      "avo_paterno": "MALBORO",
+      "avo_paterna": "CCP 120412",
+      "avo_materno": "SOBERANO",
+      "avo_materna": "JAT 120102"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-28",
+      "peso_nascimento_kg": 38,
+      "peso_desmame_kg": 206,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 460,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 532,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 586,
+      "dias_confinado": 43,
+      "ganho_total_kg": 54,
+      "gmd_kg_dia": 1.286,
+      "arroba_atual": 20.705,
+      "ganho_arroba": 1.908,
+      "valor_atual_rs": 6418.653,
+      "meta_gmd_atingida": "Não"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-28"
+    }
+  },
+  {
+    "brinco": "BBG 3438",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3438"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243438",
+      "apelido": "BBG3438",
+      "rgn": "BBG2441/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 212441",
+      "mae_receptora": "",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "GANDHI",
+      "avo_materna": "BBG 160543"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-30",
+      "peso_nascimento_kg": 35,
+      "peso_desmame_kg": 159,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 498,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 571,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 630,
+      "dias_confinado": 43,
+      "ganho_total_kg": 59,
+      "gmd_kg_dia": 1.405,
+      "arroba_atual": 22.26,
+      "ganho_arroba": 2.085,
+      "valor_atual_rs": 6900.6,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-30"
+    }
+  },
+  {
+    "brinco": "BBG 3440",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3440"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243440",
+      "apelido": "BBG3440",
+      "rgn": "1979/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "CARTEADO",
+      "rgn_pai": "CARTEADO",
+      "rgd_pai": "BBG 170887",
+      "mae": "BBG 160205",
+      "mae_receptora": "1979",
+      "avo_paterno": "MALBORO",
+      "avo_paterna": "CCP 120412",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "CCP 130020"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-01",
+      "peso_nascimento_kg": 32,
+      "peso_desmame_kg": 199,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 457,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 526,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 595,
+      "dias_confinado": 43,
+      "ganho_total_kg": 69,
+      "gmd_kg_dia": 1.643,
+      "arroba_atual": 21.023,
+      "ganho_arroba": 2.438,
+      "valor_atual_rs": 6517.233,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-01"
+    }
+  },
+  {
+    "brinco": "BBG 3452",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3452"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243452",
+      "apelido": "BBG3452",
+      "rgn": "1637/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "CARTEADO",
+      "rgn_pai": "CARTEADO",
+      "rgd_pai": "BBG 170887",
+      "mae": "BBG 170891",
+      "mae_receptora": "1637",
+      "avo_paterno": "MALBORO",
+      "avo_paterna": "CCP 120412",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-23",
+      "peso_nascimento_kg": 38,
+      "peso_desmame_kg": 216,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 384,
+      "data_peso_po": "2026-02-03"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Bela Vista",
+      "data_entrada": "2026-08-11",
+      "peso_entrada_kg": 591,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 591,
+      "dias_confinado": 1,
+      "ganho_total_kg": 0,
+      "gmd_kg_dia": null,
+      "arroba_atual": 20.882,
+      "ganho_arroba": 0,
+      "valor_atual_rs": 6473.42,
+      "meta_gmd_atingida": null
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "CENTRAL SEMEN",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-23"
+    }
+  },
+  {
+    "brinco": "BBG 3454",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3454"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243454",
+      "apelido": "BBG3454",
+      "rgn": "5552/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 150070",
+      "mae_receptora": "5552",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "MANDELA",
+      "avo_materna": "CCP 120412"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-25",
+      "peso_nascimento_kg": 38,
+      "peso_desmame_kg": 227,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 480,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 549,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 616,
+      "dias_confinado": 43,
+      "ganho_total_kg": 67,
+      "gmd_kg_dia": 1.595,
+      "arroba_atual": 21.765,
+      "ganho_arroba": 2.367,
+      "valor_atual_rs": 6747.253,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-25"
+    }
+  },
+  {
+    "brinco": "BBG 3455",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3455"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243455",
+      "apelido": "BBG3455",
+      "rgn": "2090/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MUMBA",
+      "rgn_pai": "MUMBA",
+      "rgd_pai": "JAT 180137",
+      "mae": "BBG 170885",
+      "mae_receptora": "2090",
+      "avo_paterno": "BBA 130046",
+      "avo_paterna": "JAT 110098",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-26",
+      "peso_nascimento_kg": 38,
+      "peso_desmame_kg": 202,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 462,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 533,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 604,
+      "dias_confinado": 43,
+      "ganho_total_kg": 71,
+      "gmd_kg_dia": 1.69,
+      "arroba_atual": 21.341,
+      "ganho_arroba": 2.509,
+      "valor_atual_rs": 6615.813,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-26"
+    }
+  },
+  {
+    "brinco": "BBG 3456",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3456"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243456",
+      "apelido": "BBG3456",
+      "rgn": "1099/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MUMBA",
+      "rgn_pai": "MUMBA",
+      "rgd_pai": "JAT 180137",
+      "mae": "BBG 170880",
+      "mae_receptora": "1099",
+      "avo_paterno": "BBA 130046",
+      "avo_paterna": "JAT 110098",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-26",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 275,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 480,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 545,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 620,
+      "dias_confinado": 43,
+      "ganho_total_kg": 75,
+      "gmd_kg_dia": 1.786,
+      "arroba_atual": 21.907,
+      "ganho_arroba": 2.65,
+      "valor_atual_rs": 6791.067,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-26"
+    }
+  },
+  {
+    "brinco": "BBG 3457",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3457"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243457",
+      "apelido": "BBG3457",
+      "rgn": "1276/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 170007",
+      "rgn_pai": "MALI",
+      "rgd_pai": "",
+      "mae": "BBG 160404",
+      "mae_receptora": "1276",
+      "avo_paterno": "JAT 100031",
+      "avo_paterna": "JAT08-0146",
+      "avo_materno": "MANDELA",
+      "avo_materna": "CCP 120438"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-27",
+      "peso_nascimento_kg": 37,
+      "peso_desmame_kg": 224,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 436,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 511,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 597,
+      "dias_confinado": 43,
+      "ganho_total_kg": 86,
+      "gmd_kg_dia": 2.048,
+      "arroba_atual": 21.094,
+      "ganho_arroba": 3.039,
+      "valor_atual_rs": 6539.14,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-27"
+    }
+  },
+  {
+    "brinco": "BBG 3467",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3467"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243467",
+      "apelido": "BBG3467",
+      "rgn": "1858/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MADIBA",
+      "rgn_pai": "MADIBA",
+      "rgd_pai": "JAT 160103",
+      "mae": "BBG 160404",
+      "mae_receptora": "1858",
+      "avo_paterno": "MEXICANO",
+      "avo_paterna": "RCO06 0014",
+      "avo_materno": "MANDELA",
+      "avo_materna": "CCP 120438"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-11",
+      "peso_nascimento_kg": 0,
+      "peso_desmame_kg": 200,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 455,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 542,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 619,
+      "dias_confinado": 43,
+      "ganho_total_kg": 77,
+      "gmd_kg_dia": 1.833,
+      "arroba_atual": 21.871,
+      "ganho_arroba": 2.721,
+      "valor_atual_rs": 6780.113,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-11"
+    }
+  },
+  {
+    "brinco": "BBG 3494",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3494"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243494",
+      "apelido": "BBG3494",
+      "rgn": "1628/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MADIBA",
+      "rgn_pai": "MADIBA",
+      "rgd_pai": "JAT 160103",
+      "mae": "BBG0072+BBG0090+BBG0045",
+      "mae_receptora": "1628",
+      "avo_paterno": "MEXICANO",
+      "avo_paterna": "RCO06 0014",
+      "avo_materno": "",
+      "avo_materna": ""
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-12-05",
+      "peso_nascimento_kg": 41,
+      "peso_desmame_kg": 216,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 445,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 530,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 592,
+      "dias_confinado": 43,
+      "ganho_total_kg": 62,
+      "gmd_kg_dia": 1.476,
+      "arroba_atual": 20.917,
+      "ganho_arroba": 2.191,
+      "valor_atual_rs": 6484.373,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-12-05"
+    }
+  },
+  {
+    "brinco": "BBG 3502",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3502"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243502",
+      "apelido": "BBG3502",
+      "rgn": "1833/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MADIBA",
+      "rgn_pai": "MADIBA",
+      "rgd_pai": "JAT 160103",
+      "mae": "BBG 160404",
+      "mae_receptora": "1833",
+      "avo_paterno": "MEXICANO",
+      "avo_paterna": "RCO06 0014",
+      "avo_materno": "MANDELA",
+      "avo_materna": "CCP 120438"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-12-10",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 207,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 492,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 563,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 661,
+      "dias_confinado": 43,
+      "ganho_total_kg": 98,
+      "gmd_kg_dia": 2.333,
+      "arroba_atual": 23.355,
+      "ganho_arroba": 3.463,
+      "valor_atual_rs": 7240.153,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-12-10"
+    }
+  },
+  {
+    "brinco": "BGNE 5/24",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3351"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243351",
+      "apelido": "BBG3351",
+      "rgn": "BBG0005/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200347",
+      "rgn_pai": "JUMA",
+      "rgd_pai": "JAT20-0347",
+      "mae": "BBG 150005",
+      "mae_receptora": "",
+      "avo_paterno": "JAT16 0150",
+      "avo_paterna": "JAT07 0076",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130010"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-07-29",
+      "peso_nascimento_kg": 50,
+      "peso_desmame_kg": 285,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 447,
+      "data_peso_po": "2026-02-03"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 682,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 745,
+      "dias_confinado": 43,
+      "ganho_total_kg": 63,
+      "gmd_kg_dia": 1.5,
+      "arroba_atual": 26.323,
+      "ganho_arroba": 2.226,
+      "valor_atual_rs": 8160.233,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "CENTRAL SEMEN",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-07-29"
+    }
+  },
+  {
+    "brinco": "CAB 1227",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "CAB1227"
+    },
+    "identificacao": {
+      "nome_completo": "",
+      "apelido": "CAB1227",
+      "rgn": "",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "",
+      "mae_receptora": "",
+      "avo_paterno": "",
+      "avo_paterna": "",
+      "avo_materno": "",
+      "avo_materna": ""
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2021-01-01",
+      "peso_nascimento_kg": 0,
+      "peso_desmame_kg": 180,
+      "data_desmame": "2021-07-25",
+      "peso_po_ultima_kg": 538,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 597,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 701,
+      "dias_confinado": 43,
+      "ganho_total_kg": 104,
+      "gmd_kg_dia": 2.476,
+      "arroba_atual": 24.769,
+      "ganho_arroba": 3.675,
+      "valor_atual_rs": 7678.287,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "LUIS HUMBERTO ANDRADE CHERULLI",
+      "data_aquisicao": "2025-10-06"
+    }
+  },
+  {
+    "brinco": "CAB 1231",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "CAB1231"
+    },
+    "identificacao": {
+      "nome_completo": "",
+      "apelido": "CAB1231",
+      "rgn": "",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "",
+      "mae_receptora": "",
+      "avo_paterno": "",
+      "avo_paterna": "",
+      "avo_materno": "",
+      "avo_materna": ""
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2021-01-01",
+      "peso_nascimento_kg": 0,
+      "peso_desmame_kg": 180,
+      "data_desmame": "2021-07-25",
+      "peso_po_ultima_kg": 454,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 540,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 606,
+      "dias_confinado": 43,
+      "ganho_total_kg": 66,
+      "gmd_kg_dia": 1.571,
+      "arroba_atual": 21.412,
+      "ganho_arroba": 2.332,
+      "valor_atual_rs": 6637.72,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "LUIS HUMBERTO ANDRADE CHERULLI",
+      "data_aquisicao": "2025-10-06"
+    }
+  },
+  {
+    "brinco": "897/24",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Revisar",
+      "observacao": "tag coincide, mas raça PO=NELORE (esperado BONSMARA)",
+      "apelido_po": "0897/24"
+    },
+    "identificacao": {
+      "nome_completo": "0897/24",
+      "apelido": "0897/24",
+      "rgn": "0897/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "NELORE",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "NATIVO FIV RG",
+      "rgn_pai": "",
+      "rgd_pai": "RGM 7029",
+      "mae": "PAGINA",
+      "mae_receptora": "0897",
+      "avo_paterno": "LUCRO RG",
+      "avo_paterna": "5630 FIV RG",
+      "avo_materno": "RGM1867",
+      "avo_materna": "BRBA44"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-07",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 258,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 490,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 550,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 608,
+      "dias_confinado": 43,
+      "ganho_total_kg": 58,
+      "gmd_kg_dia": 1.381,
+      "arroba_atual": 21.483,
+      "ganho_arroba": 2.049,
+      "valor_atual_rs": 6659.627,
+      "meta_gmd_atingida": "Não"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-07"
+    }
+  },
+  {
+    "brinco": "930/24",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Revisar",
+      "observacao": "tag coincide, mas raça PO=NELORE (esperado BONSMARA)",
+      "apelido_po": "0930/24"
+    },
+    "identificacao": {
+      "nome_completo": "0930/24",
+      "apelido": "0930/24",
+      "rgn": "0930/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "NELORE",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "QLT QUARTEL",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "PILLAR OURO FINO",
+      "mae_receptora": "0930",
+      "avo_paterno": "CFM QUORUM",
+      "avo_paterna": "VP 111036",
+      "avo_materno": "",
+      "avo_materna": ""
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-18",
+      "peso_nascimento_kg": 41,
+      "peso_desmame_kg": 234,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 483,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 564,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 612,
+      "dias_confinado": 43,
+      "ganho_total_kg": 48,
+      "gmd_kg_dia": 1.143,
+      "arroba_atual": 21.624,
+      "ganho_arroba": 1.696,
+      "valor_atual_rs": 6703.44,
+      "meta_gmd_atingida": "Não"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-18"
+    }
+  },
+  {
+    "brinco": "1615/24",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Revisar",
+      "observacao": "tag coincide, mas raça PO=NELORE (esperado BONSMARA)",
+      "apelido_po": "1615/24"
+    },
+    "identificacao": {
+      "nome_completo": "1615/24",
+      "apelido": "1615/24",
+      "rgn": "1615/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "NELORE",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "QLT QUARTEL",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "BGNE09",
+      "mae_receptora": "1615",
+      "avo_paterno": "CFM QUORUM",
+      "avo_paterna": "VP 111036",
+      "avo_materno": "MAIA FIV DA MATINHA",
+      "avo_materna": "PILLAR OURO FINO"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-20",
+      "peso_nascimento_kg": 32,
+      "peso_desmame_kg": 224,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 442,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 516,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 578,
+      "dias_confinado": 43,
+      "ganho_total_kg": 62,
+      "gmd_kg_dia": 1.476,
+      "arroba_atual": 20.423,
+      "ganho_arroba": 2.191,
+      "valor_atual_rs": 6331.027,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-20"
+    }
+  },
+  {
+    "brinco": "1769/24",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "2501"
+    },
+    "identificacao": {
+      "nome_completo": "BBG3495",
+      "apelido": "2501",
+      "rgn": "BBG1769/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Engorda"
+    },
+    "genealogia": {
+      "pai": "DESCONHECIDO",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "BBG 191769",
+      "mae_receptora": "",
+      "avo_paterno": "DESCONHECIDO",
+      "avo_paterna": "",
+      "avo_materno": "SOBERANO",
+      "avo_materna": "BBG 160488"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-12-06",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 170,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 222,
+      "data_peso_po": "2026-05-06"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 533,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 576,
+      "dias_confinado": 43,
+      "ganho_total_kg": 43,
+      "gmd_kg_dia": 1.024,
+      "arroba_atual": 20.352,
+      "ganho_arroba": 1.519,
+      "valor_atual_rs": 6309.12,
+      "meta_gmd_atingida": "Não"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-12-06"
+    }
+  },
+  {
+    "brinco": "1804/24",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Revisar",
+      "observacao": "tag coincide, mas raça PO=NELORE (esperado BONSMARA)",
+      "apelido_po": "1804/24"
+    },
+    "identificacao": {
+      "nome_completo": "1804/24",
+      "apelido": "1804/24",
+      "rgn": "1804/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "NELORE",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "QLT QUARTEL",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "BGNE09",
+      "mae_receptora": "1804",
+      "avo_paterno": "CFM QUORUM",
+      "avo_paterna": "VP 111036",
+      "avo_materno": "MAIA FIV DA MATINHA",
+      "avo_materna": "PILLAR OURO FINO"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-21",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 241,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 510,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 586,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 635,
+      "dias_confinado": 43,
+      "ganho_total_kg": 49,
+      "gmd_kg_dia": 1.167,
+      "arroba_atual": 22.437,
+      "ganho_arroba": 1.731,
+      "valor_atual_rs": 6955.367,
+      "meta_gmd_atingida": "Não"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-21"
+    }
+  },
+  {
+    "brinco": "1815/24",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "1815/25"
+    },
+    "identificacao": {
+      "nome_completo": "",
+      "apelido": "1815/25",
+      "rgn": "1815/25",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MUMBA",
+      "rgn_pai": "MUMBA",
+      "rgd_pai": "JAT 180137",
+      "mae": "BBG 181119",
+      "mae_receptora": "1815",
+      "avo_paterno": "BBA 130046",
+      "avo_paterna": "JAT 110098",
+      "avo_materno": "BBA 130046",
+      "avo_materna": "CCP 130031"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2025-09-23",
+      "peso_nascimento_kg": 27,
+      "peso_desmame_kg": 0,
+      "data_desmame": null,
+      "peso_po_ultima_kg": 46,
+      "data_peso_po": "2025-11-04"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 553,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 606,
+      "dias_confinado": 43,
+      "ganho_total_kg": 53,
+      "gmd_kg_dia": 1.262,
+      "arroba_atual": 21.412,
+      "ganho_arroba": 1.873,
+      "valor_atual_rs": 6637.72,
+      "meta_gmd_atingida": "Não"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2025-09-23"
+    }
+  },
+  {
+    "brinco": "1892/24",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Revisar",
+      "observacao": "tag coincide, mas raça PO=NELORE (esperado BONSMARA)",
+      "apelido_po": "1892/24"
+    },
+    "identificacao": {
+      "nome_completo": "1892/24",
+      "apelido": "1892/24",
+      "rgn": "1892/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "NELORE",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "QLT QUARTEL",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "BGNE14",
+      "mae_receptora": "1892",
+      "avo_paterno": "CFM QUORUM",
+      "avo_paterna": "VP 111036",
+      "avo_materno": "MAIA FIV DA MATINHA",
+      "avo_materna": "PILLAR OURO FINO"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-24",
+      "peso_nascimento_kg": 42,
+      "peso_desmame_kg": 230,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 480,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 566,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 618,
+      "dias_confinado": 43,
+      "ganho_total_kg": 52,
+      "gmd_kg_dia": 1.238,
+      "arroba_atual": 21.836,
+      "ganho_arroba": 1.837,
+      "valor_atual_rs": 6769.16,
+      "meta_gmd_atingida": "Não"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-24"
+    }
+  },
+  {
+    "brinco": "2004/24",
+    "curral": "2",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Revisar",
+      "observacao": "tag coincide, mas raça PO=NELORE (esperado BONSMARA)",
+      "apelido_po": "2004/24"
+    },
+    "identificacao": {
+      "nome_completo": "2004/24",
+      "apelido": "2004/24",
+      "rgn": "2004/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "NELORE",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "NATIVO FIV RG",
+      "rgn_pai": "",
+      "rgd_pai": "RGM 7029",
+      "mae": "PAGINA",
+      "mae_receptora": "2004",
+      "avo_paterno": "LUCRO RG",
+      "avo_paterna": "5630 FIV RG",
+      "avo_materno": "RGM1867",
+      "avo_materna": "BRBA44"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-10",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 178,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 458,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 1",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 518,
+      "data_ultima_pesagem": "2026-08-11",
+      "peso_atual_kg": 579,
+      "dias_confinado": 43,
+      "ganho_total_kg": 61,
+      "gmd_kg_dia": 1.452,
+      "arroba_atual": 20.458,
+      "ganho_arroba": 2.155,
+      "valor_atual_rs": 6341.98,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-10"
+    }
+  },
+  {
+    "brinco": "BBG 0834/25",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG0834/25"
+    },
+    "identificacao": {
+      "nome_completo": "",
+      "apelido": "BBG0834/25",
+      "rgn": "BBG0834/25",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "DESCONHECIDO",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "BBG 170834",
+      "mae_receptora": "",
+      "avo_paterno": "",
+      "avo_paterna": "",
+      "avo_materno": "MANDELA",
+      "avo_materna": "CCP 120340"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2025-02-01",
+      "peso_nascimento_kg": 0,
+      "peso_desmame_kg": 0,
+      "data_desmame": null,
+      "peso_po_ultima_kg": 379,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 428,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 500,
+      "dias_confinado": 43,
+      "ganho_total_kg": 72,
+      "gmd_kg_dia": 2.483,
+      "arroba_atual": 17.667,
+      "ganho_arroba": 2.544,
+      "valor_atual_rs": 5476.667,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "DESCARTE (VENDER OU MATAR)",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2025-02-01"
+    }
+  },
+  {
+    "brinco": "BBG 3335",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3335"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243335",
+      "apelido": "BBG3335",
+      "rgn": "BBG1285/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "DESCONHECIDO",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "BBG 181285",
+      "mae_receptora": "",
+      "avo_paterno": "",
+      "avo_paterna": "",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130031"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-06-01",
+      "peso_nascimento_kg": 28,
+      "peso_desmame_kg": 161,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 434,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 469,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 550,
+      "dias_confinado": 43,
+      "ganho_total_kg": 81,
+      "gmd_kg_dia": 2.793,
+      "arroba_atual": 19.433,
+      "ganho_arroba": 2.862,
+      "valor_atual_rs": 6024.333,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-06-01"
+    }
+  },
+  {
+    "brinco": "BBG 3346",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3346"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243346",
+      "apelido": "BBG3346",
+      "rgn": "BBG1065/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200434",
+      "rgn_pai": "BANTU",
+      "rgd_pai": "JAT20-0434",
+      "mae": "BBG 171065",
+      "mae_receptora": "",
+      "avo_paterno": "JAT16 0103",
+      "avo_paterna": "JAT12 0046",
+      "avo_materno": "BBA 130046",
+      "avo_materna": "BBG 150035"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-07-24",
+      "peso_nascimento_kg": 28,
+      "peso_desmame_kg": 211,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 434,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 472,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 524,
+      "dias_confinado": 43,
+      "ganho_total_kg": 52,
+      "gmd_kg_dia": 1.793,
+      "arroba_atual": 18.515,
+      "ganho_arroba": 1.837,
+      "valor_atual_rs": 5739.547,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-07-24"
+    }
+  },
+  {
+    "brinco": "BBG 3354",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3354"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243354",
+      "apelido": "BBG3354",
+      "rgn": "BBG1205/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200434",
+      "rgn_pai": "BANTU",
+      "rgd_pai": "JAT20-0434",
+      "mae": "BBG 181205",
+      "mae_receptora": "",
+      "avo_paterno": "JAT16 0103",
+      "avo_paterna": "JAT12 0046",
+      "avo_materno": "SOBERANO",
+      "avo_materna": "CCP 120039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-02",
+      "peso_nascimento_kg": 32,
+      "peso_desmame_kg": 208,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 415,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 469,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 555,
+      "dias_confinado": 43,
+      "ganho_total_kg": 86,
+      "gmd_kg_dia": 2.966,
+      "arroba_atual": 19.61,
+      "ganho_arroba": 3.039,
+      "valor_atual_rs": 6079.1,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-02"
+    }
+  },
+  {
+    "brinco": "BBG 3366",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3366"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243366",
+      "apelido": "BBG3366",
+      "rgn": "BBG0267/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MUMBA",
+      "rgn_pai": "MUMBA",
+      "rgd_pai": "JAT 180137",
+      "mae": "BBG 160267",
+      "mae_receptora": "",
+      "avo_paterno": "BBA 130046",
+      "avo_paterna": "JAT 110098",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "RAP 073140"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-13",
+      "peso_nascimento_kg": 38,
+      "peso_desmame_kg": 153,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 349,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 413,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 490,
+      "dias_confinado": 43,
+      "ganho_total_kg": 77,
+      "gmd_kg_dia": 2.655,
+      "arroba_atual": 17.313,
+      "ganho_arroba": 2.721,
+      "valor_atual_rs": 5367.133,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-13"
+    }
+  },
+  {
+    "brinco": "BBG 3372",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3372"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243372",
+      "apelido": "BBG3372",
+      "rgn": "0771/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "SOBERANO",
+      "rgn_pai": "SOBERANO",
+      "rgd_pai": "CCP 120453",
+      "mae": "BBG 170970",
+      "mae_receptora": "0771",
+      "avo_paterno": "MEXICANO",
+      "avo_paterna": "CCP090031",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130031"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-15",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 217,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 437,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 474,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 566,
+      "dias_confinado": 43,
+      "ganho_total_kg": 92,
+      "gmd_kg_dia": 3.172,
+      "arroba_atual": 19.999,
+      "ganho_arroba": 3.251,
+      "valor_atual_rs": 6199.587,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-15"
+    }
+  },
+  {
+    "brinco": "BBG 3388",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3388"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243388",
+      "apelido": "BBG3388",
+      "rgn": "BBG1749/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MUMBA",
+      "rgn_pai": "MUMBA",
+      "rgd_pai": "JAT 180137",
+      "mae": "BBG 191749",
+      "mae_receptora": "",
+      "avo_paterno": "BBA 130046",
+      "avo_paterna": "JAT 110098",
+      "avo_materno": "TABACO",
+      "avo_materna": "BBG 150111"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-08-22",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 164,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 408,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 468,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 535,
+      "dias_confinado": 43,
+      "ganho_total_kg": 67,
+      "gmd_kg_dia": 2.31,
+      "arroba_atual": 18.903,
+      "ganho_arroba": 2.367,
+      "valor_atual_rs": 5860.033,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-08-22"
+    }
+  },
+  {
+    "brinco": "BBG 3399",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3399"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243399",
+      "apelido": "BBG3399",
+      "rgn": "BBG1029/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "DESCONHECIDO",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "BBG 171029",
+      "mae_receptora": "",
+      "avo_paterno": "DESCONHECIDO",
+      "avo_paterna": "",
+      "avo_materno": "BBA 130046",
+      "avo_materna": "BBG 150021"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-11",
+      "peso_nascimento_kg": 38,
+      "peso_desmame_kg": 186,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 364,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 415,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 490,
+      "dias_confinado": 43,
+      "ganho_total_kg": 75,
+      "gmd_kg_dia": 2.586,
+      "arroba_atual": 17.313,
+      "ganho_arroba": 2.65,
+      "valor_atual_rs": 5367.133,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-11"
+    }
+  },
+  {
+    "brinco": "BBG 3411",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3411"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243411",
+      "apelido": "BBG3411",
+      "rgn": "2005/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 170795",
+      "mae_receptora": "2005",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "RAP 130844"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-16",
+      "peso_nascimento_kg": 32,
+      "peso_desmame_kg": 158,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 418,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 460,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 526,
+      "dias_confinado": 43,
+      "ganho_total_kg": 66,
+      "gmd_kg_dia": 2.276,
+      "arroba_atual": 18.585,
+      "ganho_arroba": 2.332,
+      "valor_atual_rs": 5761.453,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-16"
+    }
+  },
+  {
+    "brinco": "BBG 3415",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3415"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243415",
+      "apelido": "BBG3415",
+      "rgn": "BBG2807/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200434",
+      "rgn_pai": "BANTU",
+      "rgd_pai": "JAT20-0434",
+      "mae": "BBG 222807",
+      "mae_receptora": "",
+      "avo_paterno": "JAT16 0103",
+      "avo_paterna": "JAT12 0046",
+      "avo_materno": "MAJOR",
+      "avo_materna": "BBG 150090"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-22",
+      "peso_nascimento_kg": 35,
+      "peso_desmame_kg": 153,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 415,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 475,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 562,
+      "dias_confinado": 43,
+      "ganho_total_kg": 87,
+      "gmd_kg_dia": 3,
+      "arroba_atual": 19.857,
+      "ganho_arroba": 3.074,
+      "valor_atual_rs": 6155.773,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-22"
+    }
+  },
+  {
+    "brinco": "BBG 3427",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3427"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243427",
+      "apelido": "BBG3427",
+      "rgn": "BBG0123/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200434",
+      "rgn_pai": "BANTU",
+      "rgd_pai": "JAT20-0434",
+      "mae": "BBG 150123",
+      "mae_receptora": "",
+      "avo_paterno": "JAT16 0103",
+      "avo_paterna": "JAT12 0046",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 120141"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-26",
+      "peso_nascimento_kg": 37,
+      "peso_desmame_kg": 180,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 345,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 385,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 464,
+      "dias_confinado": 43,
+      "ganho_total_kg": 79,
+      "gmd_kg_dia": 2.724,
+      "arroba_atual": 16.395,
+      "ganho_arroba": 2.791,
+      "valor_atual_rs": 5082.347,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-26"
+    }
+  },
+  {
+    "brinco": "BBG 3430",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3430"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243430",
+      "apelido": "BBG3430",
+      "rgn": "BBG0968/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MUMBA",
+      "rgn_pai": "MUMBA",
+      "rgd_pai": "JAT 180137",
+      "mae": "BBG 170968",
+      "mae_receptora": "",
+      "avo_paterno": "BBA 130046",
+      "avo_paterna": "JAT 110098",
+      "avo_materno": "VELUDO",
+      "avo_materna": "CCP 120438"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-28",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 192,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 417,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 450,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 531,
+      "dias_confinado": 43,
+      "ganho_total_kg": 81,
+      "gmd_kg_dia": 2.793,
+      "arroba_atual": 18.762,
+      "ganho_arroba": 2.862,
+      "valor_atual_rs": 5816.22,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-28"
+    }
+  },
+  {
+    "brinco": "BBG 3433",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3433"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243433",
+      "apelido": "BBG3433",
+      "rgn": "BBG0820/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200434",
+      "rgn_pai": "BANTU",
+      "rgd_pai": "JAT20-0434",
+      "mae": "BBG 170820",
+      "mae_receptora": "",
+      "avo_paterno": "JAT16 0103",
+      "avo_paterna": "JAT12 0046",
+      "avo_materno": "CASSINO",
+      "avo_materna": "BBG 140001"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-29",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 197,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 436,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 485,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 567,
+      "dias_confinado": 43,
+      "ganho_total_kg": 82,
+      "gmd_kg_dia": 2.828,
+      "arroba_atual": 20.034,
+      "ganho_arroba": 2.897,
+      "valor_atual_rs": 6210.54,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-29"
+    }
+  },
+  {
+    "brinco": "BBG 3434",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3434"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243434",
+      "apelido": "BBG3434",
+      "rgn": "1819/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 160378",
+      "mae_receptora": "1819",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "GAITEIRO",
+      "avo_materna": "RAP 130844"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-29",
+      "peso_nascimento_kg": 38,
+      "peso_desmame_kg": 192,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 415,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 463,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 545,
+      "dias_confinado": 43,
+      "ganho_total_kg": 82,
+      "gmd_kg_dia": 2.828,
+      "arroba_atual": 19.257,
+      "ganho_arroba": 2.897,
+      "valor_atual_rs": 5969.567,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-29"
+    }
+  },
+  {
+    "brinco": "BBG 3442",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3442"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243442",
+      "apelido": "BBG3442",
+      "rgn": "1739/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "CARTEADO",
+      "rgn_pai": "CARTEADO",
+      "rgd_pai": "BBG 170887",
+      "mae": "BBG 160300",
+      "mae_receptora": "1739",
+      "avo_paterno": "MALBORO",
+      "avo_paterna": "CCP 120412",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "CCP 130039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-03",
+      "peso_nascimento_kg": 36,
+      "peso_desmame_kg": 175,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 442,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 504,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 562,
+      "dias_confinado": 43,
+      "ganho_total_kg": 58,
+      "gmd_kg_dia": 2,
+      "arroba_atual": 19.857,
+      "ganho_arroba": 2.049,
+      "valor_atual_rs": 6155.773,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-03"
+    }
+  },
+  {
+    "brinco": "BBG 3449",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3449"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243449",
+      "apelido": "BBG3449",
+      "rgn": "2078/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "CARTEADO",
+      "rgn_pai": "CARTEADO",
+      "rgd_pai": "BBG 170887",
+      "mae": "BBG 160378",
+      "mae_receptora": "2078",
+      "avo_paterno": "MALBORO",
+      "avo_paterna": "CCP 120412",
+      "avo_materno": "GAITEIRO",
+      "avo_materna": "RAP 130844"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-20",
+      "peso_nascimento_kg": 28,
+      "peso_desmame_kg": 177,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 462,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 487,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 550,
+      "dias_confinado": 43,
+      "ganho_total_kg": 63,
+      "gmd_kg_dia": 2.172,
+      "arroba_atual": 19.433,
+      "ganho_arroba": 2.226,
+      "valor_atual_rs": 6024.333,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-20"
+    }
+  },
+  {
+    "brinco": "BBG 3450",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3450"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243450",
+      "apelido": "BBG3450",
+      "rgn": "5570/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MADIBA",
+      "rgn_pai": "MADIBA",
+      "rgd_pai": "JAT 160103",
+      "mae": "BBG1052+BBG1112",
+      "mae_receptora": "5570",
+      "avo_paterno": "MEXICANO",
+      "avo_paterna": "RCO06 0014",
+      "avo_materno": "",
+      "avo_materna": ""
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-21",
+      "peso_nascimento_kg": 36,
+      "peso_desmame_kg": 171,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 418,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 470,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 536,
+      "dias_confinado": 43,
+      "ganho_total_kg": 66,
+      "gmd_kg_dia": 2.276,
+      "arroba_atual": 18.939,
+      "ganho_arroba": 2.332,
+      "valor_atual_rs": 5870.987,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-21"
+    }
+  },
+  {
+    "brinco": "BBG 3451",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3451"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243451",
+      "apelido": "BBG3451",
+      "rgn": "1037/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MUMBA",
+      "rgn_pai": "MUMBA",
+      "rgd_pai": "JAT 180137",
+      "mae": "BBG 170873",
+      "mae_receptora": "1037",
+      "avo_paterno": "BBA 130046",
+      "avo_paterna": "JAT 110098",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-21",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 240,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 431,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 488,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 546,
+      "dias_confinado": 43,
+      "ganho_total_kg": 58,
+      "gmd_kg_dia": 2,
+      "arroba_atual": 19.292,
+      "ganho_arroba": 2.049,
+      "valor_atual_rs": 5980.52,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-21"
+    }
+  },
+  {
+    "brinco": "BBG 3453",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3453"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243453",
+      "apelido": "BBG3453",
+      "rgn": "BBG1861/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200434",
+      "rgn_pai": "BANTU",
+      "rgd_pai": "JAT20-0434",
+      "mae": "BBG 201861",
+      "mae_receptora": "",
+      "avo_paterno": "JAT16 0103",
+      "avo_paterna": "JAT12 0046",
+      "avo_materno": "GANDHI",
+      "avo_materna": "BBG 170834"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-24",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 201,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 430,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 478,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 527,
+      "dias_confinado": 43,
+      "ganho_total_kg": 49,
+      "gmd_kg_dia": 1.69,
+      "arroba_atual": 18.621,
+      "ganho_arroba": 1.731,
+      "valor_atual_rs": 5772.407,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-24"
+    }
+  },
+  {
+    "brinco": "BBG 3458",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3458"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243458",
+      "apelido": "BBG3458",
+      "rgn": "2117/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 160205",
+      "mae_receptora": "2117",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "CCP 130020"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-28",
+      "peso_nascimento_kg": 30,
+      "peso_desmame_kg": 162,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 426,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 468,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 527,
+      "dias_confinado": 43,
+      "ganho_total_kg": 59,
+      "gmd_kg_dia": 2.034,
+      "arroba_atual": 18.621,
+      "ganho_arroba": 2.085,
+      "valor_atual_rs": 5772.407,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-28"
+    }
+  },
+  {
+    "brinco": "BBG 3460",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3460"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243460",
+      "apelido": "BBG3460",
+      "rgn": "2122/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 160205",
+      "mae_receptora": "2122",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "CCP 130020"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-30",
+      "peso_nascimento_kg": 29,
+      "peso_desmame_kg": 154,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 403,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 432,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 478,
+      "dias_confinado": 43,
+      "ganho_total_kg": 46,
+      "gmd_kg_dia": 1.586,
+      "arroba_atual": 16.889,
+      "ganho_arroba": 1.625,
+      "valor_atual_rs": 5235.693,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-30"
+    }
+  },
+  {
+    "brinco": "BBG 3461",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3461"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243461",
+      "apelido": "BBG3461",
+      "rgn": "1749/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 170007",
+      "rgn_pai": "MALI",
+      "rgd_pai": "",
+      "mae": "BBG 170970",
+      "mae_receptora": "1749",
+      "avo_paterno": "JAT 100031",
+      "avo_paterna": "JAT08-0146",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130031"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-10-30",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 227,
+      "data_desmame": "2025-06-18",
+      "peso_po_ultima_kg": 426,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 474,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 553,
+      "dias_confinado": 43,
+      "ganho_total_kg": 79,
+      "gmd_kg_dia": 2.724,
+      "arroba_atual": 19.539,
+      "ganho_arroba": 2.791,
+      "valor_atual_rs": 6057.193,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-10-30"
+    }
+  },
+  {
+    "brinco": "BBG 3464",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3464"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243464",
+      "apelido": "BBG3464",
+      "rgn": "BBG1092/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 181092",
+      "mae_receptora": "",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "BBA 130046",
+      "avo_materna": "CCP 130043"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-03",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 180,
+      "data_desmame": "2025-06-27",
+      "peso_po_ultima_kg": 422,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 476,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 534,
+      "dias_confinado": 43,
+      "ganho_total_kg": 58,
+      "gmd_kg_dia": 2,
+      "arroba_atual": 18.868,
+      "ganho_arroba": 2.049,
+      "valor_atual_rs": 5849.08,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-03"
+    }
+  },
+  {
+    "brinco": "BBG 3465",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3465"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243465",
+      "apelido": "BBG3465",
+      "rgn": "5651/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 170007",
+      "rgn_pai": "MALI",
+      "rgd_pai": "",
+      "mae": "BBG 160404",
+      "mae_receptora": "5651",
+      "avo_paterno": "JAT 100031",
+      "avo_paterna": "JAT08-0146",
+      "avo_materno": "MANDELA",
+      "avo_materna": "CCP 120438"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-08",
+      "peso_nascimento_kg": 29,
+      "peso_desmame_kg": 209,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 402,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 450,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 528,
+      "dias_confinado": 43,
+      "ganho_total_kg": 78,
+      "gmd_kg_dia": 2.69,
+      "arroba_atual": 18.656,
+      "ganho_arroba": 2.756,
+      "valor_atual_rs": 5783.36,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-08"
+    }
+  },
+  {
+    "brinco": "BBG 3466",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3466"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243466",
+      "apelido": "BBG3466",
+      "rgn": "BBG3030/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200434",
+      "rgn_pai": "BANTU",
+      "rgd_pai": "JAT20-0434",
+      "mae": "BBG 223030",
+      "mae_receptora": "",
+      "avo_paterno": "JAT16 0103",
+      "avo_paterna": "JAT12 0046",
+      "avo_materno": "CARTEADO",
+      "avo_materna": "BBG 160213"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-11",
+      "peso_nascimento_kg": 34,
+      "peso_desmame_kg": 132,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 361,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 407,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 475,
+      "dias_confinado": 43,
+      "ganho_total_kg": 68,
+      "gmd_kg_dia": 2.345,
+      "arroba_atual": 16.783,
+      "ganho_arroba": 2.403,
+      "valor_atual_rs": 5202.833,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-11"
+    }
+  },
+  {
+    "brinco": "BBG 3469",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3469"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243469",
+      "apelido": "BBG3469",
+      "rgn": "BBG1202/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200434",
+      "rgn_pai": "BANTU",
+      "rgd_pai": "JAT20-0434",
+      "mae": "BBG 181202",
+      "mae_receptora": "",
+      "avo_paterno": "JAT16 0103",
+      "avo_paterna": "JAT12 0046",
+      "avo_materno": "SOBERANO",
+      "avo_materna": "MAR 131483"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-12",
+      "peso_nascimento_kg": 38,
+      "peso_desmame_kg": 178,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 432,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 461,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 560,
+      "dias_confinado": 43,
+      "ganho_total_kg": 99,
+      "gmd_kg_dia": 3.414,
+      "arroba_atual": 19.787,
+      "ganho_arroba": 3.498,
+      "valor_atual_rs": 6133.867,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-12"
+    }
+  },
+  {
+    "brinco": "BBG 3470",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3470"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243470",
+      "apelido": "BBG3470",
+      "rgn": "1516/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 170696",
+      "mae_receptora": "1516",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-12",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 191,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 370,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 439,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 500,
+      "dias_confinado": 43,
+      "ganho_total_kg": 61,
+      "gmd_kg_dia": 2.103,
+      "arroba_atual": 17.667,
+      "ganho_arroba": 2.155,
+      "valor_atual_rs": 5476.667,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-12"
+    }
+  },
+  {
+    "brinco": "BBG 3472",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3472"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243472",
+      "apelido": "BBG3472",
+      "rgn": "BBG0620/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 150119",
+      "rgn_pai": "RIFT",
+      "rgd_pai": "JAT15-0119",
+      "mae": "BBG 160620",
+      "mae_receptora": "",
+      "avo_paterno": "JAT07 0023",
+      "avo_paterna": "JAT04 0023",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130014"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-13",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 165,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 437,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 497,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 566,
+      "dias_confinado": 43,
+      "ganho_total_kg": 69,
+      "gmd_kg_dia": 2.379,
+      "arroba_atual": 19.999,
+      "ganho_arroba": 2.438,
+      "valor_atual_rs": 6199.587,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-13"
+    }
+  },
+  {
+    "brinco": "BBG 3473",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3473"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243473",
+      "apelido": "BBG3473",
+      "rgn": "6407/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 170007",
+      "rgn_pai": "MALI",
+      "rgd_pai": "",
+      "mae": "BBG 160193",
+      "mae_receptora": "6407",
+      "avo_paterno": "JAT 100031",
+      "avo_paterna": "JAT08-0146",
+      "avo_materno": "MANDELA",
+      "avo_materna": "CCP 130039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-13",
+      "peso_nascimento_kg": 33,
+      "peso_desmame_kg": 199,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 364,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 388,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 438,
+      "dias_confinado": 43,
+      "ganho_total_kg": 50,
+      "gmd_kg_dia": 1.724,
+      "arroba_atual": 15.476,
+      "ganho_arroba": 1.767,
+      "valor_atual_rs": 4797.56,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-13"
+    }
+  },
+  {
+    "brinco": "BBG 3474",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3474"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243474",
+      "apelido": "BBG3474",
+      "rgn": "2043/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MADIBA",
+      "rgn_pai": "MADIBA",
+      "rgd_pai": "JAT 160103",
+      "mae": "BBG1052+BBG1112",
+      "mae_receptora": "2043",
+      "avo_paterno": "MEXICANO",
+      "avo_paterna": "RCO06 0014",
+      "avo_materno": "",
+      "avo_materna": ""
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-13",
+      "peso_nascimento_kg": 28,
+      "peso_desmame_kg": 209,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 402,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 451,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 528,
+      "dias_confinado": 43,
+      "ganho_total_kg": 77,
+      "gmd_kg_dia": 2.655,
+      "arroba_atual": 18.656,
+      "ganho_arroba": 2.721,
+      "valor_atual_rs": 5783.36,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-13"
+    }
+  },
+  {
+    "brinco": "BBG 3477",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3477"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243477",
+      "apelido": "BBG3477",
+      "rgn": "0736/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 170007",
+      "rgn_pai": "MALI",
+      "rgd_pai": "",
+      "mae": "BBG 160623",
+      "mae_receptora": "0736",
+      "avo_paterno": "JAT 100031",
+      "avo_paterna": "JAT08-0146",
+      "avo_materno": "MANDELA",
+      "avo_materna": "CCP 120438"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-13",
+      "peso_nascimento_kg": 27,
+      "peso_desmame_kg": 200,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 389,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 456,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 516,
+      "dias_confinado": 43,
+      "ganho_total_kg": 60,
+      "gmd_kg_dia": 2.069,
+      "arroba_atual": 18.232,
+      "ganho_arroba": 2.12,
+      "valor_atual_rs": 5651.92,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-13"
+    }
+  },
+  {
+    "brinco": "BBG 3483",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3483"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243483",
+      "apelido": "BBG3483",
+      "rgn": "CCP120160/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 200347",
+      "rgn_pai": "JUMA",
+      "rgd_pai": "JAT20-0347",
+      "mae": "CCP 120160",
+      "mae_receptora": "",
+      "avo_paterno": "JAT16 0150",
+      "avo_paterna": "JAT07 0076",
+      "avo_materno": "MEXICANO",
+      "avo_materna": "CCP030568"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-21",
+      "peso_nascimento_kg": 38,
+      "peso_desmame_kg": 196,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 412,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 461,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 525,
+      "dias_confinado": 43,
+      "ganho_total_kg": 64,
+      "gmd_kg_dia": 2.207,
+      "arroba_atual": 18.55,
+      "ganho_arroba": 2.261,
+      "valor_atual_rs": 5750.5,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-21"
+    }
+  },
+  {
+    "brinco": "BBG 3488",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3488"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243488",
+      "apelido": "BBG3488",
+      "rgn": "0403/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MADIBA",
+      "rgn_pai": "MADIBA",
+      "rgd_pai": "JAT 160103",
+      "mae": "BBG1020+BBG0665",
+      "mae_receptora": "0403",
+      "avo_paterno": "MEXICANO",
+      "avo_paterna": "RCO06 0014",
+      "avo_materno": "",
+      "avo_materna": ""
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-25",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 226,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 425,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 478,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 550,
+      "dias_confinado": 43,
+      "ganho_total_kg": 72,
+      "gmd_kg_dia": 2.483,
+      "arroba_atual": 19.433,
+      "ganho_arroba": 2.544,
+      "valor_atual_rs": 6024.333,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-25"
+    }
+  },
+  {
+    "brinco": "BBG 3489",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3489"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243489",
+      "apelido": "BBG3489",
+      "rgn": "BBG1264/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "DESCONHECIDO",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "BBG 181264",
+      "mae_receptora": "",
+      "avo_paterno": "DESCONHECIDO",
+      "avo_paterna": "",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 120438"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-12-02",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 182,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 402,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 457,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 529,
+      "dias_confinado": 43,
+      "ganho_total_kg": 72,
+      "gmd_kg_dia": 2.483,
+      "arroba_atual": 18.691,
+      "ganho_arroba": 2.544,
+      "valor_atual_rs": 5794.313,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-12-02"
+    }
+  },
+  {
+    "brinco": "BBG 3490",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3490"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243490",
+      "apelido": "BBG3490",
+      "rgn": "1345/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 170007",
+      "rgn_pai": "MALI",
+      "rgd_pai": "",
+      "mae": "CCP 120412",
+      "mae_receptora": "1345",
+      "avo_paterno": "JAT 100031",
+      "avo_paterna": "JAT08-0146",
+      "avo_materno": "MEXICANO",
+      "avo_materna": "CCP090100"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-12-02",
+      "peso_nascimento_kg": 37,
+      "peso_desmame_kg": 240,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 431,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 472,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 538,
+      "dias_confinado": 43,
+      "ganho_total_kg": 66,
+      "gmd_kg_dia": 2.276,
+      "arroba_atual": 19.009,
+      "ganho_arroba": 2.332,
+      "valor_atual_rs": 5892.893,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-12-02"
+    }
+  },
+  {
+    "brinco": "BBG 3492",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3492"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243492",
+      "apelido": "BBG3492",
+      "rgn": "JAT17-0164/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "DESCONHECIDO",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "JAT 170164",
+      "mae_receptora": "",
+      "avo_paterno": "",
+      "avo_paterna": "",
+      "avo_materno": "FLA07-0010",
+      "avo_materna": "JAT10-0008"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-12-05",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 152,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 357,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 405,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 483,
+      "dias_confinado": 43,
+      "ganho_total_kg": 78,
+      "gmd_kg_dia": 2.69,
+      "arroba_atual": 17.066,
+      "ganho_arroba": 2.756,
+      "valor_atual_rs": 5290.46,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-12-05"
+    }
+  },
+  {
+    "brinco": "BBG 3496",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3496"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243496",
+      "apelido": "BBG3496",
+      "rgn": "2088/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MADIBA",
+      "rgn_pai": "MADIBA",
+      "rgd_pai": "JAT 160103",
+      "mae": "BBG0072+BBG0090+BBG0045",
+      "mae_receptora": "2088",
+      "avo_paterno": "MEXICANO",
+      "avo_paterna": "RCO06 0014",
+      "avo_materno": "",
+      "avo_materna": ""
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-12-06",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 189,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 409,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 457,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 540,
+      "dias_confinado": 43,
+      "ganho_total_kg": 83,
+      "gmd_kg_dia": 2.862,
+      "arroba_atual": 19.08,
+      "ganho_arroba": 2.933,
+      "valor_atual_rs": 5914.8,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-12-06"
+    }
+  },
+  {
+    "brinco": "BBG 3500",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3500"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243500",
+      "apelido": "BBG3500",
+      "rgn": "BBG0551/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "DESCONHECIDO",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "BBG 160551",
+      "mae_receptora": "",
+      "avo_paterno": "DESCONHECIDO",
+      "avo_paterna": "",
+      "avo_materno": "AFRICANO",
+      "avo_materna": "CCP 120252"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-12-10",
+      "peso_nascimento_kg": 0,
+      "peso_desmame_kg": 154,
+      "data_desmame": "2025-06-27",
+      "peso_po_ultima_kg": 420,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 483,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 573,
+      "dias_confinado": 43,
+      "ganho_total_kg": 90,
+      "gmd_kg_dia": 3.103,
+      "arroba_atual": 20.246,
+      "ganho_arroba": 3.18,
+      "valor_atual_rs": 6276.26,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-12-10"
+    }
+  },
+  {
+    "brinco": "BBG 3501",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3501"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243501",
+      "apelido": "BBG3501",
+      "rgn": "2076/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "JAT 170007",
+      "rgn_pai": "MALI",
+      "rgd_pai": "",
+      "mae": "BBG 171031",
+      "mae_receptora": "2076",
+      "avo_paterno": "JAT 100031",
+      "avo_paterna": "JAT08-0146",
+      "avo_materno": "BBA 130046",
+      "avo_materna": "BBG 140001"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-12-10",
+      "peso_nascimento_kg": 39,
+      "peso_desmame_kg": 156,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 317,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 369,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 420,
+      "dias_confinado": 43,
+      "ganho_total_kg": 51,
+      "gmd_kg_dia": 1.759,
+      "arroba_atual": 14.84,
+      "ganho_arroba": 1.802,
+      "valor_atual_rs": 4600.4,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-12-10"
+    }
+  },
+  {
+    "brinco": "BBG 3505",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3505"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243505",
+      "apelido": "BBG3505",
+      "rgn": "BBG0294/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "DESCONHECIDO",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "BBG 160294",
+      "mae_receptora": "",
+      "avo_paterno": "DESCONHECIDO",
+      "avo_paterna": "",
+      "avo_materno": "MANDELA",
+      "avo_materna": "CCP 130031"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-12-13",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 153,
+      "data_desmame": "2025-06-27",
+      "peso_po_ultima_kg": 454,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 495,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 593,
+      "dias_confinado": 43,
+      "ganho_total_kg": 98,
+      "gmd_kg_dia": 3.379,
+      "arroba_atual": 20.953,
+      "ganho_arroba": 3.463,
+      "valor_atual_rs": 6495.327,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-12-13"
+    }
+  },
+  {
+    "brinco": "BBG 3507",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "BBG3507"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243507",
+      "apelido": "BBG3507",
+      "rgn": "1462/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MUMBA",
+      "rgn_pai": "MUMBA",
+      "rgd_pai": "JAT 180137",
+      "mae": "BBG 170709",
+      "mae_receptora": "1462",
+      "avo_paterno": "BBA 130046",
+      "avo_paterna": "JAT 110098",
+      "avo_materno": "CANCUN",
+      "avo_materna": "CCP 130039"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-12-14",
+      "peso_nascimento_kg": 40,
+      "peso_desmame_kg": 210,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 417,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 465,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 550,
+      "dias_confinado": 43,
+      "ganho_total_kg": 85,
+      "gmd_kg_dia": 2.931,
+      "arroba_atual": 19.433,
+      "ganho_arroba": 3.003,
+      "valor_atual_rs": 6024.333,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-12-14"
+    }
+  },
+  {
+    "brinco": "CAB 1228",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "CAB1228"
+    },
+    "identificacao": {
+      "nome_completo": "",
+      "apelido": "CAB1228",
+      "rgn": "",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "",
+      "mae_receptora": "",
+      "avo_paterno": "",
+      "avo_paterna": "",
+      "avo_materno": "",
+      "avo_materna": ""
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2021-01-01",
+      "peso_nascimento_kg": 0,
+      "peso_desmame_kg": 180,
+      "data_desmame": "2021-07-25",
+      "peso_po_ultima_kg": 368,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 402,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 464,
+      "dias_confinado": 43,
+      "ganho_total_kg": 62,
+      "gmd_kg_dia": 2.138,
+      "arroba_atual": 16.395,
+      "ganho_arroba": 2.191,
+      "valor_atual_rs": 5082.347,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "LUIS HUMBERTO ANDRADE CHERULLI",
+      "data_aquisicao": "2025-10-06"
+    }
+  },
+  {
+    "brinco": "CAB 1235",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "CAB1235"
+    },
+    "identificacao": {
+      "nome_completo": "",
+      "apelido": "CAB1235",
+      "rgn": "",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "",
+      "mae_receptora": "",
+      "avo_paterno": "",
+      "avo_paterna": "",
+      "avo_materno": "",
+      "avo_materna": ""
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2021-01-01",
+      "peso_nascimento_kg": 0,
+      "peso_desmame_kg": 180,
+      "data_desmame": "2021-07-25",
+      "peso_po_ultima_kg": 351,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 407,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 474,
+      "dias_confinado": 43,
+      "ganho_total_kg": 67,
+      "gmd_kg_dia": 2.31,
+      "arroba_atual": 16.748,
+      "ganho_arroba": 2.367,
+      "valor_atual_rs": 5191.88,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "LUIS HUMBERTO ANDRADE CHERULLI",
+      "data_aquisicao": "2025-10-06"
+    }
+  },
+  {
+    "brinco": "CAB 1243",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Encontrado",
+      "observacao": null,
+      "apelido_po": "CAB1243"
+    },
+    "identificacao": {
+      "nome_completo": "",
+      "apelido": "CAB1243",
+      "rgn": "",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "",
+      "mae_receptora": "",
+      "avo_paterno": "",
+      "avo_paterna": "",
+      "avo_materno": "",
+      "avo_materna": ""
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2021-01-01",
+      "peso_nascimento_kg": 0,
+      "peso_desmame_kg": 180,
+      "data_desmame": "2021-07-25",
+      "peso_po_ultima_kg": 360,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 415,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 501,
+      "dias_confinado": 43,
+      "ganho_total_kg": 86,
+      "gmd_kg_dia": 2.966,
+      "arroba_atual": 17.702,
+      "ganho_arroba": 3.039,
+      "valor_atual_rs": 5487.62,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "LUIS HUMBERTO ANDRADE CHERULLI",
+      "data_aquisicao": "2025-10-06"
+    }
+  },
+  {
+    "brinco": "1819/24",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Revisar",
+      "observacao": "2 candidatos empatados",
+      "apelido_po": "BBG3434"
+    },
+    "identificacao": {
+      "nome_completo": "BBG 243434",
+      "apelido": "BBG3434",
+      "rgn": "1819/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "BONSMARA",
+      "gs": "PO",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "MAJOR",
+      "rgn_pai": "MAJOR",
+      "rgd_pai": "BBG 181283",
+      "mae": "BBG 160378",
+      "mae_receptora": "1819",
+      "avo_paterno": "MAMUTE",
+      "avo_paterna": "BBG 140008",
+      "avo_materno": "GAITEIRO",
+      "avo_materna": "RAP 130844"
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-09-29",
+      "peso_nascimento_kg": 38,
+      "peso_desmame_kg": 192,
+      "data_desmame": "2025-05-12",
+      "peso_po_ultima_kg": 415,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 434,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 503,
+      "dias_confinado": 43,
+      "ganho_total_kg": 69,
+      "gmd_kg_dia": 2.379,
+      "arroba_atual": 17.773,
+      "ganho_arroba": 2.438,
+      "valor_atual_rs": 5509.527,
+      "meta_gmd_atingida": "Sim"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-09-29"
+    }
+  },
+  {
+    "brinco": "7734/24",
+    "curral": "3",
+    "categoria_confinamento": "Touro Bonsmara",
+    "conciliacao": {
+      "encontrado_base_po": true,
+      "status": "Revisar",
+      "observacao": "tag coincide, mas raça PO=AZEBUADA (esperado BONSMARA)",
+      "apelido_po": "7734/24"
+    },
+    "identificacao": {
+      "nome_completo": "7734/24",
+      "apelido": "7734/24",
+      "rgn": "7734/24",
+      "rgd": "",
+      "sexo": "M",
+      "raca_po": "AZEBUADA",
+      "gs": "MEST",
+      "tipo": "Reprodutor"
+    },
+    "genealogia": {
+      "pai": "DESCONHECIDO",
+      "rgn_pai": "",
+      "rgd_pai": "",
+      "mae": "7734",
+      "mae_receptora": "",
+      "avo_paterno": "",
+      "avo_paterna": "",
+      "avo_materno": "",
+      "avo_materna": ""
+    },
+    "nascimento_e_pesos": {
+      "data_nascimento": "2024-11-15",
+      "peso_nascimento_kg": 23,
+      "peso_desmame_kg": 150,
+      "data_desmame": "2025-07-16",
+      "peso_po_ultima_kg": 321,
+      "data_peso_po": "2026-05-14"
+    },
+    "andrologico": {
+      "ce_cm": null
+    },
+    "confinamento": {
+      "lote_origem": "Retiro 2",
+      "data_entrada": "2026-06-30",
+      "peso_entrada_kg": 358,
+      "data_ultima_pesagem": "2026-07-29",
+      "peso_atual_kg": 392,
+      "dias_confinado": 43,
+      "ganho_total_kg": 34,
+      "gmd_kg_dia": 1.172,
+      "arroba_atual": 13.851,
+      "ganho_arroba": 1.201,
+      "valor_atual_rs": 4293.707,
+      "meta_gmd_atingida": "Não"
+    },
+    "outros_po": {
+      "status_po": "Ativo",
+      "fazenda": "FAZENDA 4 - BONSMARA BARRA GRANDE",
+      "local": "",
+      "lote_reprodutivo": "",
+      "fornecedor": "MARCONI ANDRADE CHERULLI",
+      "data_aquisicao": "2024-11-15"
+    }
+  }
+]

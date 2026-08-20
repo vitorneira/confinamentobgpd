@@ -78,6 +78,53 @@ export async function getAnimaisIndicadores(
   return ordenarPorBrinco(animais, (a) => a.brinco);
 }
 
+export type IndicadoresAnimal = {
+  pesoAtualKg: number | null;
+  diasConfinado: number | null;
+  gmdKgDia: number | null;
+  arrobaViva: number | null;
+  dataUltimaPesagem: string | null;
+  diasDesdeUltimaPesagem: number | null;
+  alertaPesagem: "ok" | "atencao" | "critico" | null;
+  atingiuMetaGmd: boolean | null;
+};
+
+// Dado cadastral externo (base de registro genealógico / PO) — nunca indicador
+// calculado. Ver supabase/migrations/0013_animais_dados_po.sql.
+export type DadosPo = {
+  conciliacaoStatus: string | null;
+  conciliacaoObservacao: string | null;
+  nomeCompleto: string | null;
+  apelido: string | null;
+  rgn: string | null;
+  rgd: string | null;
+  racaPo: string | null;
+  gs: string | null;
+  tipoReprodutivo: string | null;
+  pai: string | null;
+  rgnPai: string | null;
+  rgdPai: string | null;
+  mae: string | null;
+  maeReceptora: string | null;
+  avoPaterno: string | null;
+  avoPaterna: string | null;
+  avoMaterno: string | null;
+  avoMaterna: string | null;
+  dataNascimento: string | null;
+  pesoNascimentoKg: number | null;
+  pesoDesmameKg: number | null;
+  dataDesmame: string | null;
+  pesoPoUltimaKg: number | null;
+  dataPesoPo: string | null;
+  ceCm: number | null;
+  statusPo: string | null;
+  fazendaPo: string | null;
+  localPo: string | null;
+  loteReprodutivo: string | null;
+  fornecedor: string | null;
+  dataAquisicao: string | null;
+};
+
 export type FichaAnimal = {
   animalId: string;
   brinco: string;
@@ -88,6 +135,9 @@ export type FichaAnimal = {
   pesoEntradaKg: number | null;
   dietaAtualNome: string | null;
   historicoPesagens: Array<{ data: string; pesoKg: number | null; obs: string | null }>;
+  indicadores: IndicadoresAnimal | null;
+  precoArrobaReferencia: number | null;
+  dadosPo: DadosPo | null;
 };
 
 export async function getFichaAnimal(fazendaId: string, animalId: string): Promise<FichaAnimal | null> {
@@ -101,19 +151,28 @@ export async function getFichaAnimal(fazendaId: string, animalId: string): Promi
     .maybeSingle();
   if (!animal) return null;
 
-  const [{ data: curral }, { data: categoria }, { data: pesagens }] = await Promise.all([
-    supabase.from("currais").select("codigo").eq("id", animal.curral_id).single(),
-    supabase.from("categorias").select("nome").eq("id", animal.categoria_id).single(),
-    supabase
-      .from("pesagens")
-      .select("data, peso_kg, evento_obs")
-      .eq("animal_id", animalId)
-      .order("data"),
-  ]);
+  const [{ data: curral }, { data: categoria }, { data: pesagens }, { data: indicadores }, { data: dadosPo }] =
+    await Promise.all([
+      supabase.from("currais").select("codigo").eq("id", animal.curral_id).single(),
+      supabase.from("categorias").select("nome").eq("id", animal.categoria_id).single(),
+      supabase
+        .from("pesagens")
+        .select("data, peso_kg, evento_obs")
+        .eq("animal_id", animalId)
+        .order("data"),
+      supabase
+        .from("v_animal_indicadores")
+        .select(
+          "peso_atual_kg, dias_confinado, gmd_kg_dia, arroba_viva, data_ultima_pesagem, dias_desde_ultima_pesagem, alerta_pesagem, atingiu_meta_gmd",
+        )
+        .eq("animal_id", animalId)
+        .maybeSingle(),
+      supabase.from("animais_dados_po").select("*").eq("animal_id", animalId).maybeSingle(),
+    ]);
 
   const { data: parametros } = await supabase
     .from("parametros")
-    .select("data_referencia")
+    .select("data_referencia, preco_arroba_referencia")
     .eq("fazenda_id", fazendaId)
     .maybeSingle();
 
@@ -140,5 +199,53 @@ export async function getFichaAnimal(fazendaId: string, animalId: string): Promi
       pesoKg: p.peso_kg,
       obs: p.evento_obs,
     })),
+    indicadores: indicadores
+      ? {
+          pesoAtualKg: indicadores.peso_atual_kg,
+          diasConfinado: indicadores.dias_confinado,
+          gmdKgDia: indicadores.gmd_kg_dia,
+          arrobaViva: indicadores.arroba_viva,
+          dataUltimaPesagem: indicadores.data_ultima_pesagem,
+          diasDesdeUltimaPesagem: indicadores.dias_desde_ultima_pesagem,
+          alertaPesagem: indicadores.alerta_pesagem as "ok" | "atencao" | "critico" | null,
+          atingiuMetaGmd: indicadores.atingiu_meta_gmd,
+        }
+      : null,
+    precoArrobaReferencia: parametros?.preco_arroba_referencia ?? null,
+    dadosPo: dadosPo
+      ? {
+          conciliacaoStatus: dadosPo.conciliacao_status,
+          conciliacaoObservacao: dadosPo.conciliacao_observacao,
+          nomeCompleto: dadosPo.nome_completo,
+          apelido: dadosPo.apelido,
+          rgn: dadosPo.rgn,
+          rgd: dadosPo.rgd,
+          racaPo: dadosPo.raca_po,
+          gs: dadosPo.gs,
+          tipoReprodutivo: dadosPo.tipo_reprodutivo,
+          pai: dadosPo.pai,
+          rgnPai: dadosPo.rgn_pai,
+          rgdPai: dadosPo.rgd_pai,
+          mae: dadosPo.mae,
+          maeReceptora: dadosPo.mae_receptora,
+          avoPaterno: dadosPo.avo_paterno,
+          avoPaterna: dadosPo.avo_paterna,
+          avoMaterno: dadosPo.avo_materno,
+          avoMaterna: dadosPo.avo_materna,
+          dataNascimento: dadosPo.data_nascimento,
+          pesoNascimentoKg: dadosPo.peso_nascimento_kg,
+          pesoDesmameKg: dadosPo.peso_desmame_kg,
+          dataDesmame: dadosPo.data_desmame,
+          pesoPoUltimaKg: dadosPo.peso_po_ultima_kg,
+          dataPesoPo: dadosPo.data_peso_po,
+          ceCm: dadosPo.ce_cm,
+          statusPo: dadosPo.status_po,
+          fazendaPo: dadosPo.fazenda_po,
+          localPo: dadosPo.local_po,
+          loteReprodutivo: dadosPo.lote_reprodutivo,
+          fornecedor: dadosPo.fornecedor,
+          dataAquisicao: dadosPo.data_aquisicao,
+        }
+      : null,
   };
 }
