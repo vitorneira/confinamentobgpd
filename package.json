@@ -20,7 +20,9 @@
     "seed:touros-po": "tsx scripts/import/seed-touros-bonsmara-po.ts",
     "orq:amostrar-corpus": "tsx scripts/orquestrador/amostrar_corpus.ts",
     "orq:classificar-uma": "tsx scripts/orquestrador/classificar_uma.ts",
-    "orq:rotular-amostra": "tsx scripts/orquestrador/rotular_amostra.ts"
+    "orq:rotular-amostra": "tsx scripts/orquestrador/rotular_amostra.ts",
+    "orq:transcrever-uma": "tsx scripts/orquestrador/transcrever_uma.ts",
+    "orq:ingest-manual": "tsx scripts/orquestrador/ingest_manual.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.122.0",
