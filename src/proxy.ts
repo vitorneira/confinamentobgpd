@@ -35,5 +35,8 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|webp|gif|ico)$).*)"],
+  // api/telegram-webhook fica de fora: quem bate lá é o Telegram, sem cookie
+  // de sessão nenhum — a rota tem autenticação própria (segredo no header,
+  // ver src/app/api/telegram-webhook/route.ts), não a do Supabase Auth.
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|api/telegram-webhook|.*\\.(?:svg|png|jpg|jpeg|webp|gif|ico)$).*)"],
 };

@@ -46,8 +46,12 @@ function calcularConfianca(segments: SegmentoVerbose[] | undefined): number {
   return porSegmento.reduce((soma, c) => soma + c, 0) / porSegmento.length;
 }
 
+export type EntradaAudio =
+  | string // caminho de arquivo local (scripts/CLI)
+  | { bytes: Uint8Array; nomeArquivo: string }; // em memória (webhook do Telegram — sem tocar disco)
+
 export async function transcrever(
-  caminhoArquivo: string,
+  entrada: EntradaAudio,
   opts?: { apiKey?: string },
 ): Promise<ResultadoTranscricao> {
   const apiKey = opts?.apiKey ?? process.env.GROQ_API_KEY;
@@ -55,11 +59,17 @@ export async function transcrever(
     throw new Error("GROQ_API_KEY não configurada (.env.local).");
   }
 
-  const bytes = fs.readFileSync(caminhoArquivo);
-  const arquivo = new Blob([new Uint8Array(bytes)]);
+  const { bytes, nomeArquivo } =
+    typeof entrada === "string"
+      ? { bytes: new Uint8Array(fs.readFileSync(entrada)), nomeArquivo: entrada.split(/[\\/]/).pop() ?? "audio.ogg" }
+      : entrada;
+  // BlobPart no lib.dom atual quer Uint8Array<ArrayBuffer> especificamente
+  // (não ArrayBufferLike genérico) — bytes já é sempre um ArrayBuffer real
+  // aqui (vem de fs.readFileSync ou de arrayBuffer()), só o tipo é largo.
+  const arquivo = new Blob([bytes as Uint8Array<ArrayBuffer>]);
 
   const form = new FormData();
-  form.append("file", arquivo, caminhoArquivo.split(/[\\/]/).pop() ?? "audio.ogg");
+  form.append("file", arquivo, nomeArquivo);
   form.append("model", MODELO);
   form.append("language", "pt");
   form.append("prompt", montarPromptGlossario());

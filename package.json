@@ -22,7 +22,9 @@
     "orq:classificar-uma": "tsx scripts/orquestrador/classificar_uma.ts",
     "orq:rotular-amostra": "tsx scripts/orquestrador/rotular_amostra.ts",
     "orq:transcrever-uma": "tsx scripts/orquestrador/transcrever_uma.ts",
-    "orq:ingest-manual": "tsx scripts/orquestrador/ingest_manual.ts"
+    "orq:ingest-manual": "tsx scripts/orquestrador/ingest_manual.ts",
+    "orq:telegram-set-webhook": "tsx scripts/orquestrador/telegram_set_webhook.ts",
+    "orq:telegram-webhook-info": "tsx scripts/orquestrador/telegram_webhook_info.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.122.0",

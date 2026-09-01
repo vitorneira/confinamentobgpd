@@ -37,7 +37,7 @@ async function main() {
     remetente: "teste-cli",
     tipo: audio ? "audio" : "texto",
     conteudoBruto: texto,
-    caminhoAudio: audio,
+    audio,
   });
 
   console.log(JSON.stringify(resultado, null, 2));

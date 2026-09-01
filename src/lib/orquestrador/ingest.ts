@@ -11,7 +11,7 @@
 // confirmarTriagem). Guardrail de idempotência continua: mesma mensagem.id
 // nunca duplica a linha em `mensagem`.
 import { classificar } from "./classificar";
-import { transcrever } from "./transcrever";
+import { transcrever, type EntradaAudio } from "./transcrever";
 import { supabaseServico } from "./supabase-servico";
 import type { ClassificacaoMensagem, Dominio } from "./tipos";
 
@@ -22,7 +22,8 @@ export type MensagemEntrada = {
   remetente?: string;
   tipo: "texto" | "audio" | "documento";
   conteudoBruto?: string; // obrigatório se tipo === 'texto'
-  caminhoAudio?: string; // obrigatório se tipo === 'audio'
+  /** obrigatório se tipo === 'audio' — caminho local (scripts) ou bytes em memória (webhook). */
+  audio?: EntradaAudio;
 };
 
 export type ResultadoIngestao = {
@@ -68,8 +69,8 @@ export async function ingest(msg: MensagemEntrada): Promise<ResultadoIngestao> {
   let confiancaTranscricao: number | undefined;
 
   if (msg.tipo === "audio") {
-    if (!msg.caminhoAudio) throw new Error("tipo 'audio' exige caminhoAudio.");
-    const transcricao = await transcrever(msg.caminhoAudio);
+    if (!msg.audio) throw new Error("tipo 'audio' exige audio (caminho ou bytes).");
+    const transcricao = await transcrever(msg.audio);
     texto = transcricao.texto;
     confiancaTranscricao = transcricao.confianca;
   }
