@@ -57,4 +57,5 @@ next-env.d.ts
 # antigo (*.zip), então isso é mais seguro.
 /dados_originais/orquestrador_corpus/*
 !/dados_originais/orquestrador_corpus/eval_set.json
-/scripts/orquestrador/_amostra_candidata.json
+# arquivos de trabalho temporários (prefixo _), nunca artefato final
+/scripts/orquestrador/_*
