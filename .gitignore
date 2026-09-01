@@ -49,3 +49,10 @@ next-env.d.ts
 /Handoff*.html
 /2020.04.CMR.*.png
 /2020.04.CMR.*.zip
+
+# corpus bruto de conversas do Orquestrador (nomes reais, texto não filtrado —
+# nunca versionar). Só a amostra sanitizada em
+# dados_originais/orquestrador_corpus/eval_set.json entra no git.
+/dados_originais/orquestrador_corpus/*.zip
+/dados_originais/orquestrador_corpus/_bruto/
+/scripts/orquestrador/_amostra_candidata.json
