@@ -24,6 +24,25 @@ export function formatData(v: string | null | undefined): string {
   return `${dia}/${mes}/${ano}`;
 }
 
+/** Pra timestamptz (ISO com hora), não confundir com formatData (date puro). */
+export function formatDataHora(v: string | null | undefined): string {
+  if (!v) return "—";
+  return new Date(v).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
+}
+
+/** "há 4 min" / "há 3 dias" — usado na Triagem e na Timeline da OS. */
+export function formatTempoRelativo(v: string | null | undefined): string {
+  if (!v) return "—";
+  const diffMs = Date.now() - new Date(v).getTime();
+  const min = Math.round(diffMs / 60000);
+  if (min < 1) return "agora";
+  if (min < 60) return `há ${min} min`;
+  const horas = Math.round(min / 60);
+  if (horas < 24) return `há ${horas}h`;
+  const dias = Math.round(horas / 24);
+  return `há ${dias} dia${dias > 1 ? "s" : ""}`;
+}
+
 /**
  * Ordenação natural de códigos (curral, etc.): compara trecho numérico como
  * número (1 < 2 < 10) e trecho não-numérico alfabeticamente, segmento a

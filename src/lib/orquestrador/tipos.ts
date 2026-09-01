@@ -18,6 +18,20 @@ export const DOMINIOS = [
 ] as const;
 export type Dominio = (typeof DOMINIOS)[number];
 
+export const ROTULO_DOMINIO: Record<Dominio, string> = {
+  nutricao_confinamento: "Nutrição/Confinamento",
+  manutencao_mecanica: "Manutenção",
+  sanidade: "Sanidade",
+  defensivos: "Defensivos",
+  construcao_infra: "Construção/Infra",
+  logistica: "Logística",
+  documentos_contratos: "Documentos/Contratos",
+  movimentacao_gado: "Movimentação de Gado",
+  rh_pessoal: "RH/Pessoal",
+  financeiro: "Financeiro",
+  outro: "Outro",
+};
+
 export const INTENCOES = [
   "abrir_demanda",
   "confirmar_fechar",

@@ -1,15 +1,17 @@
-// Fase M1 — orquestra transcrição (se áudio) + classificação + gravação.
-// É a função que M2 (painel, criação manual) e M3 (webhook do Telegram) vão
-// reusar depois; hoje só é chamada por script (scripts/orquestrador/ingest_manual.ts).
+// Fase M1/M2 — orquestra transcrição (se áudio) + classificação + gravação da
+// mensagem. É a função que M3 (webhook do Telegram) vai reusar depois; hoje é
+// chamada por script (scripts/orquestrador/ingest_manual.ts) e, futuramente,
+// pela Edge Function do bot.
 //
-// Guardrails do CLAUDE.md aplicados aqui:
-// - Idempotência: mesma mensagem.id nunca gera OS/registro duplicado (confere
-//   antes de gravar; se já existe, devolve o que já tinha sido criado).
-// - Confiança baixa (transcrição OU classificação) → grava a mensagem pra
-//   auditoria, mas NÃO cria OS/registro sozinho. Fica pendente de revisão
-//   manual (consultável depois via `mensagem` com os_id/registro_id nulos).
-import { classificar, LIMIAR_CONFIANCA_BAIXA } from "./classificar";
-import { transcrever, LIMIAR_CONFIANCA_TRANSCRICAO_BAIXA } from "./transcrever";
+// Mudança da Fase M2 em relação à M1: esta função NUNCA cria `os`/`registro_admin`
+// sozinha, nem em confiança alta. "Humano no circuito" (CLAUDE.md) passa a
+// valer pra toda mensagem classificada como abrir_demanda/registrar_lancar —
+// ela fica pendente na tela de Triagem (src/app/ordens-servico/triagem), que é
+// quem de fato confirma e cria a OS/registro (ver actions.ts,
+// confirmarTriagem). Guardrail de idempotência continua: mesma mensagem.id
+// nunca duplica a linha em `mensagem`.
+import { classificar } from "./classificar";
+import { transcrever } from "./transcrever";
 import { supabaseServico } from "./supabase-servico";
 import type { ClassificacaoMensagem, Dominio } from "./tipos";
 
@@ -21,12 +23,6 @@ export type MensagemEntrada = {
   tipo: "texto" | "audio" | "documento";
   conteudoBruto?: string; // obrigatório se tipo === 'texto'
   caminhoAudio?: string; // obrigatório se tipo === 'audio'
-  /**
-   * Fazenda de origem. NOT NULL em `os`/`registro_admin` — sem isso, uma
-   * classificação abrir_demanda/registrar_lancar fica só em `mensagem`
-   * (mesmo comportamento de confiança baixa: registra, não age).
-   */
-  fazendaId?: string;
 };
 
 export type ResultadoIngestao = {
@@ -35,16 +31,18 @@ export type ResultadoIngestao = {
   transcricao?: string;
   confiancaTranscricao?: number;
   classificacao?: ClassificacaoMensagem;
-  osId?: string;
-  registroAdminId?: string;
-  motivoSemAcao?: string; // preenchido quando não criou OS/registro (confiança baixa, sem fazenda, etc.)
+  motivoSemClassificacao?: string; // ex.: sem texto pra classificar
 };
 
 // Mapeamento dominio→registro_tipo é só pros dois domínios que casam limpo
 // com o enum de registro_admin (morte|movimentacao|documento|contrato) — os
-// demais domínios com intencao=registrar_lancar ficam só em `mensagem` por
-// enquanto. Registro administrativo completo é a Fase P4 do BUILD_PLAN.
-function inferirTipoRegistro(dominio: Dominio, texto: string): "morte" | "movimentacao" | "documento" | "contrato" | null {
+// demais domínios com intencao=registrar_lancar ficam sem sugestão de tipo
+// na Triagem (usuário escolhe na mão). Registro administrativo completo é a
+// Fase P4 do BUILD_PLAN.
+export function inferirTipoRegistro(
+  dominio: Dominio,
+  texto: string,
+): "morte" | "movimentacao" | "documento" | "contrato" | null {
   if (dominio === "movimentacao_gado") {
     return /\bmorte|morr(eu|eram)\b/i.test(texto) ? "morte" : "movimentacao";
   }
@@ -63,12 +61,7 @@ export async function ingest(msg: MensagemEntrada): Promise<ResultadoIngestao> {
 
   if (existente.error) throw new Error(`Falha ao checar idempotência: ${existente.error.message}`);
   if (existente.data) {
-    return {
-      mensagemId: msg.id,
-      jaExistia: true,
-      osId: existente.data.os_id ?? undefined,
-      registroAdminId: existente.data.registro_id ?? undefined,
-    };
+    return { mensagemId: msg.id, jaExistia: true };
   }
 
   let texto = msg.conteudoBruto ?? "";
@@ -94,60 +87,10 @@ export async function ingest(msg: MensagemEntrada): Promise<ResultadoIngestao> {
       confianca_transcricao: confiancaTranscricao,
     });
     if (error) throw new Error(`Falha ao gravar mensagem: ${error.message}`);
-    return { mensagemId: msg.id, jaExistia: false, confiancaTranscricao, motivoSemAcao: "sem texto pra classificar" };
+    return { mensagemId: msg.id, jaExistia: false, confiancaTranscricao, motivoSemClassificacao: "sem texto pra classificar" };
   }
 
   const classificacao = await classificar(texto);
-
-  const transcricaoConfiancaBaixa =
-    msg.tipo === "audio" && (confiancaTranscricao ?? 1) < LIMIAR_CONFIANCA_TRANSCRICAO_BAIXA;
-  const classificacaoConfiancaBaixa = classificacao.confianca < LIMIAR_CONFIANCA_BAIXA;
-  const semFazenda = !msg.fazendaId;
-
-  let motivoSemAcao: string | undefined;
-  if (transcricaoConfiancaBaixa) motivoSemAcao = "confiança de transcrição baixa — revisão manual";
-  else if (classificacaoConfiancaBaixa) motivoSemAcao = "confiança de classificação baixa — revisão manual";
-  else if (semFazenda && (classificacao.gera_os || classificacao.intencao === "registrar_lancar")) {
-    motivoSemAcao = "fazenda não identificada — não dá pra criar OS/registro sem ela";
-  }
-
-  let osId: string | undefined;
-  let registroAdminId: string | undefined;
-
-  if (!motivoSemAcao && classificacao.gera_os && msg.fazendaId) {
-    const { data, error } = await supabaseServico
-      .from("os")
-      .insert({
-        fazenda_id: msg.fazendaId,
-        dominio: classificacao.dominio,
-        intencao: classificacao.intencao,
-        descricao: texto,
-        itens: classificacao.itens,
-        canal_origem: msg.canal,
-      })
-      .select("id")
-      .single();
-    if (error) throw new Error(`Falha ao criar OS: ${error.message}`);
-    osId = data.id;
-  } else if (!motivoSemAcao && classificacao.intencao === "registrar_lancar" && msg.fazendaId) {
-    const tipoRegistro = inferirTipoRegistro(classificacao.dominio, texto);
-    if (tipoRegistro) {
-      const { data, error } = await supabaseServico
-        .from("registro_admin")
-        .insert({
-          fazenda_id: msg.fazendaId,
-          tipo: tipoRegistro,
-          dados: { texto_origem: texto },
-          origem: msg.canal,
-        })
-        .select("id")
-        .single();
-      if (error) throw new Error(`Falha ao criar registro_admin: ${error.message}`);
-      registroAdminId = data.id;
-    } else {
-      motivoSemAcao = `registrar_lancar em domínio '${classificacao.dominio}' ainda não mapeia a um tipo de registro (Fase P4)`;
-    }
-  }
 
   const { error: erroMensagem } = await supabaseServico.from("mensagem").insert({
     id: msg.id,
@@ -159,8 +102,8 @@ export async function ingest(msg: MensagemEntrada): Promise<ResultadoIngestao> {
     confianca_transcricao: confiancaTranscricao,
     dominio: classificacao.dominio,
     intencao: classificacao.intencao,
-    os_id: osId,
-    registro_id: registroAdminId,
+    itens: classificacao.itens,
+    confianca_classificacao: classificacao.confianca,
   });
   if (erroMensagem) throw new Error(`Falha ao gravar mensagem: ${erroMensagem.message}`);
 
@@ -170,8 +113,5 @@ export async function ingest(msg: MensagemEntrada): Promise<ResultadoIngestao> {
     transcricao: msg.tipo === "audio" ? texto : undefined,
     confiancaTranscricao,
     classificacao,
-    osId,
-    registroAdminId,
-    motivoSemAcao,
   };
 }
