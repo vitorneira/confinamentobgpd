@@ -50,9 +50,11 @@ next-env.d.ts
 /2020.04.CMR.*.png
 /2020.04.CMR.*.zip
 
-# corpus bruto de conversas do Orquestrador (nomes reais, texto não filtrado —
-# nunca versionar). Só a amostra sanitizada em
-# dados_originais/orquestrador_corpus/eval_set.json entra no git.
-/dados_originais/orquestrador_corpus/*.zip
-/dados_originais/orquestrador_corpus/_bruto/
+# corpus bruto de conversas do Orquestrador (nomes reais, áudio, texto não
+# filtrado — nunca versionar). Allowlist (ignora TUDO na pasta, exceto o eval
+# set sanitizado) em vez de listar extensão por extensão — um export bruto do
+# WhatsApp já apareceu aqui sem extensão .zip e passou batido pelo padrão
+# antigo (*.zip), então isso é mais seguro.
+/dados_originais/orquestrador_corpus/*
+!/dados_originais/orquestrador_corpus/eval_set.json
 /scripts/orquestrador/_amostra_candidata.json
