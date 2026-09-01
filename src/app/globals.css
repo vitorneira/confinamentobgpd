@@ -8,11 +8,53 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Status de OS (Orquestrador) — valores claros escolhidos pra combinar com
+     o StatusBadge existente (verde/âmbar/vermelho); os valores escuros vêm
+     literais do handoff de design (Ordens de Serviço), que só desenhou o
+     tema escuro. */
+  --os-neutro-fg: #52525b;
+  --os-neutro-bg: #f4f4f5;
+  --os-neutro-borda: #d4d4d8;
+  --os-info-fg: #1d4ed8;
+  --os-info-bg: #dbeafe;
+  --os-info-borda: #93c5fd;
+  --os-atencao-fg: #b45309;
+  --os-atencao-bg: #fef3c7;
+  --os-atencao-borda: #fcd34d;
+  --os-primario-tint-fg: #7a2410;
+  --os-primario-tint-bg: #f4e3dd;
+  --os-primario-tint-borda: #d49a84;
+  --os-sucesso-fg: #15803d;
+  --os-sucesso-bg: #dcfce7;
+  --os-sucesso-borda: #86efac;
+  --os-critico-fg: #b91c1c;
+  --os-critico-bg: #fee2e2;
+  --os-critico-borda: #fca5a5;
 }
 
 [data-theme="dark"] {
   --background: #0a0a0a;
   --foreground: #ededed;
+
+  --os-neutro-fg: #a1a1aa;
+  --os-neutro-bg: #1e1e21;
+  --os-neutro-borda: #3f3f46;
+  --os-info-fg: #6fa8e8;
+  --os-info-bg: #14243a;
+  --os-info-borda: #22406b;
+  --os-atencao-fg: #f5a623;
+  --os-atencao-bg: #241c09;
+  --os-atencao-borda: #4d3b14;
+  --os-primario-tint-fg: #d49a84;
+  --os-primario-tint-bg: #2a140d;
+  --os-primario-tint-borda: #5c2a18;
+  --os-sucesso-fg: #22c55e;
+  --os-sucesso-bg: #0a1f10;
+  --os-sucesso-borda: #16542c;
+  --os-critico-fg: #f87171;
+  --os-critico-bg: #2a0e0e;
+  --os-critico-borda: #5c1f1f;
 }
 
 @theme inline {
