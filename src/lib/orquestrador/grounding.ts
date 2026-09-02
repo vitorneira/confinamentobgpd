@@ -22,6 +22,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       ],
       gera_os: true,
       confianca: 1,
+      fazenda: null,
     },
   },
   {
@@ -36,6 +37,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       ],
       gera_os: true,
       confianca: 1,
+      fazenda: "BG",
     },
   },
   {
@@ -46,6 +48,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [{ qtd: null, item: "ração curral 2" }],
       gera_os: true,
       confianca: 0.95,
+      fazenda: null,
     },
   },
   {
@@ -56,6 +59,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [],
       gera_os: false,
       confianca: 0.95,
+      fazenda: null,
     },
   },
   {
@@ -66,6 +70,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [{ qtd: null, item: "conserto do misturador" }],
       gera_os: true,
       confianca: 1,
+      fazenda: null,
     },
   },
   {
@@ -76,6 +81,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [{ qtd: "2", item: "biquinhos de bomba" }],
       gera_os: true,
       confianca: 0.9,
+      fazenda: null,
     },
   },
   {
@@ -89,6 +95,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       ],
       gera_os: true,
       confianca: 1,
+      fazenda: null,
     },
   },
   {
@@ -99,6 +106,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [],
       gera_os: false,
       confianca: 0.9,
+      fazenda: null,
     },
   },
   {
@@ -110,6 +118,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [{ qtd: "35 toneladas", item: "milho" }],
       gera_os: true,
       confianca: 0.9,
+      fazenda: "PD",
     },
   },
   {
@@ -120,6 +129,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [],
       gera_os: false,
       confianca: 0.9,
+      fazenda: null,
     },
   },
   {
@@ -130,6 +140,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [{ qtd: null, item: "adubo" }],
       gera_os: true,
       confianca: 0.8,
+      fazenda: null,
     },
   },
   {
@@ -140,6 +151,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [{ qtd: null, item: "boias de bebedouro" }],
       gera_os: true,
       confianca: 0.9,
+      fazenda: null,
     },
   },
   {
@@ -150,6 +162,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [],
       gera_os: false,
       confianca: 0.95,
+      fazenda: null,
     },
   },
   {
@@ -160,6 +173,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [],
       gera_os: false,
       confianca: 0.9,
+      fazenda: null,
     },
   },
   {
@@ -170,6 +184,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [{ qtd: null, item: "contrato de arrendamento" }],
       gera_os: true,
       confianca: 0.85,
+      fazenda: null,
     },
   },
   {
@@ -180,6 +195,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [],
       gera_os: false,
       confianca: 0.9,
+      fazenda: null,
     },
   },
   {
@@ -190,6 +206,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [],
       gera_os: false,
       confianca: 0.85,
+      fazenda: null,
     },
   },
   {
@@ -200,6 +217,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [],
       gera_os: false,
       confianca: 0.9,
+      fazenda: null,
     },
   },
   {
@@ -210,6 +228,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [],
       gera_os: false,
       confianca: 0.85,
+      fazenda: null,
     },
   },
   {
@@ -220,6 +239,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [],
       gera_os: false,
       confianca: 0.7,
+      fazenda: null,
     },
   },
   {
@@ -230,6 +250,7 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
       itens: [],
       gera_os: false,
       confianca: 0.75,
+      fazenda: null,
     },
   },
 ];

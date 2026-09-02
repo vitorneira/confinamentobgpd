@@ -204,6 +204,7 @@ export type MensagemTriagem = {
   dominio: Dominio | null;
   intencao: Intencao | null;
   itens: ItemOs[];
+  fazenda_sugerida: "BG" | "PD" | null;
   timestamp: string;
 };
 
@@ -212,7 +213,7 @@ export async function getMensagensPendentesTriagem(): Promise<MensagemTriagem[]>
   const { data, error } = await supabase
     .from("mensagem")
     .select(
-      "id, canal, remetente, conteudo_bruto, transcricao, confianca_transcricao, confianca_classificacao, dominio, intencao, itens, timestamp",
+      "id, canal, remetente, conteudo_bruto, transcricao, confianca_transcricao, confianca_classificacao, dominio, intencao, itens, fazenda_sugerida, timestamp",
     )
     .in("intencao", ["abrir_demanda", "registrar_lancar"])
     .is("os_id", null)

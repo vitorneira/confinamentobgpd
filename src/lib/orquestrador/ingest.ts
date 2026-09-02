@@ -105,6 +105,7 @@ export async function ingest(msg: MensagemEntrada): Promise<ResultadoIngestao> {
     intencao: classificacao.intencao,
     itens: classificacao.itens,
     confianca_classificacao: classificacao.confianca,
+    fazenda_sugerida: classificacao.fazenda,
   });
   if (erroMensagem) throw new Error(`Falha ao gravar mensagem: ${erroMensagem.message}`);
 

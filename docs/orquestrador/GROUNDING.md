@@ -10,6 +10,8 @@ Este documento traduz as **16.807 mensagens reais** (BG, PD, administrativo) em 
 
 **Intenção:** `abrir_demanda` · `confirmar_fechar` · `registrar_lancar` · `relatar_manejo` · `informacao`
 
+**Fazenda (eixo auxiliar, não faz parte da taxonomia principal):** `BG` · `PD` · `null` — extraída só quando a mensagem citar a fazenda explicitamente (nome ou sigla); nunca adivinhada pelo número do curral, que se repete entre as duas fazendas. Alimenta o valor pré-selecionado na tela de Triagem; sem menção clara, o campo fica vazio pro gestor escolher.
+
 Regras de ouro:
 - Só `abrir_demanda` cria OS. `registrar_lancar` cria registro administrativo. `relatar_manejo` e `informacao` **não** geram OS.
 - `financeiro` é **fora de escopo** (execução de pagamento) — não gera OS; se ligado a uma compra, vira `solicitacao_pagamento` anexa à OS.
@@ -23,7 +25,7 @@ Regras de ouro:
 
 **Sanidade / abrir_demanda**
 - "Arruma pra nós por favor: 3 flumax, 2 pacotes de faixas, 6 spray prata" → {sanidade, abrir_demanda, itens:[3 flumax, 2 faixas, 6 spray prata], gera_os:true}
-- "Trazer para Barra Grande: 36 atadura, 1 terramin, 4 ganadol" → {sanidade, abrir_demanda, itens:[36 atadura, 1 terramin, 4 ganadol], gera_os:true}
+- "Trazer para Barra Grande: 36 atadura, 1 terramin, 4 ganadol" → {sanidade, abrir_demanda, itens:[36 atadura, 1 terramin, 4 ganadol], gera_os:true, fazenda:BG}
 
 **Nutrição/confinamento / abrir_demanda**
 - "Está acabando a ração do curral 2, precisa trazer mais" → {nutricao_confinamento, abrir_demanda, ativo:curral 2, gera_os:true}
@@ -42,7 +44,7 @@ Regras de ouro:
 - "Chegou o veneno aqui: cinco baldes e 14 frasquinhos do outro" → {defensivos, confirmar_fechar, gera_os:false, fecha_os:true}
 
 **Nutrição/confinamento / abrir_demanda** *(compra relatada, tom de aviso — não é pedido, mas é compra real)*
-- "Hoje vai comprar milho pra fazenda Pau D'Arco, o motorista é o Sr. Francisco e o produtor cobrou R$ 64,50 por saca, umas 35 toneladas ao todo" → {nutricao_confinamento, abrir_demanda, ativo:PD, itens:[35 toneladas de milho], gera_os:true}
+- "Hoje vai comprar milho pra fazenda Pau D'Arco, o motorista é o Sr. Francisco e o produtor cobrou R$ 64,50 por saca, umas 35 toneladas ao todo" → {nutricao_confinamento, abrir_demanda, itens:[35 toneladas de milho], gera_os:true, fazenda:PD}
 
 **Logística / informação**
 - "O caminhão está carregando na indústria, daqui uns 40 min sai" → {logistica, informacao, gera_os:false}

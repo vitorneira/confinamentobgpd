@@ -39,7 +39,9 @@ export function TriagemCard({
   const [erro, setErro] = useState<string | null>(null);
   const [editando, setEditando] = useState(false);
 
-  const [fazendaId, setFazendaId] = useState(fazendas[0]?.id ?? "");
+  const [fazendaId, setFazendaId] = useState(
+    fazendas.find((f) => f.codigo === mensagem.fazenda_sugerida)?.id ?? "",
+  );
   const [dominio, setDominio] = useState<Dominio>(mensagem.dominio ?? "outro");
   const [intencao, setIntencao] = useState<Intencao>(mensagem.intencao ?? "abrir_demanda");
   const [solicitanteId, setSolicitanteId] = useState("");

@@ -38,8 +38,14 @@ const TOOL_SCHEMA = {
         description: "true SOMENTE se intencao === 'abrir_demanda'. Todas as outras intenções são false.",
       },
       confianca: { type: "number" as const, description: "0 a 1." },
+      fazenda: {
+        type: ["string", "null"] as const,
+        enum: ["BG", "PD", null],
+        description:
+          "'BG' se a mensagem citar Barra Grande (nome ou sigla), 'PD' se citar Pau D'Arco (nome ou sigla), null se a fazenda não ficar clara. NUNCA adivinhe pelo número do curral sozinho — currais se repetem entre as duas fazendas.",
+      },
     },
-    required: ["dominio", "intencao", "itens", "gera_os", "confianca"],
+    required: ["dominio", "intencao", "itens", "gera_os", "confianca", "fazenda"],
   },
 };
 
@@ -62,6 +68,7 @@ Regras de ouro:
 - Mensagem relatando uma compra concreta de insumo (preço, quantidade ou fornecedor definidos) é "abrir_demanda" mesmo em tom de aviso/relato, não só quando pede algo explicitamente — é compra real, precisa virar OS pra ficar rastreável. Diferente de aviso de logística sem detalhe de compra, que continua "informacao".
 - Mensagem vazia, saudação, ou papo sem conteúdo operacional: dominio "outro", intencao "informacao", gera_os false, confiança baixa é aceitável.
 - Extraia itens SEMPRE crus (texto como veio, sem tentar corrigir ortografia nem casar com catálogo).
+- "fazenda": só preencha 'BG' ou 'PD' se a mensagem citar a fazenda explicitamente (nome ou sigla). Não adivinhe pelo número do curral — currais se repetem entre as duas fazendas. Sem menção clara, null.
 
 Glossário de jargão (termos que erram fácil):
 ${glossario}

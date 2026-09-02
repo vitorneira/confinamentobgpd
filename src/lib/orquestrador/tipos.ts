@@ -53,4 +53,6 @@ export type ClassificacaoMensagem = {
   gera_os: boolean;
   /** 0-1. Abaixo do limiar (ver classificar.ts), marcar pra revisão manual em vez de agir (CLAUDE.md guardrail). */
   confianca: number;
+  /** 'BG' | 'PD' se a mensagem citar a fazenda explicitamente; null se não ficar claro (nunca adivinhar). */
+  fazenda: "BG" | "PD" | null;
 };
