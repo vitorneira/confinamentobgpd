@@ -102,6 +102,17 @@ export const EXEMPLOS_GROUNDING: ExemploFewShot[] = [
     },
   },
   {
+    texto:
+      "Hoje vai comprar milho pra fazenda Pau D'Arco, o motorista é o Sr. Francisco e o produtor cobrou R$ 64,50 por saca, umas 35 toneladas ao todo",
+    classificacao: {
+      dominio: "nutricao_confinamento",
+      intencao: "abrir_demanda",
+      itens: [{ qtd: "35 toneladas", item: "milho" }],
+      gera_os: true,
+      confianca: 0.9,
+    },
+  },
+  {
     texto: "O caminhão está carregando na indústria, daqui uns 40 min sai",
     classificacao: {
       dominio: "logistica",

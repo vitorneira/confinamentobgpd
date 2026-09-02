@@ -13,6 +13,7 @@ Este documento traduz as **16.807 mensagens reais** (BG, PD, administrativo) em 
 Regras de ouro:
 - Só `abrir_demanda` cria OS. `registrar_lancar` cria registro administrativo. `relatar_manejo` e `informacao` **não** geram OS.
 - `financeiro` é **fora de escopo** (execução de pagamento) — não gera OS; se ligado a uma compra, vira `solicitacao_pagamento` anexa à OS.
+- Mensagem que relata uma **compra concreta de insumo** (preço, quantidade ou fornecedor definidos) é `abrir_demanda` — mesmo em tom de aviso/relato, não só quando pede algo explicitamente. É uma compra real acontecendo, precisa virar OS pra ficar rastreável (custo, entrega, etc.), não só ficar arquivada como informação de bastidor. Diferente de um aviso de logística sem detalhe de compra (ex.: "caminhão carregando, sai em 40 min"), que continua `informacao`.
 
 ---
 
@@ -39,6 +40,9 @@ Regras de ouro:
 
 **Defensivos / confirmar_fechar** *(entrega conferida, com contagem)*
 - "Chegou o veneno aqui: cinco baldes e 14 frasquinhos do outro" → {defensivos, confirmar_fechar, gera_os:false, fecha_os:true}
+
+**Nutrição/confinamento / abrir_demanda** *(compra relatada, tom de aviso — não é pedido, mas é compra real)*
+- "Hoje vai comprar milho pra fazenda Pau D'Arco, o motorista é o Sr. Francisco e o produtor cobrou R$ 64,50 por saca, umas 35 toneladas ao todo" → {nutricao_confinamento, abrir_demanda, ativo:PD, itens:[35 toneladas de milho], gera_os:true}
 
 **Logística / informação**
 - "O caminhão está carregando na indústria, daqui uns 40 min sai" → {logistica, informacao, gera_os:false}

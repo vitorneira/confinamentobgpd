@@ -59,6 +59,7 @@ Regras de ouro:
 - "relatar_manejo" é relato de rotina do curral (pesagem, consumo) — não é pedido de nada.
 - "financeiro" é fora de escopo (execução de pagamento) — classifique como financeiro mesmo que a mensagem não peça nada.
 - "registrar_lancar" é lançamento administrativo (morte, movimentação de gado, documento) — não gera OS, mas é uma ação de registro.
+- Mensagem relatando uma compra concreta de insumo (preço, quantidade ou fornecedor definidos) é "abrir_demanda" mesmo em tom de aviso/relato, não só quando pede algo explicitamente — é compra real, precisa virar OS pra ficar rastreável. Diferente de aviso de logística sem detalhe de compra, que continua "informacao".
 - Mensagem vazia, saudação, ou papo sem conteúdo operacional: dominio "outro", intencao "informacao", gera_os false, confiança baixa é aceitável.
 - Extraia itens SEMPRE crus (texto como veio, sem tentar corrigir ortografia nem casar com catálogo).
 
