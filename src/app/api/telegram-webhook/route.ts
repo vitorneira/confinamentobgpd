@@ -25,10 +25,21 @@ type TelegramUpdate = {
     caption?: string;
     voice?: { file_id: string };
     audio?: { file_id: string };
-    document?: { file_id: string; file_name?: string };
-    photo?: { file_id: string }[];
+    document?: { file_id: string; file_name?: string; mime_type?: string };
+    photo?: { file_id: string; width: number }[];
   };
 };
+
+// Telegram só manda mime_type em `document` (fotos enviadas como "foto"
+// comprimida são sempre JPEG); demais tipos de imagem chegam como documento
+// com mime_type image/*.
+const MEDIA_TYPES_IMAGEM = ["image/jpeg", "image/png", "image/webp", "image/gif"] as const;
+type MediaTypeImagem = (typeof MEDIA_TYPES_IMAGEM)[number];
+
+function inferirMediaTypeImagem(mimeType: string | undefined): MediaTypeImagem | null {
+  if (!mimeType) return null;
+  return (MEDIA_TYPES_IMAGEM as readonly string[]).includes(mimeType) ? (mimeType as MediaTypeImagem) : null;
+}
 
 function nomeRemetente(msg: NonNullable<TelegramUpdate["message"]>): string {
   const nome = msg.from?.username ?? msg.from?.first_name ?? "desconhecido";
@@ -74,10 +85,26 @@ export async function POST(request: NextRequest) {
       const fileId = (msg.voice ?? msg.audio)!.file_id;
       const audio = await baixarArquivoTelegram(fileId, botToken);
       await ingest({ id: mensagemId, canal: "telegram", remetente, tipo: "audio", audio });
-    } else if (msg.document || msg.photo) {
-      // Sem OCR ainda (fora de escopo do MVP) — grava a mensagem (com legenda,
-      // se tiver) pra não perder o registro; sem texto pra classificar, o
-      // ingest() só arquiva.
+    } else if (msg.photo || inferirMediaTypeImagem(msg.document?.mime_type)) {
+      // Fase M3 (ajuste) — foto (lista de compras, estoque por pasto):
+      // descreve via visão (visao.ts) e cai no mesmo pipeline de
+      // classificação do texto. Pesagem por foto/PDF é escopo futuro (ver
+      // comentário em visao.ts) — não passa por aqui.
+      const fileId = msg.photo ? msg.photo[msg.photo.length - 1].file_id : msg.document!.file_id;
+      const mediaType = msg.photo ? "image/jpeg" : inferirMediaTypeImagem(msg.document!.mime_type)!;
+      const { bytes } = await baixarArquivoTelegram(fileId, botToken);
+      await ingest({
+        id: mensagemId,
+        canal: "telegram",
+        remetente,
+        tipo: "imagem",
+        conteudoBruto: msg.caption,
+        imagem: { bytes, mediaType },
+      });
+    } else if (msg.document) {
+      // Documento não-imagem (PDF etc.) — sem extração ainda (pesagem por
+      // PDF é fase futura). Grava a mensagem (com legenda, se tiver) pra não
+      // perder o registro; sem texto pra classificar, o ingest() só arquiva.
       await ingest({
         id: mensagemId,
         canal: "telegram",

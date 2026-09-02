@@ -12,6 +12,7 @@
 // nunca duplica a linha em `mensagem`.
 import { classificar } from "./classificar";
 import { transcrever, type EntradaAudio } from "./transcrever";
+import { descreverImagem, type EntradaImagem } from "./visao";
 import { supabaseServico } from "./supabase-servico";
 import type { ClassificacaoMensagem, Dominio } from "./tipos";
 
@@ -20,10 +21,12 @@ export type MensagemEntrada = {
   id: string;
   canal: string; // 'telegram' | 'whatsapp' | 'painel' | 'manual'
   remetente?: string;
-  tipo: "texto" | "audio" | "documento";
-  conteudoBruto?: string; // obrigatório se tipo === 'texto'
+  tipo: "texto" | "audio" | "imagem" | "documento";
+  conteudoBruto?: string; // obrigatório se tipo === 'texto'; usado como legenda se tipo === 'imagem'
   /** obrigatório se tipo === 'audio' — caminho local (scripts) ou bytes em memória (webhook). */
   audio?: EntradaAudio;
+  /** obrigatório se tipo === 'imagem' — lista de compras, estoque por pasto etc. (não pesagem: ver visao.ts). */
+  imagem?: EntradaImagem;
 };
 
 export type ResultadoIngestao = {
@@ -73,7 +76,14 @@ export async function ingest(msg: MensagemEntrada): Promise<ResultadoIngestao> {
     const transcricao = await transcrever(msg.audio);
     texto = transcricao.texto;
     confiancaTranscricao = transcricao.confianca;
+  } else if (msg.tipo === "imagem") {
+    if (!msg.imagem) throw new Error("tipo 'imagem' exige imagem (bytes + mediaType).");
+    const descricao = await descreverImagem(msg.imagem);
+    // legenda (se tiver) + descrição extraída da foto, pro classificador ver os dois.
+    texto = [msg.conteudoBruto, descricao.texto].filter(Boolean).join("\n");
   }
+
+  const derivadoDeMidia = msg.tipo === "audio" || msg.tipo === "imagem";
 
   if (!texto.trim()) {
     // sem texto (transcrição vazia, documento sem OCR ainda) — grava a
@@ -84,7 +94,7 @@ export async function ingest(msg: MensagemEntrada): Promise<ResultadoIngestao> {
       remetente: msg.remetente,
       tipo: msg.tipo,
       conteudo_bruto: msg.conteudoBruto,
-      transcricao: msg.tipo === "audio" ? texto : null,
+      transcricao: derivadoDeMidia ? texto : null,
       confianca_transcricao: confiancaTranscricao,
     });
     if (error) throw new Error(`Falha ao gravar mensagem: ${error.message}`);
@@ -99,7 +109,7 @@ export async function ingest(msg: MensagemEntrada): Promise<ResultadoIngestao> {
     remetente: msg.remetente,
     tipo: msg.tipo,
     conteudo_bruto: msg.conteudoBruto,
-    transcricao: msg.tipo === "audio" ? texto : null,
+    transcricao: derivadoDeMidia ? texto : null,
     confianca_transcricao: confiancaTranscricao,
     dominio: classificacao.dominio,
     intencao: classificacao.intencao,
@@ -112,7 +122,7 @@ export async function ingest(msg: MensagemEntrada): Promise<ResultadoIngestao> {
   return {
     mensagemId: msg.id,
     jaExistia: false,
-    transcricao: msg.tipo === "audio" ? texto : undefined,
+    transcricao: derivadoDeMidia ? texto : undefined,
     confiancaTranscricao,
     classificacao,
   };
