@@ -11,6 +11,9 @@ import type { EntradaImagem } from "@/lib/orquestrador/visao";
 
 const MODELO = "claude-sonnet-5";
 
+/** Foto (image/*) ou PDF exportado/impresso da planilha — os dois formatos que chegam pelo Telegram. */
+export type EntradaArquivoEstoque = EntradaImagem | { bytes: Uint8Array; mediaType: "application/pdf" };
+
 export type ItemEstoquePasto = {
   pasto: string;
   categoria: string;
@@ -53,7 +56,7 @@ const TOOL_SCHEMA = {
 };
 
 export async function extrairEstoquePasto(
-  entrada: EntradaImagem,
+  entrada: EntradaArquivoEstoque,
   opts?: { apiKey?: string },
 ): Promise<ResultadoExtracaoEstoquePasto> {
   const apiKey = opts?.apiKey ?? process.env.ANTHROPIC_API_KEY;
@@ -63,18 +66,22 @@ export async function extrairEstoquePasto(
   const client = new Anthropic({ apiKey });
 
   const base64 = Buffer.from(entrada.bytes).toString("base64");
+  const blocoArquivo: Anthropic.ContentBlockParam =
+    entrada.mediaType === "application/pdf"
+      ? { type: "document", source: { type: "base64", media_type: "application/pdf", data: base64 } }
+      : { type: "image", source: { type: "base64", media_type: entrada.mediaType, data: base64 } };
 
   const resposta = await client.messages.create({
     model: MODELO,
     max_tokens: 4096,
     system:
-      "Você lê fotos de planilhas/anotações de estoque de gado por pasto de uma fazenda de confinamento/pecuária (Brasil, português). Extraia SOMENTE o que está realmente visível e legível — nunca invente ou estime um número que não conseguir ler com certeza. Responda sempre usando a ferramenta extrair_estoque_pasto.",
+      "Você lê fotos/PDFs de planilhas/anotações de estoque de gado por pasto de uma fazenda de confinamento/pecuária (Brasil, português). Extraia SOMENTE o que está realmente visível e legível — nunca invente ou estime um número que não conseguir ler com certeza. Responda sempre usando a ferramenta extrair_estoque_pasto.",
     messages: [
       {
         role: "user",
         content: [
-          { type: "image", source: { type: "base64", media_type: entrada.mediaType, data: base64 } },
-          { type: "text", text: "Extraia a contagem de animais por pasto e categoria visível nesta foto." },
+          blocoArquivo,
+          { type: "text", text: "Extraia a contagem de animais por pasto e categoria visível neste arquivo." },
         ],
       },
     ],

@@ -4,12 +4,11 @@
 // grava direto em pasto_estoque_evento (mesmo princípio de "humano no
 // circuito" usado no resto do sistema).
 import { supabaseServico } from "@/lib/orquestrador/supabase-servico";
-import type { EntradaImagem } from "@/lib/orquestrador/visao";
-import { extrairEstoquePasto } from "./extracao";
+import { extrairEstoquePasto, type EntradaArquivoEstoque } from "./extracao";
 
 export async function processarFotoEstoquePasto(params: {
   mensagemId: string;
-  imagem: EntradaImagem;
+  imagem: EntradaArquivoEstoque;
   remetente: string;
   fazendaCodigoDetectada: "BG" | "PD" | null;
 }): Promise<{ ok: true } | { ok: false; erro: string }> {

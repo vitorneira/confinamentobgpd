@@ -110,7 +110,8 @@ export async function POST(request: NextRequest) {
       // - Qualquer outra foto (lista de compras etc.) -> descreve via visão
       //   genérica (visao.ts) e cai no mesmo pipeline de classificação do
       //   texto/Triagem. Pesagem por foto/PDF é escopo futuro — não passa
-      //   por nenhuma das duas rotas ainda.
+      //   por nenhuma das duas rotas ainda. PDF (sem ser foto) com legenda
+      //   "estoque..." tem seu próprio branch logo abaixo.
       const fileId = msg.photo ? msg.photo[msg.photo.length - 1].file_id : msg.document!.file_id;
       const mediaType = msg.photo ? "image/jpeg" : inferirMediaTypeImagem(msg.document!.mime_type)!;
       const { bytes } = await baixarArquivoTelegram(fileId, botToken);
@@ -135,10 +136,24 @@ export async function POST(request: NextRequest) {
           imagem: { bytes, mediaType },
         });
       }
+    } else if (msg.document?.mime_type === "application/pdf" && ehLegendaEstoquePasto(msg.caption)) {
+      // PDF exportado/impresso da planilha de estoque por pasto — mesmo
+      // extrator de src/lib/pastos, que já aceita PDF além de imagem.
+      const { bytes } = await baixarArquivoTelegram(msg.document.file_id, botToken);
+      const resultado = await processarFotoEstoquePasto({
+        mensagemId,
+        imagem: { bytes, mediaType: "application/pdf" },
+        remetente,
+        fazendaCodigoDetectada: extrairFazendaDaLegenda(msg.caption),
+      });
+      if (!resultado.ok) {
+        console.error("telegram-webhook: falha ao processar estoque por pasto (PDF)", mensagemId, resultado.erro);
+      }
     } else if (msg.document) {
-      // Documento não-imagem (PDF etc.) — sem extração ainda (pesagem por
-      // PDF é fase futura). Grava a mensagem (com legenda, se tiver) pra não
-      // perder o registro; sem texto pra classificar, o ingest() só arquiva.
+      // Documento não-imagem/PDF-sem-legenda-estoque — sem extração (pesagem
+      // por PDF é escopo futuro). Grava a mensagem (com legenda, se tiver)
+      // pra não perder o registro; sem texto pra classificar, o ingest() só
+      // arquiva.
       await ingest({
         id: mensagemId,
         canal: "telegram",
