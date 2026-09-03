@@ -17,6 +17,7 @@
     "test:venda": "tsx scripts/test/venda_check.ts",
     "test:guia-trato-confirmacao": "tsx scripts/test/guia_trato_confirmacao_check.ts",
     "test:simulacao": "tsx scripts/test/simulacao_check.ts",
+    "test:pastos-linha-do-tempo": "tsx scripts/test/pastos_linha_do_tempo_check.ts",
     "seed:touros-po": "tsx scripts/import/seed-touros-bonsmara-po.ts",
     "orq:amostrar-corpus": "tsx scripts/orquestrador/amostrar_corpus.ts",
     "orq:classificar-uma": "tsx scripts/orquestrador/classificar_uma.ts",
