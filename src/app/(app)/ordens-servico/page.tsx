@@ -68,12 +68,23 @@ export default async function OrdensServicoPage({
             {pendentesTriagem.length > 0 && ` · ${pendentesTriagem.length} chegando agora`}
           </p>
         </div>
-        <Link
-          href="/ordens-servico/nova"
-          className="flex items-center gap-1.5 self-start rounded-btn bg-primary-500 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-700"
-        >
-          <Plus size={16} /> Nova OS
-        </Link>
+        <div className="flex items-center gap-3 self-start">
+          <Link href="/fornecedores" className="text-sm text-zinc-500 underline hover:text-black dark:hover:text-zinc-200">
+            Fornecedores
+          </Link>
+          <Link href="/prestadores" className="text-sm text-zinc-500 underline hover:text-black dark:hover:text-zinc-200">
+            Prestadores
+          </Link>
+          <Link href="/funcionarios" className="text-sm text-zinc-500 underline hover:text-black dark:hover:text-zinc-200">
+            Funcionários
+          </Link>
+          <Link
+            href="/ordens-servico/nova"
+            className="flex items-center gap-1.5 rounded-btn bg-primary-500 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-700"
+          >
+            <Plus size={16} /> Nova OS
+          </Link>
+        </div>
       </div>
 
       {pendentesTriagem.length > 0 && (

@@ -65,3 +65,73 @@ Importar OS históricas, fornecedores e ativos (API/CSV) -> tabelas do sistema; 
 
 ## P7 — (Futuro) Produto
 Multi-tenant ativo, onboarding self-service, configuração por cliente, LGPD. Só após validação com clientes reais.
+
+---
+
+# Cadastro de Funcionário + Documentos de Pagamento (Etapa B)
+
+Trilha independente das P1-P7 (não bloqueia nem é bloqueada por elas). Cadastro
+próprio de funcionários/diaristas das fazendas — **separado** de `fornecedor` e
+`prestador_servico` (que continuam só para compras/serviços de OS). Objetivo:
+receber holerite/recibo/comprovante de pagamento pelo bot do Telegram, a IA
+separa por funcionário e arquiva; humano confirma o que a IA não reconhecer.
+Desenhado numa sessão de grilling com o dono em 2026-09-04; decisões abaixo já
+fechadas, não reabrir sem avisar.
+
+**Decisões fechadas:**
+- Só arquivamento — a IA **não** extrai valor em R$ dos documentos. Virar
+  "custo de mão de obra" é decisão de domínio nova, fica para uma etapa futura
+  deliberada à parte.
+- Só o dono envia documentos ao bot por enquanto.
+- Visibilidade: dono vê tudo; gestor de cada fazenda vê só os documentos dos
+  funcionários da fazenda dele.
+- Fluxo de envio no Telegram: **arquivo(s) primeiro, texto explicativo depois**
+  (ex.: "holerites funcionários PD"), nunca legenda anexada ao arquivo —
+  roteamento por palavra-chave no texto (holerite/recibo/comprovante), mesma
+  lógica de janela-por-remetente já usada para agrupar áudio fragmentado.
+- Formatos reais: holerite = 1 PDF por fazenda (várias páginas, 1 funcionário
+  por página); recibo = 1 PDF cobrindo as duas fazendas; comprovante = 1 PDF
+  por pessoa.
+- Fazenda de cada documento: vem do texto quando o arquivo já é por fazenda
+  (holerite); vem do cadastro do funcionário já casado por nome quando o
+  arquivo mistura fazendas (recibo/comprovante).
+- Competência (mês/ano) extraída pela IA de dentro do documento, nunca da data
+  de envio; corrigível na tela de pendência.
+- Reenvio do mesmo documento nunca sobrescreve — guarda as duas versões,
+  mostra a mais recente em destaque.
+- Storage guarda o PDF/lote original completo **e** o recorte individual por
+  funcionário.
+- Funcionário não reconhecido pela IA: a tela de pendência permite cadastrar
+  na hora, sem sair da tela, e já vincular o documento.
+- Upload manual pela web também é possível (mesmo formulário da tela de
+  pendência), como alternativa se o bot falhar.
+
+## FB1 — Cadastro de funcionário + Storage
+- Tabela `funcionario`: nome_completo (para casamento por IA), apelido,
+  fazenda_id, tipo (fixo/diarista), cargo, ativo, data_admissao. Tenant + RLS
+  (dono vê tudo; gestor só da fazenda dele).
+- Primeira integração real de Supabase Storage do projeto (hoje não existe
+  nenhuma — fotos de pasto/estoque são descartadas após a extração). Bucket
+  para documentos de funcionário, guardando original completo + recorte
+  individual, nunca sobrescrevendo versões.
+- Tela `/funcionarios`: lista (filtro por fazenda, busca por nome) → detalhe
+  com histórico de documentos por mês/tipo. Formulário de upload manual.
+- **Pronto quando:** cadastro um funcionário, subo um documento manual pela
+  tela, e ele aparece no histórico dele.
+
+## FB2 — Ingestão via Telegram
+- Webhook ganha o padrão de agrupamento N-arquivos + 1-texto-depois, roteado
+  por palavra-chave.
+- Extração por IA (visão, mesma família de `pastos/extracao.ts`) separa o PDF
+  por funcionário, casa pelo nome contra o cadastro, extrai a competência.
+- Sem extração de valor em R$ nesta etapa.
+- **Pronto quando:** mando um holerite real de teste pro bot e ele aparece
+  vinculado ao funcionário certo com a competência certa (ou cai em
+  pendência se não bater).
+
+## FB3 — Tela de pendência
+- Tela própria (não a Triagem de OS): nome não encontrado, competência não
+  lida, ou ambiguidade. Permite cadastrar o funcionário ali mesmo e já
+  vincular o documento pendente.
+- **Pronto quando:** mando um documento de alguém não cadastrado e resolvo a
+  pendência (cadastro + vínculo) sem sair da tela.
