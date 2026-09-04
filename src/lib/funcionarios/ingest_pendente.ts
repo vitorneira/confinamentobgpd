@@ -112,7 +112,14 @@ export async function processarTextoFuncionario(params: {
     if (pessoas.length === 0) continue;
 
     const caminhoOriginal = `${prefixoOriginal}/${pendente.id}.pdf`;
-    await supabaseServico.storage.from(BUCKET).upload(caminhoOriginal, bytes, { contentType: "application/pdf" });
+    const { error: erroUploadOriginal } = await supabaseServico.storage.from(BUCKET).upload(caminhoOriginal, bytes, { contentType: "application/pdf" });
+    if (erroUploadOriginal) {
+      // Sem o original salvo, tanto o registro final quanto a pendência
+      // ficariam apontando pra um arquivo inexistente (referência órfã) —
+      // melhor pular o pendente inteiro do que gravar um caminho quebrado.
+      console.error("funcionarios/ingest: falha ao subir PDF original", caminhoOriginal, erroUploadOriginal);
+      continue;
+    }
 
     for (const pessoa of pessoas) {
       const recorte = await recortarPaginas(bytes, pessoa.paginaInicio, pessoa.paginaFim);
@@ -134,7 +141,11 @@ export async function processarTextoFuncionario(params: {
         const versao = (existentes?.[0]?.versao ?? 0) + 1;
         const caminhoIndividual = `${codigo}/${funcionario.id}/${params.tipo}_${competencia.slice(0, 7)}_v${versao}.pdf`;
 
-        await supabaseServico.storage.from(BUCKET).upload(caminhoIndividual, recorte, { contentType: "application/pdf" });
+        const { error: erroUploadIndividual } = await supabaseServico.storage.from(BUCKET).upload(caminhoIndividual, recorte, { contentType: "application/pdf" });
+        if (erroUploadIndividual) {
+          console.error("funcionarios/ingest: falha ao subir recorte individual", caminhoIndividual, erroUploadIndividual);
+          continue;
+        }
         const { error: erroInsert } = await supabaseServico.from("funcionario_documento").insert({
           funcionario_id: funcionario.id,
           tipo: params.tipo,
@@ -152,7 +163,11 @@ export async function processarTextoFuncionario(params: {
           casamento.status === "ambiguo" ? "nome_ambiguo" : casamento.status === "nenhum" ? "nome_nao_encontrado" : "competencia_nao_lida";
         const caminhoIndividual = `_pendente/${pendente.id}_p${pessoa.paginaInicio}.pdf`;
 
-        await supabaseServico.storage.from(BUCKET).upload(caminhoIndividual, recorte, { contentType: "application/pdf" });
+        const { error: erroUploadIndividual } = await supabaseServico.storage.from(BUCKET).upload(caminhoIndividual, recorte, { contentType: "application/pdf" });
+        if (erroUploadIndividual) {
+          console.error("funcionarios/ingest: falha ao subir recorte individual", caminhoIndividual, erroUploadIndividual);
+          continue;
+        }
         const { error: erroInsert } = await supabaseServico.from("funcionario_documento_pendente").insert({
           upload_bruto_id: pendente.id,
           tipo: params.tipo,
