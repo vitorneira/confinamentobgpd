@@ -90,13 +90,15 @@ export async function extrairDocumentoFuncionario(pdfBytes: Uint8Array, opts?: {
 
   const resposta = await client.messages.create({
     model: MODELO,
-    max_tokens: 4096,
+    max_tokens: 8192,
     system:
       "Você lê PDFs de holerite/recibo/comprovante de pagamento de funcionários e diaristas de uma fazenda no Brasil. " +
       "Para cada pessoa cujo pagamento aparece no documento, identifique o nome exatamente como impresso, em que " +
       "página(s) (1-based) os dados dela aparecem, a competência (mês/ano de referência do pagamento, comum em " +
       "holerite) se estiver legível, e a data de pagamento/transferência (comum em comprovante bancário, que " +
-      "normalmente não tem competência impressa — só a data) se estiver legível. Se mais de uma pessoa dividir a " +
+      "normalmente não tem competência impressa — só a data) se estiver legível. IMPORTANTE: competência e data " +
+      "sempre no formato ISO (AAAA-MM-DD ou AAAA-MM-01), nunca no formato brasileiro (DD/MM/AAAA), mesmo que seja " +
+      "assim que apareça impresso no documento — converta antes de responder. Se mais de uma pessoa dividir a " +
       "mesma página (comum em recibo, com várias vias impressas numa folha só), também estime a área retangular " +
       "(caixa_delimitadora) de cada uma dentro da página, pra permitir recortar só o trecho dela; deixe null quando " +
       "a pessoa ocupa a página inteira sozinha. Nunca invente um nome, competência ou data que não estiver realmente " +
@@ -116,7 +118,18 @@ export async function extrairDocumentoFuncionario(pdfBytes: Uint8Array, opts?: {
   });
 
   const bloco = resposta.content.find((b) => b.type === "tool_use");
-  if (!bloco || bloco.type !== "tool_use") throw new Error("Claude não retornou extração estruturada.");
+  if (!bloco || bloco.type !== "tool_use") {
+    throw new Error(`Claude não retornou extração estruturada (stop_reason: ${resposta.stop_reason}).`);
+  }
+
+  const bruto = bloco.input as { pessoas?: unknown };
+  if (!Array.isArray(bruto.pessoas)) {
+    // Acontece principalmente quando a resposta é cortada no meio (documento
+    // com muita gente — ver max_tokens acima) e o JSON do tool_use fica
+    // incompleto; melhor um erro claro do que um TypeError genérico de mais
+    // adiante.
+    throw new Error(`Extração não trouxe "pessoas" como lista (stop_reason: ${resposta.stop_reason}).`);
+  }
 
   const input = bloco.input as {
     pessoas: {

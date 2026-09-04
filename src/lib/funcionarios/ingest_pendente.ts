@@ -45,19 +45,36 @@ function codigoDaFazenda(fazendas: LinhaFazenda): string {
   return (Array.isArray(fazendas) ? fazendas[0] : fazendas)?.codigo ?? "XX";
 }
 
-// Comprovante (recibo bancário) normalmente não imprime "competência", só a
-// data do pagamento — e o pagamento sempre sai no mês seguinte ao trabalhado
-// (5º dia útil, confirmado pelo dono). Holerite já imprime a competência
-// direto; essa derivação vale só pra comprovante.
-function competenciaAPartirDoPagamento(dataPagamento: string): string {
-  const [ano, mes] = dataPagamento.split("-").map(Number);
+// A IA às vezes devolve data em formato brasileiro (DD/MM/AAAA) mesmo
+// pedindo ISO no prompt (extracao.ts) — aceita os dois em vez de confiar
+// cegamente no formato pedido.
+function paraDataISO(data: string): string | null {
+  const iso = /^(\d{4})-(\d{2})-(\d{2})$/.exec(data);
+  if (iso) return data;
+  const br = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(data);
+  if (br) {
+    const [, dia, mes, ano] = br;
+    return `${ano}-${mes.padStart(2, "0")}-${dia.padStart(2, "0")}`;
+  }
+  return null;
+}
+
+// Recibo e comprovante normalmente não imprimem "competência", só a data do
+// pagamento — e o pagamento sempre sai no mês seguinte ao trabalhado (5º dia
+// útil, confirmado pelo dono). Só holerite imprime a competência direto;
+// essa derivação vale pros outros dois tipos.
+function competenciaAPartirDoPagamento(dataPagamento: string): string | null {
+  const iso = paraDataISO(dataPagamento);
+  if (!iso) return null;
+  const [ano, mes] = iso.split("-").map(Number);
   const data = new Date(Date.UTC(ano, mes - 2, 1)); // mês do pagamento (mes-1, 0-based) menos 1 mês
   return data.toISOString().slice(0, 10);
 }
 
 function resolverCompetencia(tipo: TipoDocumento, competencia: string | null, dataPagamento: string | null): string | null {
-  if (competencia) return competencia;
-  if (tipo === "comprovante" && dataPagamento) return competenciaAPartirDoPagamento(dataPagamento);
+  const competenciaIso = competencia ? paraDataISO(competencia) : null;
+  if (competenciaIso) return competenciaIso;
+  if (tipo !== "holerite" && dataPagamento) return competenciaAPartirDoPagamento(dataPagamento);
   return null;
 }
 
@@ -125,7 +142,10 @@ export async function processarTextoFuncionario(params: {
       continue;
     }
 
-    for (const pessoa of pessoas) {
+    for (const [indice, pessoa] of pessoas.entries()) {
+     try {
+      // Isola cada pessoa: um erro (ex.: data num formato inesperado) não
+      // pode derrubar o resto do lote sem processar.
       // Quando várias pessoas dividem a mesma página (comum em recibo, com
       // várias vias impressas numa folha), recorta só a região dela; senão
       // recorta a(s) página(s) inteira(s) como antes.
@@ -170,7 +190,10 @@ export async function processarTextoFuncionario(params: {
         // de quem é, a competência não ajuda) sobre o de competência.
         const motivo =
           casamento.status === "ambiguo" ? "nome_ambiguo" : casamento.status === "nenhum" ? "nome_nao_encontrado" : "competencia_nao_lida";
-        const caminhoIndividual = `_pendente/${pendente.id}_p${pessoa.paginaInicio}.pdf`;
+        // Inclui o índice da pessoa no array — várias pessoas podem dividir a
+        // mesma página (comum em recibo, várias vias por folha); sem isso,
+        // o caminho colidia e cada upload sobrescrevia o recorte anterior.
+        const caminhoIndividual = `_pendente/${pendente.id}_p${pessoa.paginaInicio}_${indice}.pdf`;
 
         const { error: erroUploadIndividual } = await supabaseServico.storage.from(BUCKET).upload(caminhoIndividual, recorte, { contentType: "application/pdf" });
         if (erroUploadIndividual) {
@@ -189,6 +212,9 @@ export async function processarTextoFuncionario(params: {
         });
         if (erroInsert) console.error("funcionarios/ingest: falha ao gravar pendência", pessoa.nomeNoDocumento, erroInsert);
       }
+     } catch (erroPessoa) {
+       console.error("funcionarios/ingest: falha ao processar pessoa", pessoa.nomeNoDocumento, erroPessoa);
+     }
     }
     processados++;
   }
