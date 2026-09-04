@@ -47,9 +47,10 @@ function CartaoPendencia({
 
   const [novoNome, setNovoNome] = useState(pendencia.nome_extraido ?? "");
   const [novoApelido, setNovoApelido] = useState("");
-  const [novaFazendaId, setNovaFazendaId] = useState(
-    fazendas.find((f) => f.codigo === pendencia.fazenda_sugerida)?.id ?? fazendas[0]?.id ?? "",
-  );
+  // Sem fazenda_sugerida, fica em branco (força escolha manual) em vez de
+  // cair silenciosamente em BG por ser a primeira da lista — mesmo espírito
+  // do combo de fazenda na Triagem de OS.
+  const [novaFazendaId, setNovaFazendaId] = useState(fazendas.find((f) => f.codigo === pendencia.fazenda_sugerida)?.id ?? "");
   const [novoTipo, setNovoTipo] = useState<"fixo" | "diarista">("fixo");
   const [novoCargo, setNovoCargo] = useState("");
   const [novaDataAdmissao, setNovaDataAdmissao] = useState("");
@@ -160,7 +161,12 @@ function CartaoPendencia({
           </div>
           <div>
             <label className={rotuloClasse}>Fazenda *</label>
-            <select value={novaFazendaId} onChange={(e) => setNovaFazendaId(e.target.value)} className={campoClasse}>
+            <select
+              value={novaFazendaId}
+              onChange={(e) => setNovaFazendaId(e.target.value)}
+              className={`${campoClasse} ${novaFazendaId ? "" : "border-dashed border-amber-400 dark:border-amber-600"}`}
+            >
+              <option value="">Selecione...</option>
               {fazendas.map((f) => (
                 <option key={f.id} value={f.id}>
                   {f.codigo} — {f.nome}

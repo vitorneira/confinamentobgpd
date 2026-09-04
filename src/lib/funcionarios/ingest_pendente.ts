@@ -13,7 +13,11 @@ import { casarFuncionarioPorNome, type FuncionarioParaCasamento } from "./casame
 import type { TipoDocumento } from "@/lib/queries/funcionarios";
 
 const BUCKET = "funcionario-documentos";
-const JANELA_PADRAO_MINUTOS = 30;
+// O dono pode mandar os arquivos aos poucos, misturando BG/PD, ao longo de
+// uma sessão mais longa (não necessariamente organiza por fazenda antes) —
+// janela generosa pra não deixar arquivo "pra trás" sem avisar. Ver
+// docs/orquestrador/BUILD_PLAN.md (Etapa B).
+const JANELA_PADRAO_MINUTOS = 24 * 60;
 
 export async function estagiarUploadFuncionario(params: { mensagemId: string; remetente: string; bytes: Uint8Array }): Promise<void> {
   const existente = await supabaseServico.from("funcionario_upload_bruto").select("id").eq("mensagem_id", params.mensagemId).maybeSingle();
