@@ -41,6 +41,22 @@ function codigoDaFazenda(fazendas: LinhaFazenda): string {
   return (Array.isArray(fazendas) ? fazendas[0] : fazendas)?.codigo ?? "XX";
 }
 
+// Comprovante (recibo bancário) normalmente não imprime "competência", só a
+// data do pagamento — e o pagamento sempre sai no mês seguinte ao trabalhado
+// (5º dia útil, confirmado pelo dono). Holerite já imprime a competência
+// direto; essa derivação vale só pra comprovante.
+function competenciaAPartirDoPagamento(dataPagamento: string): string {
+  const [ano, mes] = dataPagamento.split("-").map(Number);
+  const data = new Date(Date.UTC(ano, mes - 2, 1)); // mês do pagamento (mes-1, 0-based) menos 1 mês
+  return data.toISOString().slice(0, 10);
+}
+
+function resolverCompetencia(tipo: TipoDocumento, competencia: string | null, dataPagamento: string | null): string | null {
+  if (competencia) return competencia;
+  if (tipo === "comprovante" && dataPagamento) return competenciaAPartirDoPagamento(dataPagamento);
+  return null;
+}
+
 export async function processarTextoFuncionario(params: {
   tipo: TipoDocumento;
   remetente: string;
@@ -101,8 +117,9 @@ export async function processarTextoFuncionario(params: {
     for (const pessoa of pessoas) {
       const recorte = await recortarPaginas(bytes, pessoa.paginaInicio, pessoa.paginaFim);
       const casamento = casarFuncionarioPorNome(pessoa.nomeNoDocumento, funcionarios);
+      const competencia = resolverCompetencia(params.tipo, pessoa.competencia, pessoa.dataPagamento);
 
-      if (casamento.status === "unico" && pessoa.competencia) {
+      if (casamento.status === "unico" && competencia) {
         const funcionario = funcionarios.find((f) => f.id === casamento.funcionarioId)!;
         const codigo = codigoDaFazenda(funcionario.fazendas);
 
@@ -111,17 +128,17 @@ export async function processarTextoFuncionario(params: {
           .select("versao")
           .eq("funcionario_id", funcionario.id)
           .eq("tipo", params.tipo)
-          .eq("competencia", pessoa.competencia)
+          .eq("competencia", competencia)
           .order("versao", { ascending: false })
           .limit(1);
         const versao = (existentes?.[0]?.versao ?? 0) + 1;
-        const caminhoIndividual = `${codigo}/${funcionario.id}/${params.tipo}_${pessoa.competencia.slice(0, 7)}_v${versao}.pdf`;
+        const caminhoIndividual = `${codigo}/${funcionario.id}/${params.tipo}_${competencia.slice(0, 7)}_v${versao}.pdf`;
 
         await supabaseServico.storage.from(BUCKET).upload(caminhoIndividual, recorte, { contentType: "application/pdf" });
         const { error: erroInsert } = await supabaseServico.from("funcionario_documento").insert({
           funcionario_id: funcionario.id,
           tipo: params.tipo,
-          competencia: pessoa.competencia,
+          competencia,
           storage_path_original: caminhoOriginal,
           storage_path_individual: caminhoIndividual,
           versao,
@@ -129,7 +146,10 @@ export async function processarTextoFuncionario(params: {
         });
         if (erroInsert) console.error("funcionarios/ingest: falha ao gravar documento", pessoa.nomeNoDocumento, erroInsert);
       } else {
-        const motivo = !pessoa.competencia ? "competencia_nao_lida" : casamento.status === "ambiguo" ? "nome_ambiguo" : "nome_nao_encontrado";
+        // Prioriza reportar o problema de nome (mais fundamental — sem saber
+        // de quem é, a competência não ajuda) sobre o de competência.
+        const motivo =
+          casamento.status === "ambiguo" ? "nome_ambiguo" : casamento.status === "nenhum" ? "nome_nao_encontrado" : "competencia_nao_lida";
         const caminhoIndividual = `_pendente/${pendente.id}_p${pessoa.paginaInicio}.pdf`;
 
         await supabaseServico.storage.from(BUCKET).upload(caminhoIndividual, recorte, { contentType: "application/pdf" });
@@ -137,7 +157,7 @@ export async function processarTextoFuncionario(params: {
           upload_bruto_id: pendente.id,
           tipo: params.tipo,
           nome_extraido: pessoa.nomeNoDocumento,
-          competencia_extraida: pessoa.competencia,
+          competencia_extraida: competencia,
           fazenda_sugerida: params.fazendaSugerida,
           storage_path_original: caminhoOriginal,
           storage_path_individual: caminhoIndividual,

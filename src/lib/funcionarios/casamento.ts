@@ -16,13 +16,26 @@ export type ResultadoCasamento =
 
 const MARCAS_DIACRITICAS = new RegExp("[\\u0300-\\u036f]", "g");
 
+// Palavras de ligação de nome próprio em português — sem identidade própria,
+// mas cuja presença/ausência varia entre documentos (ex.: holerite imprime
+// "José Henrique DE Souza", um comprovante bancário do mesmo pagamento
+// mostrou só "Jose Henrique Souza"). Removidas dos dois lados antes de
+// comparar; abreviação de nome do meio (ex.: "Marcio F" por "Marcio Felix")
+// continua exigindo revisão manual — não é o mesmo tipo de variação.
+const PALAVRAS_DE_LIGACAO = new Set(["de", "da", "do", "das", "dos"]);
+
 function normalizar(nome: string): string {
-  return nome
+  const semAcento = nome
     .normalize("NFD")
     .replace(MARCAS_DIACRITICAS, "")
     .toLowerCase()
+    .replace(/[.,]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+  return semAcento
+    .split(" ")
+    .filter((palavra) => !PALAVRAS_DE_LIGACAO.has(palavra))
+    .join(" ");
 }
 
 export function casarFuncionarioPorNome(nomeExtraido: string, funcionarios: FuncionarioParaCasamento[]): ResultadoCasamento {

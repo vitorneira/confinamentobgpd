@@ -13,6 +13,13 @@ export type PessoaExtraida = {
   paginaFim: number;
   /** YYYY-MM-01, se a competência estiver legível no documento; null se não. */
   competencia: string | null;
+  /**
+   * YYYY-MM-DD, se houver uma data de pagamento/transferência impressa (comum
+   * em comprovante bancário, que normalmente não imprime "competência" — só a
+   * data); null se não tiver. Usado como respaldo pra derivar a competência
+   * (pagamento sai no mês seguinte ao trabalhado, ver casamento.ts/ingest_pendente.ts).
+   */
+  dataPagamento: string | null;
 };
 
 const TOOL_SCHEMA = {
@@ -37,10 +44,16 @@ const TOOL_SCHEMA = {
             },
             competencia: {
               type: ["string", "null"] as const,
-              description: "Mês/ano de referência do pagamento, formato YYYY-MM-01, se estiver impresso; null se não conseguir ler.",
+              description:
+                "Mês/ano de referência do pagamento (competência), formato YYYY-MM-01, se estiver impresso (comum em holerite); null se não conseguir ler ou o documento não tiver esse campo.",
+            },
+            data_pagamento: {
+              type: ["string", "null"] as const,
+              description:
+                "Data em que o pagamento/transferência foi realizado, formato YYYY-MM-DD, se estiver impressa (comum em comprovante bancário, que normalmente não tem 'competência' — só a data da transação); null se não tiver.",
             },
           },
-          required: ["nome_no_documento", "pagina_inicio", "pagina_fim", "competencia"],
+          required: ["nome_no_documento", "pagina_inicio", "pagina_fim", "competencia", "data_pagamento"],
         },
       },
     },
@@ -61,9 +74,11 @@ export async function extrairDocumentoFuncionario(pdfBytes: Uint8Array, opts?: {
     system:
       "Você lê PDFs de holerite/recibo/comprovante de pagamento de funcionários e diaristas de uma fazenda no Brasil. " +
       "Para cada pessoa cujo pagamento aparece no documento, identifique o nome exatamente como impresso, em que " +
-      "página(s) (1-based) os dados dela aparecem, e a competência (mês/ano de referência do pagamento) se estiver " +
-      "legível. Nunca invente um nome ou uma competência que não estiver realmente visível — se não conseguir ler a " +
-      "competência, retorne null nesse campo. Responda sempre usando a ferramenta extrair_documento_funcionario.",
+      "página(s) (1-based) os dados dela aparecem, a competência (mês/ano de referência do pagamento, comum em " +
+      "holerite) se estiver legível, e a data de pagamento/transferência (comum em comprovante bancário, que " +
+      "normalmente não tem competência impressa — só a data) se estiver legível. Nunca invente um nome, competência " +
+      "ou data que não estiver realmente visível — se não conseguir ler, retorne null nesse campo. Responda sempre " +
+      "usando a ferramenta extrair_documento_funcionario.",
     messages: [
       {
         role: "user",
@@ -81,12 +96,19 @@ export async function extrairDocumentoFuncionario(pdfBytes: Uint8Array, opts?: {
   if (!bloco || bloco.type !== "tool_use") throw new Error("Claude não retornou extração estruturada.");
 
   const input = bloco.input as {
-    pessoas: { nome_no_documento: string; pagina_inicio: number; pagina_fim: number; competencia: string | null }[];
+    pessoas: {
+      nome_no_documento: string;
+      pagina_inicio: number;
+      pagina_fim: number;
+      competencia: string | null;
+      data_pagamento: string | null;
+    }[];
   };
   return input.pessoas.map((p) => ({
     nomeNoDocumento: p.nome_no_documento,
     paginaInicio: p.pagina_inicio,
     paginaFim: p.pagina_fim,
     competencia: p.competencia,
+    dataPagamento: p.data_pagamento,
   }));
 }
