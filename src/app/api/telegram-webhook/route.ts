@@ -13,6 +13,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ingest } from "@/lib/orquestrador/ingest";
 import { processarFotoEstoquePasto } from "@/lib/pastos/ingest_pendente";
+import { detectarTipoDocumentoFuncionario, estagiarUploadFuncionario, processarTextoFuncionario } from "@/lib/funcionarios/ingest_pendente";
 
 const TELEGRAM_API = "https://api.telegram.org";
 
@@ -96,7 +97,23 @@ export async function POST(request: NextRequest) {
   const remetente = nomeRemetente(msg);
 
   try {
-    if (msg.text) {
+    const tipoDocumentoFuncionario = msg.text ? detectarTipoDocumentoFuncionario(msg.text) : null;
+
+    if (tipoDocumentoFuncionario) {
+      // Texto solto (não legenda) começando com holerite/recibo/comprovante:
+      // reivindica os PDFs que chegaram soltos antes, do mesmo remetente
+      // (fluxo de duas mensagens decidido com o dono — ver
+      // docs/orquestrador/BUILD_PLAN.md, Etapa B/FB2). Não passa pelo
+      // ingest() normal: isso não é uma OS/registro do Orquestrador.
+      const resultado = await processarTextoFuncionario({
+        tipo: tipoDocumentoFuncionario,
+        remetente,
+        fazendaSugerida: extrairFazendaDaLegenda(msg.text),
+      });
+      if (resultado.processados === 0) {
+        console.error("telegram-webhook: texto de funcionário sem PDF pendente encontrado", mensagemId);
+      }
+    } else if (msg.text) {
       await ingest({ id: mensagemId, canal: "telegram", remetente, tipo: "texto", conteudoBruto: msg.text });
     } else if (msg.voice || msg.audio) {
       const fileId = (msg.voice ?? msg.audio)!.file_id;
@@ -150,10 +167,17 @@ export async function POST(request: NextRequest) {
         console.error("telegram-webhook: falha ao processar estoque por pasto (PDF)", mensagemId, resultado.erro);
       }
     } else if (msg.document) {
-      // Documento não-imagem/PDF-sem-legenda-estoque — sem extração (pesagem
-      // por PDF é escopo futuro). Grava a mensagem (com legenda, se tiver)
-      // pra não perder o registro; sem texto pra classificar, o ingest() só
-      // arquiva.
+      // Documento não-imagem/PDF-sem-legenda-estoque. Se for PDF, também vai
+      // pro staging de funcionário (funcionario_upload_bruto) — só é
+      // reivindicado se uma mensagem de texto com "holerite"/"recibo"/
+      // "comprovante" chegar depois do mesmo remetente (ver FB2 acima); se
+      // nunca for reivindicado, fica só ali sem custo. Continua também
+      // arquivando como antes (pesagem por PDF é escopo futuro; sem texto
+      // pra classificar, o ingest() só arquiva).
+      if (msg.document.mime_type === "application/pdf") {
+        const { bytes } = await baixarArquivoTelegram(msg.document.file_id, botToken);
+        await estagiarUploadFuncionario({ mensagemId, remetente, bytes });
+      }
       await ingest({
         id: mensagemId,
         canal: "telegram",

@@ -119,12 +119,25 @@ fechadas, não reabrir sem avisar.
 - **Pronto quando:** cadastro um funcionário, subo um documento manual pela
   tela, e ele aparece no histórico dele.
 
-## FB2 — Ingestão via Telegram
+## FB2 — Ingestão via Telegram (codado 2026-09-04, aguardando teste real)
 - Webhook ganha o padrão de agrupamento N-arquivos + 1-texto-depois, roteado
-  por palavra-chave.
-- Extração por IA (visão, mesma família de `pastos/extracao.ts`) separa o PDF
-  por funcionário, casa pelo nome contra o cadastro, extrai a competência.
-- Sem extração de valor em R$ nesta etapa.
+  por palavra-chave (`holerite(s)`/`recibo(s)`/`comprovante(s)` no começo do
+  texto). PDF sem legenda "estoque" fica em staging
+  (`funcionario_upload_bruto`, migration `0020`) até o texto reivindicar.
+- Extração por IA (Sonnet 5, `src/lib/funcionarios/extracao.ts`, mesma
+  família de `pastos/extracao.ts`) lê o PDF inteiro e retorna, por pessoa
+  identificada: nome, página(s) e competência. `pdf-lib`
+  (`src/lib/funcionarios/pdf.ts`) recorta as páginas de cada pessoa.
+- Casamento pelo nome (`src/lib/funcionarios/casamento.ts`) é **só exato**
+  (normalizado por acento/maiúscula/espaço) — decisão tomada ao codar, não
+  discutida no grilling: qualquer similaridade parcial cai em pendência em
+  vez de arriscar gravar holerite no funcionário errado. Sem competência
+  legível também vira pendência, mesmo com nome batendo certo.
+- Sem extração de valor em R$ nesta etapa (decisão do grilling, mantida).
+- Tabela nova `funcionario_documento_pendente` (migration `0020`) recebe o
+  que não casou — ainda sem tela de revisão, isso é a FB3.
+- Verificado só por `tsc`/`eslint`/`next build` — **ainda não testado com um
+  holerite/recibo/comprovante real pelo bot ao vivo**.
 - **Pronto quando:** mando um holerite real de teste pro bot e ele aparece
   vinculado ao funcionário certo com a competência certa (ou cai em
   pendência se não bater).
