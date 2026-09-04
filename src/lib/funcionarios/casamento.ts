@@ -1,8 +1,14 @@
 // Casa o nome lido pela IA (extracao.ts) contra o cadastro de funcionário
-// (nome_completo / apelido). Só casamento EXATO (após normalizar acento/
-// maiúscula/espaço) conta como confiável — qualquer dúvida (nome não
-// encontrado, ou batendo com mais de um funcionário) vai pra pendência em
-// vez de arriscar gravar no funcionário errado (dado de salário).
+// (nome_completo / apelido). Dois níveis: (1) nome completo exato (após
+// normalizar acento/maiúscula/pontuação/palavra de ligação); (2) se nenhum
+// bater exato, primeiro nome igual + pelo menos um outro nome em comum
+// (pedido do dono, 2026-09-04 — com poucas pessoas cadastradas o risco de
+// falso positivo é baixo; ex.: "Marcio F Assuncao" casa com "Marcio Felix
+// Assunção" pelo "assuncao" em comum, mesmo sem "felix"/"f" baterem). Se
+// mais de um funcionário bater em qualquer nível, ou nenhum bater, vai pra
+// pendência em vez de arriscar gravar no funcionário errado (dado de
+// salário) — abreviação forte demais (ex.: "Kleyjunior M", só uma inicial)
+// ainda exige revisão manual.
 export type FuncionarioParaCasamento = {
   id: string;
   nome_completo: string;
@@ -38,11 +44,29 @@ function normalizar(nome: string): string {
     .join(" ");
 }
 
+function tokens(nome: string): string[] {
+  return normalizar(nome).split(" ").filter(Boolean);
+}
+
 export function casarFuncionarioPorNome(nomeExtraido: string, funcionarios: FuncionarioParaCasamento[]): ResultadoCasamento {
   const alvo = normalizar(nomeExtraido);
-  const candidatos = funcionarios.filter((f) => normalizar(f.nome_completo) === alvo || (!!f.apelido && normalizar(f.apelido) === alvo));
+  const exatos = funcionarios.filter((f) => normalizar(f.nome_completo) === alvo || (!!f.apelido && normalizar(f.apelido) === alvo));
 
-  if (candidatos.length === 0) return { status: "nenhum" };
-  if (candidatos.length > 1) return { status: "ambiguo" };
-  return { status: "unico", funcionarioId: candidatos[0].id };
+  if (exatos.length === 1) return { status: "unico", funcionarioId: exatos[0].id };
+  if (exatos.length > 1) return { status: "ambiguo" };
+
+  const tokensAlvo = tokens(nomeExtraido);
+  if (tokensAlvo.length < 2) return { status: "nenhum" };
+  const [primeiroAlvo, ...restoAlvo] = tokensAlvo;
+
+  const parciais = funcionarios.filter((f) => {
+    const tokensCandidato = tokens(f.nome_completo);
+    if (tokensCandidato.length < 2 || tokensCandidato[0] !== primeiroAlvo) return false;
+    const restoCandidato = tokensCandidato.slice(1);
+    return restoAlvo.some((t) => restoCandidato.includes(t));
+  });
+
+  if (parciais.length === 0) return { status: "nenhum" };
+  if (parciais.length > 1) return { status: "ambiguo" };
+  return { status: "unico", funcionarioId: parciais[0].id };
 }

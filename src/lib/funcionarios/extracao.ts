@@ -20,6 +20,14 @@ export type PessoaExtraida = {
    * (pagamento sai no mês seguinte ao trabalhado, ver casamento.ts/ingest_pendente.ts).
    */
   dataPagamento: string | null;
+  /**
+   * Área aproximada (0 a 1, origem no canto superior esquerdo) do recibo/
+   * trecho desta pessoa DENTRO da página — só quando mais de uma pessoa
+   * divide a mesma página (comum em recibo, várias vias por folha). Null
+   * quando a pessoa ocupa a página inteira sozinha (holerite normalmente) ou
+   * quando os dados dela cobrem mais de uma página.
+   */
+  caixaDelimitadora: { x0: number; y0: number; x1: number; y1: number } | null;
 };
 
 const TOOL_SCHEMA = {
@@ -52,8 +60,20 @@ const TOOL_SCHEMA = {
               description:
                 "Data em que o pagamento/transferência foi realizado, formato YYYY-MM-DD, se estiver impressa (comum em comprovante bancário, que normalmente não tem 'competência' — só a data da transação); null se não tiver.",
             },
+            caixa_delimitadora: {
+              type: ["object", "null"] as const,
+              description:
+                "APENAS quando mais de uma pessoa divide a mesma página (comum em recibo, várias vias impressas numa folha só): a área retangular aproximada do recibo/trecho desta pessoa dentro da página, em fração de 0 a 1 com origem no canto SUPERIOR ESQUERDO da página (x cresce pra direita, y cresce pra baixo). Deixe null se a pessoa ocupa a página inteira sozinha, ou se pagina_inicio for diferente de pagina_fim.",
+              properties: {
+                x0: { type: "number" as const, description: "Borda esquerda, 0 a 1." },
+                y0: { type: "number" as const, description: "Borda superior, 0 a 1." },
+                x1: { type: "number" as const, description: "Borda direita, 0 a 1." },
+                y1: { type: "number" as const, description: "Borda inferior, 0 a 1." },
+              },
+              required: ["x0", "y0", "x1", "y1"],
+            },
           },
-          required: ["nome_no_documento", "pagina_inicio", "pagina_fim", "competencia", "data_pagamento"],
+          required: ["nome_no_documento", "pagina_inicio", "pagina_fim", "competencia", "data_pagamento", "caixa_delimitadora"],
         },
       },
     },
@@ -76,9 +96,12 @@ export async function extrairDocumentoFuncionario(pdfBytes: Uint8Array, opts?: {
       "Para cada pessoa cujo pagamento aparece no documento, identifique o nome exatamente como impresso, em que " +
       "página(s) (1-based) os dados dela aparecem, a competência (mês/ano de referência do pagamento, comum em " +
       "holerite) se estiver legível, e a data de pagamento/transferência (comum em comprovante bancário, que " +
-      "normalmente não tem competência impressa — só a data) se estiver legível. Nunca invente um nome, competência " +
-      "ou data que não estiver realmente visível — se não conseguir ler, retorne null nesse campo. Responda sempre " +
-      "usando a ferramenta extrair_documento_funcionario.",
+      "normalmente não tem competência impressa — só a data) se estiver legível. Se mais de uma pessoa dividir a " +
+      "mesma página (comum em recibo, com várias vias impressas numa folha só), também estime a área retangular " +
+      "(caixa_delimitadora) de cada uma dentro da página, pra permitir recortar só o trecho dela; deixe null quando " +
+      "a pessoa ocupa a página inteira sozinha. Nunca invente um nome, competência ou data que não estiver realmente " +
+      "visível — se não conseguir ler, retorne null nesse campo. Responda sempre usando a ferramenta " +
+      "extrair_documento_funcionario.",
     messages: [
       {
         role: "user",
@@ -102,6 +125,7 @@ export async function extrairDocumentoFuncionario(pdfBytes: Uint8Array, opts?: {
       pagina_fim: number;
       competencia: string | null;
       data_pagamento: string | null;
+      caixa_delimitadora: { x0: number; y0: number; x1: number; y1: number } | null;
     }[];
   };
   return input.pessoas.map((p) => ({
@@ -110,5 +134,7 @@ export async function extrairDocumentoFuncionario(pdfBytes: Uint8Array, opts?: {
     paginaFim: p.pagina_fim,
     competencia: p.competencia,
     dataPagamento: p.data_pagamento,
+    // Só faz sentido recortar por região dentro de uma única página.
+    caixaDelimitadora: p.pagina_inicio === p.pagina_fim ? p.caixa_delimitadora : null,
   }));
 }

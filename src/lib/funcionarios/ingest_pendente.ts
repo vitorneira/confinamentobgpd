@@ -8,7 +8,7 @@
 // o próprio dono, não uma tela.
 import { supabaseServico } from "@/lib/orquestrador/supabase-servico";
 import { extrairDocumentoFuncionario } from "./extracao";
-import { recortarPaginas } from "./pdf";
+import { recortarPaginas, recortarRegiao } from "./pdf";
 import { casarFuncionarioPorNome, type FuncionarioParaCasamento } from "./casamento";
 import type { TipoDocumento } from "@/lib/queries/funcionarios";
 
@@ -122,7 +122,12 @@ export async function processarTextoFuncionario(params: {
     }
 
     for (const pessoa of pessoas) {
-      const recorte = await recortarPaginas(bytes, pessoa.paginaInicio, pessoa.paginaFim);
+      // Quando várias pessoas dividem a mesma página (comum em recibo, com
+      // várias vias impressas numa folha), recorta só a região dela; senão
+      // recorta a(s) página(s) inteira(s) como antes.
+      const recorte = pessoa.caixaDelimitadora
+        ? await recortarRegiao(bytes, pessoa.paginaInicio, pessoa.caixaDelimitadora)
+        : await recortarPaginas(bytes, pessoa.paginaInicio, pessoa.paginaFim);
       const casamento = casarFuncionarioPorNome(pessoa.nomeNoDocumento, funcionarios);
       const competencia = resolverCompetencia(params.tipo, pessoa.competencia, pessoa.dataPagamento);
 
