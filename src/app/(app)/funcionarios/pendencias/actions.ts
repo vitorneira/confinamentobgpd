@@ -47,7 +47,10 @@ async function vincularArquivo(params: {
   const caminhoFinal = `${codigo}/${params.funcionarioId}/${pendencia.tipo}_${params.competencia}_v${versao}.pdf`;
 
   const { error: erroMove } = await supabase.storage.from(BUCKET).move(pendencia.storage_path_individual, caminhoFinal);
-  if (erroMove) return { ok: false, erro: erroAmigavel({ message: erroMove.message }) };
+  if (erroMove) {
+    console.error("funcionarios/pendencias: falha ao mover PDF", pendencia.storage_path_individual, "->", caminhoFinal, erroMove);
+    return { ok: false, erro: erroAmigavel({ message: erroMove.message }) };
+  }
 
   const { error: erroInsert } = await supabase.from("funcionario_documento").insert({
     funcionario_id: params.funcionarioId,
@@ -58,7 +61,10 @@ async function vincularArquivo(params: {
     versao,
     origem: "telegram",
   });
-  if (erroInsert) return { ok: false, erro: erroAmigavel(erroInsert) };
+  if (erroInsert) {
+    console.error("funcionarios/pendencias: falha ao gravar funcionario_documento", params.pendenciaId, erroInsert);
+    return { ok: false, erro: erroAmigavel(erroInsert) };
+  }
 
   await supabase.from("funcionario_documento_pendente").update({ resolvido: true }).eq("id", params.pendenciaId);
 
