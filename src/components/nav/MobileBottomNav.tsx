@@ -12,6 +12,7 @@ import {
   PawPrint,
   Receipt,
   Scale,
+  Trees,
   Truck,
   Package,
   X,
@@ -32,6 +33,7 @@ export function MobileBottomNav({ base }: { base: string }) {
 
   const maisItens: ItemNav[] = [
     { href: `${base}/currais`, label: "Currais", Icone: Fence },
+    { href: `${base}/pastos`, label: "Pastos", Icone: Trees },
     { href: `${base}/guia-trato`, label: "Guia de Trato", Icone: Truck },
     { href: `${base}/insumos`, label: "Insumos", Icone: Package },
     { href: `${base}/vendas`, label: "Vendas", Icone: Receipt },
