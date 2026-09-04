@@ -142,9 +142,25 @@ fechadas, não reabrir sem avisar.
   vinculado ao funcionário certo com a competência certa (ou cai em
   pendência se não bater).
 
-## FB3 — Tela de pendência
-- Tela própria (não a Triagem de OS): nome não encontrado, competência não
-  lida, ou ambiguidade. Permite cadastrar o funcionário ali mesmo e já
-  vincular o documento pendente.
+## FB3 — Tela de pendência (codado 2026-09-04)
+- Tela própria `/funcionarios/pendencias` (não a Triagem de OS, RLS
+  só-dono): cada pendência mostra tipo/nome extraído/motivo, link "Ver
+  documento" (signed URL), e duas ações — **vincular a um funcionário
+  existente** (select) ou **cadastrar um novo ali mesmo** — com a
+  competência editável (`<input type="month">`, pré-preenchida quando a IA
+  leu). Vincular move o arquivo de `_pendente/...` pro caminho final
+  (`storage.move`) e grava em `funcionario_documento`.
+- **Adição fora do desenho original**: botão "descartar" (marca
+  `resolvido=true` sem criar documento) — apareceu necessário ao testar com
+  dado real (ex.: pendência que não deveria virar documento de ninguém).
+- Achado do teste real da FB2 confirmou que os casos reais de pendência são
+  nome abreviado (ex.: "Kleyjunior M" vs cadastro) e pagamento caindo na
+  conta de terceiro (comprovante mostra o nome de quem tem a conta, não de
+  quem trabalhou) — os dois se resolvem do mesmo jeito (vínculo manual),
+  sem precisar de mecanismo especial.
+- Banner em `/funcionarios` avisando quantas pendências existem, some
+  quando zero.
+- Verificado por `tsc`/`eslint`/`next build` (limpo) — ainda não clicado
+  numa sessão real do navegador (sem browser tool neste ambiente).
 - **Pronto quando:** mando um documento de alguém não cadastrado e resolvo a
   pendência (cadastro + vínculo) sem sair da tela.

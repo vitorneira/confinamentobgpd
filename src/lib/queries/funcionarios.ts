@@ -97,3 +97,31 @@ export async function getDocumentosFuncionario(funcionarioId: string): Promise<D
   if (error) throw new Error(`Falha ao listar documentos: ${error.message}`);
   return data ?? [];
 }
+
+export type MotivoPendencia = "nome_nao_encontrado" | "nome_ambiguo" | "competencia_nao_lida";
+
+export type PendenciaDocumento = {
+  id: string;
+  tipo: TipoDocumento;
+  nome_extraido: string | null;
+  competencia_extraida: string | null;
+  fazenda_sugerida: "BG" | "PD" | null;
+  storage_path_original: string;
+  storage_path_individual: string;
+  motivo: MotivoPendencia;
+  criado_em: string;
+};
+
+// RLS de funcionario_documento_pendente é só-dono (orq_eh_dono) — um gestor
+// chamando isso recebe lista vazia, não erro; a tela trata isso como "sem
+// pendências" (não precisa checar papel de novo aqui).
+export async function getPendenciasFuncionario(): Promise<PendenciaDocumento[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("funcionario_documento_pendente")
+    .select("id, tipo, nome_extraido, competencia_extraida, fazenda_sugerida, storage_path_original, storage_path_individual, motivo, criado_em")
+    .eq("resolvido", false)
+    .order("criado_em", { ascending: true });
+  if (error) throw new Error(`Falha ao listar pendências: ${error.message}`);
+  return data ?? [];
+}
