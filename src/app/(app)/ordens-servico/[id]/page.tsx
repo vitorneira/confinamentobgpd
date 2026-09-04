@@ -1,11 +1,20 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Paperclip } from "lucide-react";
-import { getOsDetalhe, getStatusHistorico, getUsuariosDaFazenda } from "@/lib/queries/ordens-servico";
+import {
+  getComentariosOs,
+  getFornecedores,
+  getOsDetalhe,
+  getPrestadores,
+  getStatusHistorico,
+  getUsuariosDaFazenda,
+} from "@/lib/queries/ordens-servico";
 import { ROTULO_DOMINIO } from "@/lib/orquestrador/tipos";
 import { OsStatusBadge } from "@/components/OsStatusBadge";
 import { formatData, formatDataHora, formatMoeda, formatTempoRelativo } from "@/lib/format";
 import { StatusChanger } from "./StatusChanger";
+import { VinculosForm } from "./VinculosForm";
+import { Comentarios } from "./Comentarios";
 
 function Campo({ label, valor, destaque }: { label: string; valor: React.ReactNode; destaque?: boolean }) {
   return (
@@ -25,7 +34,13 @@ export default async function OsDetalhePage({ params }: { params: Promise<{ id: 
   const os = await getOsDetalhe(id);
   if (!os) notFound();
 
-  const [historico, usuarios] = await Promise.all([getStatusHistorico(id), getUsuariosDaFazenda(os.fazenda_id)]);
+  const [historico, usuarios, comentarios, fornecedores, prestadores] = await Promise.all([
+    getStatusHistorico(id),
+    getUsuariosDaFazenda(os.fazenda_id),
+    getComentariosOs(id),
+    getFornecedores(),
+    getPrestadores(),
+  ]);
   const emailDe = (userId: string | null) => (userId ? (usuarios.find((u) => u.id === userId)?.email ?? "—") : "—");
 
   const totalItens = os.itens.reduce((soma, it) => {
@@ -45,6 +60,14 @@ export default async function OsDetalhePage({ params }: { params: Promise<{ id: 
             <span className="rounded-full border border-zinc-300 px-2 py-0.5 text-xs font-medium dark:border-zinc-700">
               {os.fazenda_codigo}
             </span>
+            {os.descontar_do_prestador && (
+              <span
+                className="rounded-full px-2 py-0.5 text-xs font-medium"
+                style={{ color: "var(--os-atencao-fg)", background: "var(--os-atencao-bg)" }}
+              >
+                desconto: {os.prestador_nome ?? "prestador não definido"}
+              </span>
+            )}
           </div>
           <h1 className="mt-1 text-[19px] font-extrabold text-black dark:text-zinc-50">
             {os.descricao ?? "Sem descrição"}
@@ -62,7 +85,6 @@ export default async function OsDetalhePage({ params }: { params: Promise<{ id: 
               <Campo label="Solicitante" valor={emailDe(os.solicitante_id)} />
               <Campo label="Responsável" valor={emailDe(os.responsavel_id)} />
               <Campo label="Domínio" valor={ROTULO_DOMINIO[os.dominio]} />
-              <Campo label="Fornecedor" valor={os.fornecedor_nome ?? "—"} />
               <Campo
                 label="Curral vinculado"
                 valor={
@@ -83,6 +105,15 @@ export default async function OsDetalhePage({ params }: { params: Promise<{ id: 
               <Campo label="Valor estimado" valor={formatMoeda(os.valor_estimado)} />
             </div>
           </div>
+
+          <VinculosForm
+            osId={os.id}
+            fornecedorId={os.fornecedor_id}
+            prestadorId={os.prestador_id}
+            descontarDoPrestador={os.descontar_do_prestador}
+            fornecedores={fornecedores}
+            prestadores={prestadores}
+          />
 
           <div className="rounded-card border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
             <h2 className="mb-2 text-sm font-semibold text-black dark:text-zinc-50">Intenção declarada</h2>
@@ -160,6 +191,8 @@ export default async function OsDetalhePage({ params }: { params: Promise<{ id: 
               <Paperclip size={14} /> Arraste foto, PDF ou NF aqui — upload em breve
             </div>
           </div>
+
+          <Comentarios osId={os.id} comentarios={comentarios} emailDe={emailDe} />
 
           <div className="rounded-card border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
             <h2 className="mb-3 text-sm font-semibold text-black dark:text-zinc-50">Timeline</h2>

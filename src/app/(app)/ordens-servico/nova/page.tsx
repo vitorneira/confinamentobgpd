@@ -4,12 +4,17 @@ import {
   getCurraisDaFazenda,
   getFazendasAcessiveis,
   getFornecedores,
+  getPrestadores,
   getUsuariosDaFazenda,
 } from "@/lib/queries/ordens-servico";
 import { NovaOsForm } from "./NovaOsForm";
 
 export default async function NovaOsPage() {
-  const [fazendasBase, fornecedores] = await Promise.all([getFazendasAcessiveis(), getFornecedores()]);
+  const [fazendasBase, fornecedores, prestadores] = await Promise.all([
+    getFazendasAcessiveis(),
+    getFornecedores(),
+    getPrestadores(),
+  ]);
 
   const fazendas = await Promise.all(
     fazendasBase.map(async (f) => {
@@ -30,7 +35,7 @@ export default async function NovaOsPage() {
           ← voltar pra fila
         </Link>
       </div>
-      <NovaOsForm fazendas={fazendas} fornecedores={fornecedores} />
+      <NovaOsForm fazendas={fazendas} fornecedores={fornecedores} prestadores={prestadores} />
     </div>
   );
 }

@@ -22,6 +22,8 @@ export type CampoOs = {
   solicitanteId?: string | null;
   responsavelId?: string | null;
   fornecedorId?: string | null;
+  prestadorId?: string | null;
+  descontarDoPrestador?: boolean;
   ativoDestinoId?: string | null;
   curralId?: string | null;
   valorEstimado?: number | null;
@@ -44,6 +46,8 @@ async function criarOs(campos: CampoOs): Promise<{ ok: boolean; erro?: string; o
       solicitante_id: campos.solicitanteId ?? null,
       responsavel_id: campos.responsavelId ?? null,
       fornecedor_id: campos.fornecedorId ?? null,
+      prestador_id: campos.prestadorId ?? null,
+      descontar_do_prestador: campos.descontarDoPrestador ?? false,
       ativo_destino_id: campos.ativoDestinoId ?? null,
       curral_id: campos.curralId ?? null,
       valor_estimado: campos.valorEstimado ?? null,
@@ -68,12 +72,15 @@ export async function criarOsManual(campos: CampoOs) {
 }
 
 export type ConfirmarTriagemPayload = CampoOs & {
-  mensagemId: string;
+  /** Uma ou mais mensagens pendentes sendo confirmadas juntas — o caso comum
+   * é 1, mas a Triagem permite mesclar 2+ mensagens (ex.: o mesmo assunto
+   * chegou em 2 áudios seguidos) numa OS/registro só, texto e itens somados. */
+  mensagemIds: string[];
   /** Só faz sentido quando intencao === 'registrar_lancar'. */
   tipoRegistro?: "morte" | "movimentacao" | "documento" | "contrato" | null;
 };
 
-/** Tela de Triagem — cria a OS (ou registro_admin) de verdade e liga de volta na mensagem. */
+/** Tela de Triagem — cria a OS (ou registro_admin) de verdade e liga de volta nas mensagens. */
 export async function confirmarTriagem(
   payload: ConfirmarTriagemPayload,
 ): Promise<{ ok: boolean; erro?: string; osId?: string; registroAdminId?: string }> {
@@ -99,7 +106,7 @@ export async function confirmarTriagem(
     const { error: erroMsg } = await supabase
       .from("mensagem")
       .update({ registro_id: data.id })
-      .eq("id", payload.mensagemId);
+      .in("id", payload.mensagemIds);
     if (erroMsg) return { ok: false, erro: erroAmigavel(erroMsg) };
 
     revalidarOrdensServico();
@@ -112,7 +119,7 @@ export async function confirmarTriagem(
   const { error: erroMsg } = await supabase
     .from("mensagem")
     .update({ os_id: resultado.osId })
-    .eq("id", payload.mensagemId);
+    .in("id", payload.mensagemIds);
   if (erroMsg) return { ok: false, erro: erroAmigavel(erroMsg) };
 
   revalidarOrdensServico(resultado.osId);
@@ -139,6 +146,8 @@ export async function editarOs(
       ...(campos.itens !== undefined && { itens: campos.itens }),
       ...(campos.responsavelId !== undefined && { responsavel_id: campos.responsavelId }),
       ...(campos.fornecedorId !== undefined && { fornecedor_id: campos.fornecedorId }),
+      ...(campos.prestadorId !== undefined && { prestador_id: campos.prestadorId }),
+      ...(campos.descontarDoPrestador !== undefined && { descontar_do_prestador: campos.descontarDoPrestador }),
       ...(campos.ativoDestinoId !== undefined && { ativo_destino_id: campos.ativoDestinoId }),
       ...(campos.curralId !== undefined && { curral_id: campos.curralId }),
       ...(campos.valorEstimado !== undefined && { valor_estimado: campos.valorEstimado }),
@@ -161,6 +170,24 @@ export async function mudarStatusOs(osId: string, novoStatus: OsStatus): Promise
     .from("os")
     .update({ status: novoStatus, concluido_em: concluido ? new Date().toISOString() : null })
     .eq("id", osId);
+  if (error) return { ok: false, erro: erroAmigavel(error) };
+  revalidarOrdensServico(osId);
+  return { ok: true };
+}
+
+/** Comentário livre na OS — log append-only (sem editar/apagar), pra
+ * registrar informação que não coube na descrição original. */
+export async function adicionarComentario(osId: string, texto: string): Promise<{ ok: boolean; erro?: string }> {
+  const textoLimpo = texto.trim();
+  if (!textoLimpo) return { ok: false, erro: "Escreva um comentário." };
+
+  const supabase = await createClient();
+  const { data: userData } = await supabase.auth.getUser();
+  const { error } = await supabase.from("os_comentario").insert({
+    os_id: osId,
+    autor_id: userData.user?.id ?? null,
+    texto: textoLimpo,
+  });
   if (error) return { ok: false, erro: erroAmigavel(error) };
   revalidarOrdensServico(osId);
   return { ok: true };

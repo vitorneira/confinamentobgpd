@@ -18,9 +18,11 @@ type OpcoesFazenda = {
 export function NovaOsForm({
   fazendas,
   fornecedores,
+  prestadores,
 }: {
   fazendas: OpcoesFazenda[];
   fornecedores: { id: string; nome: string }[];
+  prestadores: { id: string; nome: string }[];
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -31,6 +33,8 @@ export function NovaOsForm({
   const [descricao, setDescricao] = useState("");
   const [responsavelId, setResponsavelId] = useState("");
   const [fornecedorId, setFornecedorId] = useState("");
+  const [prestadorId, setPrestadorId] = useState("");
+  const [descontarDoPrestador, setDescontarDoPrestador] = useState(false);
   const [ativoDestinoId, setAtivoDestinoId] = useState("");
   const [curralId, setCurralId] = useState("");
   const [valorEstimado, setValorEstimado] = useState("");
@@ -62,6 +66,8 @@ export function NovaOsForm({
         itens,
         responsavelId: responsavelId || null,
         fornecedorId: fornecedorId || null,
+        prestadorId: prestadorId || null,
+        descontarDoPrestador,
         ativoDestinoId: ativoDestinoId || null,
         curralId: curralId || null,
         valorEstimado: valorEstimado ? Number(valorEstimado) : null,
@@ -127,6 +133,17 @@ export function NovaOsForm({
             {fornecedores.map((f) => (
               <option key={f.id} value={f.id}>
                 {f.nome}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className={rotuloClasse}>Prestador de serviço</label>
+          <select value={prestadorId} onChange={(e) => setPrestadorId(e.target.value)} className={campoClasse}>
+            <option value="">—</option>
+            {prestadores.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.nome}
               </option>
             ))}
           </select>
@@ -206,6 +223,18 @@ export function NovaOsForm({
           </button>
         </div>
       </div>
+
+      {prestadorId && (
+        <label className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
+          <input
+            type="checkbox"
+            checked={descontarDoPrestador}
+            onChange={(e) => setDescontarDoPrestador(e.target.checked)}
+            className="h-3.5 w-3.5"
+          />
+          Descontar do pagamento do prestador
+        </label>
+      )}
 
       {erro && <p className="text-sm text-red-600 dark:text-red-400">{erro}</p>}
 

@@ -114,6 +114,9 @@ export type OsDetalhe = {
   dono_designado_id: string | null;
   fornecedor_id: string | null;
   fornecedor_nome: string | null;
+  prestador_id: string | null;
+  prestador_nome: string | null;
+  descontar_do_prestador: boolean;
   ativo_destino_id: string | null;
   ativo_destino_nome: string | null;
   curral_id: string | null;
@@ -133,9 +136,9 @@ export async function getOsDetalhe(id: string): Promise<OsDetalhe | null> {
     .select(
       `id, fazenda_id, solicitante_id, responsavel_id, dominio, intencao, descricao, itens,
        comprar_produto, contratar_servico, autorizacao_dono, dono_designado_id,
-       fornecedor_id, ativo_destino_id, curral_id, valor_estimado, status, canal_origem,
-       prazo_pedido, criado_em, concluido_em,
-       fazendas(codigo), fornecedor(nome), ativo(nome), currais(codigo)`,
+       fornecedor_id, prestador_id, descontar_do_prestador, ativo_destino_id, curral_id,
+       valor_estimado, status, canal_origem, prazo_pedido, criado_em, concluido_em,
+       fazendas(codigo), fornecedor(nome), prestador_servico(nome), ativo(nome), currais(codigo)`,
     )
     .eq("id", id)
     .maybeSingle();
@@ -144,6 +147,7 @@ export async function getOsDetalhe(id: string): Promise<OsDetalhe | null> {
 
   const fazenda = Array.isArray(data.fazendas) ? data.fazendas[0] : data.fazendas;
   const fornecedor = Array.isArray(data.fornecedor) ? data.fornecedor[0] : data.fornecedor;
+  const prestador = Array.isArray(data.prestador_servico) ? data.prestador_servico[0] : data.prestador_servico;
   const ativo = Array.isArray(data.ativo) ? data.ativo[0] : data.ativo;
   const curral = Array.isArray(data.currais) ? data.currais[0] : data.currais;
 
@@ -163,6 +167,9 @@ export async function getOsDetalhe(id: string): Promise<OsDetalhe | null> {
     dono_designado_id: data.dono_designado_id,
     fornecedor_id: data.fornecedor_id,
     fornecedor_nome: fornecedor?.nome ?? null,
+    prestador_id: data.prestador_id,
+    prestador_nome: prestador?.nome ?? null,
+    descontar_do_prestador: data.descontar_do_prestador,
     ativo_destino_id: data.ativo_destino_id,
     ativo_destino_nome: ativo?.nome ?? null,
     curral_id: data.curral_id,
@@ -174,6 +181,19 @@ export async function getOsDetalhe(id: string): Promise<OsDetalhe | null> {
     criado_em: data.criado_em,
     concluido_em: data.concluido_em,
   };
+}
+
+export type ComentarioOs = { id: string; texto: string; autor_id: string | null; criado_em: string };
+
+export async function getComentariosOs(osId: string): Promise<ComentarioOs[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("os_comentario")
+    .select("id, texto, autor_id, criado_em")
+    .eq("os_id", osId)
+    .order("criado_em", { ascending: true });
+  if (error) throw new Error(`Falha ao buscar comentários da OS ${osId}: ${error.message}`);
+  return data ?? [];
 }
 
 export type StatusHistoricoItem = {
@@ -242,6 +262,17 @@ export async function getFornecedores() {
   const supabase = await createClient();
   const { data, error } = await supabase.from("fornecedor").select("id, nome").order("nome");
   if (error) throw new Error(`Falha ao listar fornecedores: ${error.message}`);
+  return data ?? [];
+}
+
+export async function getPrestadores() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("prestador_servico")
+    .select("id, nome")
+    .eq("ativo", true)
+    .order("nome");
+  if (error) throw new Error(`Falha ao listar prestadores: ${error.message}`);
   return data ?? [];
 }
 
